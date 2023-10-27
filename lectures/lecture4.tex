@@ -1,0 +1,166 @@
+%! TEX root = ../main.tex
+\documentclass[../main.tex]{subfiles}
+
+\usepackage[font, sexy]{moreira}
+\usepackage{marginnote}
+\reversemarginpar
+
+\author{Francisco Moreira Machado}
+
+\title{Lecture 4}
+
+\begin{document}
+  This naturally leads to the notion of independent $\sigma-$fields, which is the "good"
+  setting to define independence.
+
+  \begin{definition}
+      Let $\mathcal{B}_1 ,\ldots, \mathcal{B}_n \subset \mathcal{A}$ be $\sigma-$fields. They
+      are independent ($\indep$) if $\forall B_1 \in \mathcal{B}_1, \ldots, \forall B_n \in
+      \mathcal{B}_n$, 
+      \[
+      \pp(B_1 \cap \ldots \cap B_n) = \pp(B_1)\ldots\pp(B_n)
+      .\] 
+  \end{definition}
+  By the proposition just above, a set of events are $\indep$ iff $\sigma-$fields are $\indep$.
+
+  \vspace{0.5em}
+
+  To show independence, the following result is \underline{very} useful:
+  \begin{proposition}
+      Let $\mathcal{B}_1,\ldots, \mathcal{B}_n \subset \mathcal{A}$ be $\sigma-$fields. For $1
+      \leq i \leq n$, let $\mathcal{C}_i$ be a generating $\pi-$system of $\mathcal{B}_i$ such
+      that $\Omega \in \mathcal{C}_i$, then 
+      \[
+      \mathcal{B}_1, \ldots, \mathcal{B}_n \indep \iff \forall C_1 \in \mathcal{C}, \ldots, C_n
+      \in \mathcal{C}_n, \pp(C_1 \cap \ldots \cap C_n) = \pp(C_1) \ldots \pp(C_n)
+      .\] 
+  \end{proposition}
+  \begin{proof}
+    The proof is based on Dynkin lemma. See the exercise sheet.
+  \end{proof}
+
+  \begin{application}
+    [Coalition Principle]
+    Let $\mathcal{B}_1, \ldots, \mathcal{B}_n \subset \mathcal{A}$ independent $\sigma-$fields.
+    Fix $1 \leq n_1 < n_2 \ldots \leq n_p = n$, then $\mathcal{D}_1 = \sigma(\mathcal{B}_1, \ldots,
+    \mathcal{B}_{n_1})$, $\mathcal{D}_{i+1} = \sigma(\mathcal{B}_{n_i + 1}, \ldots, \mathcal{B}_{n_{i+1}})$ for $i < p$ are all
+    $\indep$.
+  \end{application}
+  \begin{proof}
+      Find a nice generating $\pi-$system of $\mathcal{D}_1, \ldots, \mathcal{D}_p$.
+
+      \begin{claim}
+        $\mathcal{C}_1 = \{ B_1 \cap \ldots \cap B_{n_1} \colon B_1 \in \mathcal{B}_1, \ldots,
+        B_{n_1} \in \mathcal{B}_{n_1}\} $ is a generating $\pi-$system of $\mathcal{D}_1$.
+      \end{claim}
+
+      Indeed, we show that $\sigma(\mathcal{C}_1) = \sigma(\mathcal{B}, \ldots,
+      \mathcal{B}_{n_1})$ by double inclusion.
+
+      First, all elements of $\mathcal{C}_1$ are a finite intersection of $\mathcal{B}_i$,
+      therefore $\mathcal{C}_1 \subset \sigma(\mathcal{B}_1, \ldots, \mathcal{B}_{n_1})$, which
+      gives us $\sigma(\mathcal{C}_1)\subset \sigma(\mathcal{B}_1, \ldots, \mathcal{B}_{n_1})$. 
+      Moreover, each $\mathcal{B}_i \subset \mathcal{C}_1$  for $1 \leq i \leq n_1$, 
+      hence $\sigma(\mathcal{B}_1, \ldots, \mathcal{B}_{n_1})\subset\sigma(\mathcal{C})$
+
+      $\mathcal{C}_1$ is clearly stable by finite intersections, so it is a generating $\pi-$system for
+      $\mathcal{D}_1$. Similarly, we can construct $\mathcal{C}_j$ for $1 < j \leq p$ which is
+      a generating $\pi-$system of $\mathcal{D}_j$.
+
+      Then by definition of the $\mathcal{C}_j$'s and by assumption $\forall C_1 \in
+      \mathcal{C}_1,\ldots, \forall C_p \in \mathcal{C}_p$, 
+      \[
+      \pp(C_1 \cap \ldots \cap C_p) = \pp(C_1)\ldots\pp(C_p)
+      ,\] 
+      as we can split any $C_i$ into an intersection of $B_{n_{i - 1} + 1}, \ldots B_{n_i}$
+      with $B_j \in \mathcal{B}_j$ for $n_{i-1} + 1 \leq j \leq n_{i}$.
+  \end{proof}
+
+  \begin{definition}
+    [Independence of ANY family of $\sigma-$fields]
+    Let $(\mathcal{B}_i)_{i \in I}$ be a family of $\sigma-$fields. They are independent if any
+    finite collection is independent.
+  \end{definition}
+
+  The follow result is VERY useful to show that events have probability $0$ or $1$.
+  \begin{lemma}[Borel-Cantelli]
+    There are two lemmas:
+    \begin{enumerate}
+      \item If $\sum_{n=1}^{\infty} \pp(A_n) < \infty$, then $\pp(\limsup_{n \to \infty} A_n) =
+        0$
+      \item if $\sum_{n = 1}^{\infty} A_n = \infty$ and $(A_n)_{n \geq 1}$ are $\indep$ then
+      $\pp(\limsup_{n \to \infty} A_n) = 1$.
+    \end{enumerate}
+  \end{lemma}
+  Now we can interpret the previous lemma. 
+
+  We can read 1. as almost surely $A_n$ only
+  happens a finite number of times.
+
+  We can read 2. as almost surely $A_n$ happens infinitely often.
+
+  \begin{proof}
+    We saw that $\limsup_{n \to \infty}\pp(A_n) \leq \pp(\limsup_{n \to \infty} A_n) $
+
+    Let us start with 2. Fix $l \geq 1$, $n \geq l$, write 
+    \begin{align*}
+      \pp\left(\bigcap_{k=l}^n A_k^c\right) &=
+    \prod_{k=l}^n \pp(A_k^c) = \prod_{k=l}^n (1 - \pp(A_k)) \\
+      &= \exp\left(\sum_{k=l}^n \ln(1 - \pp(A_k))\right) \\
+      &\leq \exp \left( - \sum_{k = l}^n \pp(A_k) \right) \underset{n \to \infty}{\rightarrow}
+      0.
+    \end{align*}
+    Notice that $\bigcap_{k=l}^n A_k^c$ is decreasing in $n$, hence $\pp(\bigcap_{k=l}^\infty
+    A_k^c) = 0$. This gives us that $\pp(\liminf_{n \to \infty} A_n^c) = 0$, which is
+    equivalent to what we wanted to prove.
+
+    \vspace{0.3em}
+
+    Now we can go for 1. Fix $n \geq 0$.
+
+    Since $\limsup_{n \to \infty} A_n \subset \bigcup_{m \geq n} A_m$. Hence 
+    \[
+    \pp \left( \limsup_{n \to \infty} A_n \right) \leq \pp \left( \bigcup_{m \geq n} A_m
+    \right) \leq \sum_{m \geq n} \pp(A_m) \underset{n \to \infty}{\rightarrow} 0
+    .\] 
+  \end{proof}
+
+  \section{Chapter 2: Random Variables}
+  \subsection{Measurable Function}
+  \begin{definition}
+    Let $(E, \mathcal{E})$ and $(F, \mathcal{F})$ be measurable spaces. A function $f: (E,
+    \mathcal{E}) \to (F, \mathcal{F})$ is said to be measurable if $\forall B \in \mathcal{F}$,
+    $f^{-1}(B) = \{ x \in E \colon f(x) \in B \} \in \mathcal{E} $.
+  \end{definition}
+
+  \underline{Interpretation in Probability:} A measurable function $X: (\Omega, \mathcal{A})
+  \to (F, \mathcal{F})$ is called a random variable. Intuitively this means that $X(w)$ is
+  "observable" in the sense that one can "observe" wheter $X(w) \in B$ for $B \in \mathcal{F}$.
+
+  \begin{proposition}
+      To check that $f: (E, \mathcal{E}) \to (F, \mathcal{F})$ is measurable, one often finds a
+      class $\mathcal{C} \subset \mathcal{F}$ such that $\sigma(\mathcal{C}) = \mathcal{F}$ and
+      $\forall B \in \mathcal{C}, f^{-1}(B) \in \mathcal{E}$. Indeed,
+      $\{ B \in \mathcal{F} \colon f^{-1}(B) \in \mathcal{E} \} $ is then a $\sigma-$field
+      \marginnote{Exercise $\rightarrow$}, containing $\mathcal{C}$ thus $\sigma(\mathcal{C})$.
+  \end{proposition}
+
+  \begin{definition}[Image Measure]
+    Let $f: (E, \mathcal{E}) \to (F, \mathcal{F})$ be a measurable function and $\mu$ a measure
+    on $(E, \mathcal{E})$
+  on $(E, \mathcal{E})$, then $\forall B \in \mathcal{F}$, $\mu_f(B) = \mu(f^{-1}(B))$ defines
+  a measure on $(F, \mathcal{F})$ called the \textit{image measure} of $\mu$ by $f$. (exercise:
+  check that it is a measure) \marginnote{Exercise $\rightarrow$}
+  \end{definition}
+
+  In probability, if $X: (\Omega,  \mathcal{A}) \to (F, \mathcal{F})$ is a random variable and
+  $\pp$ is a probability measure on $(\Omega, \mathcal{A})$, then $\pp_X$, the image measure of
+  $\pp$ by $X$, is called the \underline{law of $X$}.
+
+  \begin{remark}
+      If $(E, \mathcal{E}, \mu)$ is a probability space, there exists a random variable with
+      law $\mu$. Indeed just take $(\Omega, \mathcal{A}, \pp) = (E, \mathcal{E}, \mu)$.
+      Therefore, it makes sense to take a random variable following a prescribed law, such as
+      the Normal Distribution.
+  \end{remark}
+\end{document}

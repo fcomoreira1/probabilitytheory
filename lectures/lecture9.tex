@@ -1,0 +1,189 @@
+%! TEX root = ../main.tex
+\documentclass[../main.tex]{subfiles}
+
+\usepackage[font, sexy]{moreira}
+\usepackage{marginnote}
+\reversemarginpar
+
+\author{Francisco Moreira Machado}
+
+\title{Lecture 9}
+
+\begin{document}
+
+\begin{remark} [Law of Total Probability]
+  Let $(A_i)_{i \geq 1}$ be events such that $A_i \cap A_j = \emptyset$ for $i \neq j$ 
+  then $\forall A$ an event, $\pp(A) = \sum_{i \geq 1} \pp(A \cap A_i)$.
+
+  \vspace{0.2em}
+  \noindent
+  \underline{\sffamily Function Extension:} If $Y \geq 0$ is a random variable,
+  $\ee[Y]=\sum_{i = 1}^\infty \ee[Y \ind_{A_i}]$ (Consequence of Fubini-Tonelli).
+\end{remark}
+
+\subsubsection{Continuous Laws}
+
+\begin{definition}
+  Let $p \colon \rr \to \rr_+$ be a measurable function such that $\int_\rr p(x)dx = 1$,
+  then $\forall A \in \mathcal{B}(\rr)$ the formula:
+  \[
+    \mu(A) = \int_{A} p(x) dx = \int_{\rr} p(x) \ind_{A}(x)dx
+  \]
+  defines a probability measure on $\rr$.
+
+  \vspace{0.3em}
+  A random variable having htis law is said to have density $p$.
+\end{definition}
+
+{\color{red} Warning:} a density is not uniquely defined: it is define uniquely up to $0$ 
+Lebesgue measure sets.
+
+Moreover, if $X$ has density $p$ then its \textbf{cdf} is
+\[
+  \pp(X \leq t) = \int_{-\infty}^t p(x)dx
+.\] 
+One then checks that $\forall f \colon \rr \to \rr_+$ measurable
+\[
+  \ee[f(X)] = \int_{\rr} f(x)p(x)dx
+.\]
+Indeed, we can show that it holds for simple functions and then we conclude by an
+approximation and monotone convergence.
+
+\begin{definition}
+  [Uniform law]  $a < b$, $p(x) = \frac{1}{b - a} \ind_{[a, b]}(x)$.
+\end{definition}    
+\begin{definition}
+  [Exponential law of parameter $\lambda > 0$] 
+  $p(x) = \lambda e^{-\lambda x} \ind_{x \geq 0}.$
+\end{definition}
+\begin{definition}
+  [Gaussian Law]
+  For parameters $m \in \rr, \sigma > 0$ denoted by  $\mathcal{N}(m, \sigma^2)$
+  has density $p(x) = \frac{1}{\sqrt{2\pi \sigma^2}} e^{-\frac{(x-m)^2}{2\sigma^2} }$
+\end{definition}
+
+\begin{proposition}
+  If $X$ has density $p$, its \textbf{cdf} is continuous. 
+\end{proposition}
+\begin{proof}
+  Set $F(t) = \pp(X \leq t) = \int_{-\infty}^t p(x)dx$. 
+  \vspace{0.3em}
+
+  Fix $t \in \rr, t_n \to t$. We show $F(t_n) \to F(t)$. Now define $f_n(x) = p(x) 
+  \ind_{(-\infty,t_n]}(x)$. Notice that $\forall x \in \rr \setminus \{t\}$, 
+  $f_n(x) \to p(x) \ind_{(-\infty, t]}(x)$, and $0 \leq f_n(x) \leq p(x)$ which is 
+  an integrable function respective to $dx$.
+
+  \vspace{0.3em}
+
+  Therefore, by Dominated Convergence
+  \[
+    F(t_n) \to \int_{-\infty}^\infty p(x) \ind_{(-\infty, t]}(x)dx = F(t)
+  .\] 
+\end{proof}
+
+\begin{proof}
+Let us now prove that $\ee[f(x)] = \int_{\rr} f(x)p(x)dx$.
+\vspace{0.3em}
+
+If $f = \ind_{A}$, $\ee[f(X)] = \int_{\Omega}\ind_{A}(X(\omega))\pp(d\omega) = 
+\pp(X \in A) = \int_{\rr} \ind_{A}(x)p(x)dx$. Therefore it holds for
+simple functions. 
+
+\vspace{0.3em}
+
+Now we can take $0 \leq f_n \leq f$ such that $f_n$ converges
+pointwise and increasingly to $f$ with $f_n$ simple, then 
+\[
+  \ee[f(X)] \gets \ee[f_n(X)] = \int_{\rr} f_n(x)p(x)dx \to
+  \int_{\rr}f(x)p(x)dx
+\]
+by monotone convergence twice.
+\end{proof}
+
+Now coming back to \textbf{cdf}'s, if $F$ is a function, to see if it's a
+\textbf{cdf} of a random variable $X$ with density, it is sufficient
+to show that $F$ is piecewise $\mathcal{C}^1$ and $F(t) =
+\int_{-\infty}^t F'(X)dx$ with $\int_{\rr}F'(x)dx = 1$.
+
+\begin{definition}
+  [Density in $\rr^n$] Take $p \colon \rr^n \to \rr^+$ with
+  $\pp_{\rr^n}p(x)dx = 1$. $X = (X_1, \ldots, X_n)$ with values in
+  $\rr^n$ has density $p$ if
+  \[
+    \pp((X_1, \ldots, X_n) \in A) = \int_{A} p(x_1,\ldots,
+    x_n)dx_1 \ldots dx_n \forall A \in \mathcal{B}(\rr^n)
+  .\]
+\end{definition}
+
+Moreove,r notice that $\forall 1 \leq i \leq n$, $X_i$ has density
+$p_i$ obtained by integrating $p$ with respect to the other variables
+\[
+  p_i(x) = \int_{\rr^{n-1}} p(x_1, \ldots, x_i, \ldots, x_n)dx_1
+  \ldots dx_{i-1} dx_{i+1} \ldots d_n
+.\] 
+
+\subsection{Independence and Integration}
+\begin{theorem}
+  [Transfer Theorem]
+  Let $X \colon \Omega \to E$ be a random variable and let $f: E \to
+  \rr_+$ measurable. Then
+  \[
+    \ee[f(X)] = \int_{E}f(x)\pp_X(dx)
+  .\] 
+\end{theorem}
+\begin{proof}
+    First, let us prove for $f = \ind_A$.
+    \[
+      \ee[f(X)] = \int_{\Omega} \ind_A(X(\omega)) d\omega = \pp_X(A) =
+      \int_{E} \ind_A(x)\pp_X(dx)
+    .\] 
+  By linearity, the theorem holds for simple functions. Then for $f
+  \geq 0$, take $0 \leq f_n $ converging pointwise to $f$ with $f_n$
+  simple
+  \[
+    \ee[f(X)] \gets \ee[f_n(X)] = \int_{E}f_n(x)\pp_{X}(dx) \to \int_E
+    f(x) \pp_X(dx)
+  \]
+  by monotone convergence twice.
+\end{proof}
+
+\begin{application}
+  Let $U$ be uniform on $[0, 1]$, let us find the law of $U^2$. For
+  $f: \rr \to \rr_+$ measurable and $g = f \circ (x \mapsto x^2)$, 
+  using the transfer theorem we write
+  \[
+    \ee[f(U^2)] = \int_{0}^1 g(x)dx = \int_{0}^1 f(x^2)dx = \int_{0}^1
+    f(u) \frac{1}{2\sqrt{u}}du 
+  .\] 
+
+  Indeed, this gives us that a candidate function is
+  $\pp_{U^2}(dx) = \frac{1}{2\sqrt{x}}\ind_{[0,1]}(x)dx $, but as we
+  can choose any $f$ measurable, this has to be unique.
+\end{application}
+
+\underline{\sffamily Takeaway:} If we obtain $\ee[f(X)] = \int_{E}f(x)
+\mu(dx)$ for all $f \geq 0$ measurable, then $\mu$ is the law of $X$.
+
+\begin{example}
+  If $X$ has density $\frac{\alpha + 1}{x^{\alpha}} \ind_{[1,
+  +\infty[}(x)dx $ with $\alpha > 0$, let us find all $p$ such that
+  $\ee[X^p] < \infty$.
+
+  \vspace{0.3em}
+
+  \noindent Indeed by the Transfer Theorem
+  \[
+    \ee[X^p] = \int_{\rr} x^p \pp_X(dx) = (\alpha + 1) \int_{1}^\infty
+    \frac{1}{x^{\alpha - p}}dx < \infty \iff \alpha - p > 1
+  .\] 
+\end{example}
+
+\begin{corollary}
+    If $X, T \colon \Omega \to E$ are random varaibles having the same
+    law, then $\forall f \colon \to \rr_{+}$ measurable,
+    \[
+      \ee[f(X)] = \ee[f(Y)]
+    .\] 
+\end{corollary}
+\end{document}

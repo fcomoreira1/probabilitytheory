@@ -1,0 +1,220 @@
+%! TEX root = ../main.tex
+\documentclass[../main.tex]{subfiles}
+
+\usepackage[font, sexy]{moreira}
+\usepackage{marginnote}
+\reversemarginpar
+
+\author{Francisco Moreira Machado}
+
+\title{Lecture 6}
+
+\begin{document}
+
+
+\begin{definition}
+    The product measure on $(\prod_{i \in I} E_i, \bigotimes_{i \in I} \mathcal{E}_i)$, given
+    probability measures $\mu_i$ on $(E_i, \mathcal{E}_i)$ is the unique probability measure 
+    $\bigotimes_{i \in I}\mu_i$ on $\prod_{i \in I}E_i$ such that
+    \[
+    \bigotimes_{i \in I} \mu_i \left( \{ (x_i)_{i \in I} \colon x_{i_1 \in A_1}, \ldots,
+    x_{i_k} \in A_k \}  \right) = \mu_{i_1}(A_i) \ldots \mu_{i_k}(A_k)
+    .\] 
+\end{definition}
+
+\underline{\sffamily Uniqueness} follows from the fact that cylinders generate the product
+$\sigma-$field.
+
+\underline{\sffamily Existence} we admit.
+
+\vspace{1em}
+
+\underline{\sffamily Particular case:} If $I$ is finite. If $\pp_i$ is a probability measure on
+$E_i$, $\pp_1 \otimes \ldots \otimes \pp_n$ is the unique probability measure on $E_1 \times
+\ldots \times E_n$ such that $\pp_1 \otimes \ldots \otimes \pp_n (A_1 \times \ldots \times A_n)
+= \pp_1(A_1)\ldots \pp_n(A_n)$ for $A_i \in \mathcal{E}_i$.
+
+\begin{example}
+    The Lebesgue measure on $\rr^n$.
+\end{example}   
+
+\begin{remark}
+    If $\mathcal{C}_i$ is a generating $\pi-$system of $\mathcal{E}_i$,  then $\{ A_1 \times
+    \ldots \times \times A_n \colon A_i \in \mathcal{C}_i  \} $ is a generating $\pi-$system of
+    $\otimes \mathcal{E}_i$.
+\end{remark}
+
+In probability, if one considers several random variables, product spaces naturally appear:
+\begin{example}
+    Let $X, Y$ be real-valued random variables, then
+    \[
+      \pp(XY \leq 1) = \pp_{XY}(]-\infty, 1]) = \pp_{(X, Y)}(\{ (x, y) \in \rr^2 \colon xy \leq
+      1\} )
+    .\] 
+\end{example}
+
+More generally, if $(X_1, \ldots, X_n)$ is a random variable in $(E_1, \ldots, E_n)$ its law 
+$\pp_{(X_1, \ldots, X_n)}$ on $E_1 \times \ldots \times E_n$ is characterized by the quantities
+\[
+\pp_{(X_1, \ldots, X_n)}(A_1 \times \ldots \times A_n) = \pp((X_1, \ldots, X_n) \in A_1,
+\ldots, A_n) = \pp(X_1 \in A_1 \text{ and }  \ldots \text{ and }  X_n \in A_n)
+.\] 
+
+\begin{proposition}
+  \hfill
+    \begin{enumerate}
+       \item Let $(E_1, \mathcal{E}_i)$ be a measurable space. A function $f\colon (\Omega, A) \to
+        (\prod_{i \in I} E_i, \bigotimes_{i \in I} \mathcal{E}_i)$ given by $f(\omega) =
+        (f_i(\omega))_{i \in I}$ is measurable iff all the $\Pi_i \circ f$ are measurable, that is
+        iff $\forall i \in I$ $\omega \mapsto f_i(\omega)$ is measurable.
+        \\
+        \underline{\sffamily Probabilistic Interpretation:} If $(X_i)_{i \in I}$ are a
+        collection of random variables, then $(X_i)_{i \in I}$ can be viewed as ONE random
+        variable in a product space.
+
+      \item If $f, g \colon (\rr, \mathcal{B}(\rr)) \to (\rr, \mathcal{B}(\rr))$ are
+        measurable, then $f+g, f-g, \min(f, g),\max(f, g)$ are measurable.
+    \end{enumerate}
+\end{proposition}
+
+\begin{proof}
+    First, if $f$ is measurable, then $\Pi_i \circ$ $f$ is measurable as it is a composition of
+    measurable functions.
+
+    \vspace{0.2em}
+    Indeed, if $g \colon(E, \mathcal{E}) \to (F, \mathcal{F})$ and $H \colon (F, \mathcal{F})
+    \to (G, \mathcal{G})$are measurable, then $h \circ g$ is measurable because for $B \in
+    \mathcal{G}$, $(h \circ g)^{-1}(B) = g^{-1}\circ h^{-1}(B)$ but $h^{-1}B \in \mathcal{F}$
+    thus $g^{-1}(h^{-1}(B)) \in \mathcal{E}$.
+
+    \vspace{0.5em}
+
+    Now for the other direction, since $\bigotimes_{i \in I} \mathcal{E}_i = \sigma \left(
+    \Pi_{i}^{-1} (B_i) \colon B_i \in \mathcal{E}_i \right) $, it suffices to check that 
+    $f^{-1}(\Pi_i^{-1} (B_i)) = (\Pi_i \circ f)^{-1} (B_i) \in \mathcal{E}$ because $\Pi_i
+    \circ f$ is measurable.
+
+    \noindent
+    \rule{\textwidth}{0.4pt}
+
+    Now for part 2 Set
+    \begin{align*}
+      P \colon (\rr^{2}, \mathcal{B}(\rr^2)) &\to (\rr, \mathcal{B}(\rr)) \\
+      (x, y) &\mapsto x + y
+    \end{align*}
+    which is continuous, thus measurable. Additionally, set 
+    \begin{align*}
+      I \colon (\rr, \mathcal{B}(\rr)) &\to (\rr^2, \mathcal{B}(\rr) \otimes \mathcal{B}(\rr))
+      \\ 
+      x \mapsto (f(x), g(x))
+    \end{align*}
+    But $\mathcal{B}(\rr^2) = \mathcal{B}(\rr) \otimes \mathcal{B}(\rr)$ (see exercise sheet).
+    \vspace{0.3em}
+
+    Thus $f + g$ is measurable as the composition $P \circ I$ of measurable functions. For the
+    other operations the proof is similar.
+\end{proof}
+
+\subsection{Independence of Random Variables}
+
+For a function $X \colon \Omega \to (E, \mathcal{E})$, $\sigma(X) = \{ X^{-1}(A) \colon A \in
+\mathcal{E} \} $.
+
+\begin{definition}
+  [$\indep$ for a finite number of r.v.]
+  Random variables $X_1, \ldots, X_n$ with $X_i \colon \Omega \to E_i$ are $indep$ if
+  $\sigma(X_1), \ldots, \sigma(X_n)$ are $\indep$.
+\end{definition}
+
+\begin{remark}
+    by the definition of $\indep$ of $\sigma-$fields this means $X_1, \ldots, X_n$ are $\indep$
+    \begin{align*}
+     \iff
+    \forall B_i \in \sigma(X_i)\pp(B_1 \cap
+    \ldots B_n) &= \pp(B_1) \ldots \pp(B_n) \\ 
+    \iff
+       \forall A_i \in \mathcal{E}_i \;\; \pp(X_1^{-1}(A_1) \cap \ldots
+    \cap X_n^{-1}(A_n) &= \pp(X_1^{-1}(A_1)) \ldots \pp(X_n^{-1}(A_n)) \\
+    \iff
+    \forall A_i \in \mathcal{E}_i \;\;\pp(X_1 \in A, \ldots, X_n \in A_n) &= \pp(X_1 \in
+    A_1)\ldots\pp(X_n \in A_n) \\
+    \iff 
+    \forall \pp_{(X_1, \ldots, X_n)}(A_1 \times \ldots \times A_n) &= \pp_{X_1} \otimes \ldots \otimes \pp_{X_n} (A_1 \times
+    \ldots \times A_n) \\
+    \iff 
+    \forall \pp_{(X_1, \ldots, X_n)} &= \pp_{X_1} \otimes \ldots \otimes \pp_{X_n}
+    \end{align*}
+\end{remark}
+\begin{remark}
+    To show independence one often shows that
+    \[
+    \pp(X_1 \in A_1, \ldots, X_n \in A_n ) = \pp(X_1 \in A_1) \ldots \pp(X_n \in A_n)
+    ,\] 
+    for $A_i \in \mathcal{C}_i$ with $\mathcal{C}_i$ a generating $\pi-$system of
+  $\mathcal{E}_i$ containing $\Omega$.
+\end{remark}
+
+\begin{corollary}
+  \hfill
+  \begin{enumerate}
+    \item If $X_1, \ldots, X_n$ are $\zz-$valued random variables, they are independent iff
+      $\forall i_1, \ldots, i_n \in \zz$ $\pp(X_1 = i_1, \ldots, X_n = i_n) = \pp(X_1 = i_1)
+      \ldots \pp(X_n = i_n)$
+    \item If $X_1, \ldots, X_n$ are $\rr-$valued random variables, then $X_1,\ldots, X_n
+      \indep$ iff $\forall x_1, \ldots, x_n \in \rr$ $\pp(X_1 \leq x_1, \ldots, X_n \leq x_n) =
+      \pp(X_1 \leq x_1) \ldots \pp(X_n \leq x_n)$
+  \end{enumerate}
+\end{corollary}
+
+\begin{definition}
+    Let $X=(X_1, \ldots, X_n)$ be a random variable in $E_1 \times \ldots \times E_n$. The law
+    of $\pp_{X_i}$ of $X_i$, probability measure on $E_i$ is called a marginal law. The law
+    $\pp_{(X_1, \ldots, X_n)}$ on $E_1 \times \ldots \times E_n $ is called the joint law.
+
+    Since $\pp_{X_i}(A_i) = \pp_{(X_1, \ldots, X_n)}(E_1 \times \ldots E_{i-1} \times A_i
+    \times E_{i + 1} \ldots \times E_n)$.
+\end{definition}
+
+The joint law determines the marginal laws, while the converse is false in general
+\underline{but} when $X_1, \ldots, X_n \indep$.
+
+\begin{lemma}
+  [Composition Principle]
+  Let $X_i$ be $\indep$ r.v with $X_i \colon \Omega \to E_i$ let $f_i \colon E_i \to F_i$ be measurable,
+  then $(f_i(X_i))_{1 \leq i \leq n}$ are $\indep$.
+\end{lemma}
+\begin{proof}
+    This comes from the fact that $\sigma(f_i(X_i)) \subset\sigma(X_i)$, thus $\forall A_i \in
+    \sigma(f_i(X_i))$ we have $\pp(A_1 \cap \ldots \cap A_n) = \pp(A_1) \ldots \pp(A_n)$.
+
+    Now we show the inclusion of $\sigma-$fields above. Notice that
+    $\sigma(f_i(X_i))$ have elements of the form $(f_i \circ X_i)^{-1}(B)$ with $B \in
+    \mathcal{F}_i$, then as $f_i^{-1}(B) \in \mathcal{E}_i$, we have that 
+    $(f_i \circ X_i)^{-1}(B) \in \sigma(X_i)$.
+\end{proof}
+
+\begin{definition}
+  [Independence of ANY family of Random Variables]
+  If $(X_i)_{i \in I}$ are r..v with $X_i \colon \Omega \to E_i$, they are independent if for
+  any finite subset of indices $J$, $(X_j)_{j \in J} \indep$.
+\end{definition}
+
+\begin{lemma}
+  [Coalition Principle - Countable Family]
+  Let $(X_i)_{i \geq 1} \indep$ r.v. Fix $p \geq 1$. Set $\mathcal{B}_1 = \sigma(X_1, \ldots,
+  X_p)$ and $\mathcal{B}_2 = \sigma(X_{p+1}, X_{p+2},\ldots)$, then $B_1 \indep B_2$.
+\end{lemma}
+
+\begin{proof}
+    We use the fact that if $\mathcal{C}_1, \mathcal{C}_2$ are generating $\pi-$systems of
+    $\mathcal{B}_1, \mathcal{B}_2$ respectively with $\forall A_1 \in \mathcal{C}_1, A_2 \in
+    \mathcal{C}_2$ $\pp(A_1 \cap A_2) = \pp(A_1) \pp(A_2)$, then $\mathcal{B}_1 \indep
+    \mathcal{B}_2$.
+
+    \vspace{0.5em}
+
+    Take $\mathcal{C}_1 = \sigma(X_1, \ldots, X_p)$ and $\mathcal{C}_2 = \bigcup_{k =
+    p+1}^\infty \sigma(X_{p + 1}, \ldots, X_k)$.\marginnote{Ex. $\rightarrow$} Check that this works. 
+\end{proof}
+
+\end{document}

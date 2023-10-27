@@ -1,0 +1,319 @@
+%! TEX root = ../main.tex
+\documentclass[../main.tex]{subfiles}
+
+\usepackage[font, sexy]{moreira}
+\usepackage{marginnote}
+\reversemarginpar
+
+\author{Francisco Moreira Machado}
+
+\title{Lecture 8}
+
+\begin{document}
+\subsection{Integration}
+The notion of expectation is defined in probability theorey using the Lebesgue integration with
+respect to a probability theory. We recap the main results.
+\vspace{0.3em}
+We start with non-negative functions. Let $(E, \mathcal{E}, \mu)$ be a
+measured space.
+\subsubsection{Definition of the Integral}
+\begin{definition}
+  [Integral for simple functions]
+  If $f \colon E \to [0, \infty]$ is a measurable simple function, $f
+  = \sum_{i=1}^n a_i \ind_{A_i}$ with $a_i \in \rr_+ \cup \{ \infty \}
+  $ and $A_i \in \mathcal{E}$. We define 
+  \[
+    \int_{E} f d\mu = \sum_{i=1}^n a_i \mu(A_i)
+  ,\] 
+  with the convention $0 \times \infty = 0$.
+\end{definition}
+
+One checks that if we write $f$ in another simple function
+representation, the integral does not change.
+
+\underline{\sffamily Elementary Properties:} Let $f, g \geq 0$ be
+simple functions, then
+\begin{enumerate}
+  \item for $a, b \geq 0$ it holds $\int (af + bg)d\mu = a(\int fd\mu) +
+    b (\int gd\mu)$
+  \item If $f \leq g$ then $\int f d\mu \leq \int g d\mu $
+\end{enumerate}
+
+\begin{definition}
+  [Integral for Positive Valued]
+  Let $f \colon E \to [0, \infty]$ be measurable. We define
+  \[
+    \int f d\mu = \sup_{\substack{0 \leq h \leq f \\ h \text{
+      simple}}} \int h d\mu
+  .\] 
+\end{definition}
+
+\begin{definition}
+  [Expectation]
+  In probability, if $X \colon \Omega \to [0, \infty]$ is a rv. we
+  define
+  \[
+    \mathbb{E}[X] = \int_{\Omega} X(\omega) \pp(d\omega)
+  .\] 
+\end{definition}
+
+\begin{proposition}
+    If $0 \leq f \leq g \leq \infty $
+    \begin{itemize}
+      \item $\int f d\mu \leq \int f d\mu$
+      \item If $\mu(\{ x \in E \colon f(x) > 0 \} ) = 0$, then $\int f
+        d\mu = 0$.
+    \end{itemize}
+\end{proposition}
+
+\subsubsection{Monotone Convergence}
+\begin{theorem}
+  Let $f_n \colon E \to [0, \infty]$ be measurable functions such that
+  $(f_n)_{n \geq 1}$ is non-decreasing, that is $\forall x \in E,
+  \forall n \geq 1, f_n(x) \leq f_{n+1}(x)$.
+
+  \vspace{0.2em}
+  \noindent
+  Set $f(x) = \lim_{n \to \infty} f_n(x)$, measurable, then
+  \[
+  \int f d\mu = \lim_{n \to \infty} \int f_n d\mu
+  .\] 
+  (Notice that the RHS is an increasing sequence)
+\end{theorem}  
+
+This is very useful combined with the fact that any $\geq 0$ function
+is the pointwise limit of simple functions.
+
+\begin{theorem}
+  [Probabilistic Version of Monotone Conv]
+  If $(X_n)_{n \geq 1}$ is a sequence of random variables such that
+  $X_n \leq X_{n + 1}$ 
+  \[
+    \ee [\lim_{n \to \infty} X_n] = \lim_{n \to \infty} \ee[X_n]
+  .\] 
+\end{theorem}
+
+\begin{corollary}
+    \hfill
+
+    \begin{enumerate}
+      \item If $f, g \geq 0$, $a, b \geq 0$, $\int (af + bf)d\mu  =
+        a\int f d\mu + b \int g d\mu$
+      \item If $f_k \geq 0$, $\int(\sum_{k \geq 1} f_k) d\mu = \sum_{k
+        \geq 1} (\int f_k d\mu) $
+    \end{enumerate}
+\end{corollary}
+\begin{sketch}
+    Show it for simple functions and conclude by monotone convergence
+    by passing to the limit.
+\end{sketch}
+
+\begin{example}
+    \hfill
+
+    \begin{itemize}
+      \item If we use $\delta_a$, the diract function for $a \in E$, as the measure,
+        then if $\forall f \colon E \to \rr_+$ is measurable, 
+        \[
+          \int_E f d\delta_a = f(a).
+        .\] 
+    \item If $\#$ is the counting on $\nn$ $(\# = \sum_{i = 0}^\infty
+      \delta_i)$. Then for $f \colon \nn \to \rr_+$ measurable
+        \[
+          \int f d\# = \sum_{i = 0}^\infty f(i)
+        .\] 
+    \item If $f \colon \rr \to \rr_+$ is Riemann-integrable then its
+      Lebesgue integral coincides.
+    \end{itemize}
+\end{example}
+
+\subsubsection{Fatou's Lemma}
+
+\begin{theorem}
+  [Fatou Lemma]
+  Let $f_n \geq 0$ be measurable functions then
+  \[
+    \int (\liminf_{n \to \infty} f_n)d\mu \leq \liminf_{n \to \infty}
+    \inf f_n d\mu
+  .\] 
+  Alternatively in probability
+  \[
+    \ee[\liminf_{n \to \infty} X_n] \leq \liminf_{n \to \infty}
+    \ee[X_n] 
+  .\] 
+\end{theorem}
+
+\subsubsection{Markov's Inequality}
+We say that a property is true almost everywhere if the set of $x \in
+E$ for which it is not true is negligeable meaning has $0$
+$\mu-$measure. In probability we say almost surely.
+
+\begin{proposition}
+    Let $f \geq 0$.
+
+    \begin{enumerate}
+      \item $\forall a > 0$, $\mu(\{ x \in E \colon f(x) \geq a \})
+        \leq \frac{1}{a} \int fd\mu $
+      \item $\int f d\mu < \infty \implies f < \infty$ almost
+        everywhere.
+      \item $\int f d\mu =0 \implies f = 0$ almost everywhere.
+      \item If $g \geq 0$ and $f = g$ almost everywhere, then $\int f
+        d\mu = \int g d\mu$.
+    \end{enumerate}
+
+    Equivalently in probability, if we let $X \geq 0$
+
+    \begin{enumerate}
+      \item $\forall a > 0$, $\pp(X \geq a) \leq \frac{1}{a} \ee[X]$.
+      \item $\ee[X] < \infty \implies x < \infty$ a.s.
+      \item $\ee[X] = 0 \implies x = 0$ a.s.
+      \item $X = Y$ a.s. $\implies E[X] = E[Y]$.
+    \end{enumerate}
+\end{proposition}
+
+\subsubsection{Fubini's Theorem} Recall that $\mu$ is $\sigma-$finite if $E = \bigcup_{n \geq 1} E_n$ with $\mu(E_n) < \infty$ $\forall n \geq 1$. 
+\vspace{0.4em}
+
+Informally speaking the Fubini-Tonelli theorem says that for
+non-negative functions of several variables, when $\mu_1, \ldots,
+\mu_{n}$ are $\sigma-$finite , then
+\[
+  \int\left(\int \left(\ldots \int f(x_1,\ldots, x_n) \mu_1(dx_1) \ldots
+  \mu_n(dx_n)\ldots\right)\right)
+\]
+can be computed by integrating any order. (see lecture notes for full
+statement). Typically
+\[
+  \ee [\int_{\rr} f(x, X) dx ] = \int_{\rr} \ee[f(x, X)]dx
+.\] 
+
+\begin{theorem}
+  [Fubini-Tonelli]
+  Let $\mu, \nu$ be $\sigma-$finite measures on $(E, \mathcal{E}), (F, \mathcal{F})$ 
+  respectively. We equip $E\times F$ with the product sigma field
+  $\mathcal{E} \otimes \mathcal{F}$ . Let $f \colon E\times F \to \rr_+$ be measurable.
+  \begin{enumerate}
+    \item $x \mapsto \int f(x, y)\nu(dy)$ and $y \mapsto \int f(x,y)\mu(dx)$ are measurable
+    \item We have 
+      \[
+        \int_{E \times F} f d\mu\otimes\nu = \int_{E} \left( \int_F f(x,y)\nu(dy) \right) \mu(dx) =
+        \int_{F} \left( \int_E f(x,y)\mu(dx) \right) \nu(dy)
+      .\] 
+  \end{enumerate}
+\end{theorem}
+
+\subsubsection{Real-valued functions}
+
+If $f \colon E \to \rr$ is measurable, when $\int_{E} |f| d\mu <
+\infty$, we say that $f$ is integrable (with respect to $\mu$) and
+write $f\in \mathcal{L}^1 (E, \mathcal{E}, \mu)$ or $f \in
+\mathcal{L}^1$ in short.
+
+\vspace{0.5em}
+
+Similarly, for $p > 0$, when $\int_{E} |f|^p d\mu <  \infty$ we write
+$f \in \mathcal{L}^p$.
+
+\begin{definition}
+    Let $f \colon E \to \rr$ be measurable when $\int |f| d\mu <
+    \infty,$ we write $f = f^+ - f^-$ and define
+    \[
+    \int fd\mu = \int f^+ d\mu - \int f^- d\mu
+    .\] 
+\end{definition}
+
+This is well defined because $0 \leq f^+ < |f|$ and $0 \leq f^- \leq
+|f|$ so the integrals are less than infinity.
+ 
+\vspace{1em}
+
+Now, as for non-negative functions, we have the usual properties for
+$f, g \in \mathcal{L}^1$
+\begin{itemize}
+  \item $f \leq g$ a.e. $\implies \int f d\mu \leq \int g d\mu$.
+  \item $\int (af + bg) d\mu = a \int fd\mu + b \int gd\mu$.
+  \item $f = g$ a.e. $\implies$ $\int f d\mu = \int g d\mu$.
+  \item $\left| \int f d\mu \right| \leq \int |f|d\mu$
+\end{itemize}
+
+\begin{theorem}
+  [Dominated Convergence]
+  Let $f_n \colon E \to \rr$ be integrable functions such that 
+  \begin{enumerate}
+    \item $\exists f \colon E \to \rr$ measurable such that for $\mu$,
+      for almost every $x$ the sequence $f_n(x)$ converges to $f(x)$.
+    \item $\exists g \colon \to \rr_+$ such that $\int g d\mu <
+      \infty$ and $\forall n \geq 1$, for almost every $x$ $|f_n(x)|
+      \leq g(x)$
+  \end{enumerate}
+  then 
+  \[
+    \int_E |f_n - f| d\mu \to 0
+  \]
+  which also gives us $\int f_n d\mu \to \int f d\mu $.
+\end{theorem}
+
+\begin{theorem}
+  [Dominated Convergence in Probabilistic Setting]
+  Let $X_n$ be a $\rr-$valued r.v. 
+  \begin{enumerate}
+    \item $X_n \to X$ a.s.
+    \item $\exists Z \geq 0$ such that $E[Z] < \infty$ and $\forall n
+      \geq 1$ $|X_n| \leq Z$ as.
+  \end{enumerate}
+  then 
+  \[
+    \ee[|X_n - X|] \to 0
+  .\] 
+\end{theorem}
+
+There is an extension of Fubini's Theorem to $\rr-$valued functions,
+\textbf{\sffamily Fubini-Lebesgue} Theorem.
+
+\vspace{0.3em}
+
+In short, one may compute 
+\[
+  \int \ldots \int f(x_1, \ldots, x_n) \mu(dx_1) \ldots \mu(dx_n)
+\]
+for $\sigma-$finite measures in any order of integration as soon as
+$\int \ldots \int |f(x_1, \ldots, x_n)| \mu(dx_1) \ldots \mu(dx_n) < \infty$
+
+\subsection{Classical Laws}
+\subsubsection{Discrete Laws}
+\begin{definition}
+  [Uniform Law]
+  If $E$ is a finite set with $n$ elements, $X$ follows the uniform
+  distribution on $E$ if $$\pp(X = x) = \frac{1}{n} \;\forall x \in E $$
+\end{definition}
+\begin{definition}
+  [Bernoulli]
+  $\pp(X = 1) = p$, $\pp(X = 0)  =1-p$.
+
+  \noindent \underline{Interpretation} Rigged coing giving heads with
+  probability $p$.
+\end{definition}
+
+\begin{definition}
+  [Binomial Law $\mathcal{B}(n, p)$]
+  For $0 \leq k \leq n$ $\pp(X = l) = \binom{n}{k}p^k(1-p)^{n-k}$
+
+  \noindent\underline{Interpretation} number of heads when tossing the
+  previous coin n-times.
+\end{definition}
+
+\begin{definition}
+  [Geometric Law]
+  $\pp(X=k) = p(1 - p)^{k-1}$ for $k \geq 1$
+
+  \noindent\underline{Intepretation} Number of trials before a success having probability $p$.
+\end{definition}
+
+\begin{definition}
+  [Poisson Law of parameter $\lambda > 0$]
+  $\pp(X = k) = e^{-\lambda} \frac{\lambda^k}{k!} $ for $k \geq 0$
+  
+  \noindent\underline{Interpretation} law of rare events.
+\end{definition}
+
+\end{document}

@@ -1,0 +1,163 @@
+%! TEX root = ../main.tex
+\documentclass[../main.tex]{subfiles}
+
+\usepackage[font, sexy]{moreira}
+\usepackage{marginnote}
+\reversemarginpar
+
+\author{Francisco Moreira Machado}
+
+\title{Lecture 7}
+
+\begin{document}
+ \begin{application}
+   Let $X, Y, Z, T$ be $\indep$ random variables, then $X + Z$ and $YT$ are $\indep$
+ \end{application} 
+ \begin{proof}
+   Indeed, $X, Z, Y, T$ are $\indep$ ($\indep$ is preserved under permutation).
+   then we apply the Coalition Principle to get that $(X, Z)$ and $(Y, T)$ are 
+   independent. Moreover, by the Composition Principle, we have that $f_1(X, Z)$ and 
+   $f_2(Y, T)$ are independent if we pick two measurable functions $f_1(x, z) = x + z$ and 
+   $f_2(y, t) = yt$.
+ \end{proof}
+
+ \begin{lemma}
+   The two random variables $(X_i)_{i \in I}$ and $(Y_i)_{i \in I}$ with values in 
+   $\Pi_{i \in I} E_i$ and $\Pi_{i \in I} F_i$ are $\indep$ iff
+   
+   $$\forall i_1, \ldots, i_k \in I, \forall j_1, \ldots, j_l \in
+   J, (X_{i_1}, X_{i_2}, \ldots, X_{i_k}) \indep (Y_{j_1}, \ldots,
+   Y_{j_l})$$
+ \end{lemma}
+
+ \begin{definition}
+   If $(X_i)_{i \geq 1}$ are random variables we set $B_n = \sigma(X_K
+   \colon k \geq n)$ and $B_{\infty} = \bigcap_{n \geq 1}B_n$, which
+   is a $\sigma-$field called the \underline{tail $\sigma-$field}.
+ \end{definition}
+
+ Intuitively $B_{\infty}$ represents information that does not
+ depend on a finite number of random variables.
+
+ \begin{example}
+   If $(X_i)_{i \geq 1}$ are $\rr-$valued rv. Set $S_n = X_1 + \ldots
+   + X_n$ then $\{ \sup_{n \geq 1} S_n = +\infty \} \in B_{\infty} $
+ \end{example}
+
+ \begin{theorem}
+   [Kolmogorov $0-1$ law]
+   Assume that $(X_i)_{i \geq 1}$ are $\indep$ then $\forall A \in
+   B_{\infty}, \pp(A) = 0$ or $1$.
+ \end{theorem}
+ \begin{proof}
+   Set $\mathcal{D}_n = \sigma(X_1, \ldots., X_n)$, then $\mathcal{D}_n
+   \indep B_{n+1}$. Hence $\mathcal{D}_n \indep B_{\infty}$ because
+   $B_{\infty} \subset B_{n+1}$.
+   Thus $\forall A \in \bigcup_{n = 1}^\infty \mathcal{D}_n$, $\forall
+   B \in B_{\infty}$, $\pp(A \cap B) = \pp(A)\pp(B)$. But $\bigcup_{n
+   \geq 1} \mathcal{D}_n = \bigcup_{n \geq 1} \sigma(X_1,\ldots,
+   X_n)$ is a generating $\pi-$system of $\sigma(X_i \colon i\geq 1)$.
+   Thus
+   \[
+     \forall A \in \sigma(X_i\colon i \geq 1), \forall B \in
+     B_{\infty}, \pp(A \cap B) = \pp(A) \pp(B)
+   .\] 
+
+ Finally, observe that $B_{\infty} \subset \sigma(X_n \colon n \geq
+   1)$, thus $\forall A, B \in B_{\infty}$, $\pp(A \cap B) =
+   \pp(A)\pp(B)$, from which we conclude that $\pp(A) = \pp(A)^2$
+   $\forall A \in B_{\infty}$, finishing the proof.
+ \end{proof} 
+
+ \subsection{Real-valued random-variables}
+
+  \begin{proposition}
+      Let $f_n \colon (E, \mathcal{E}) \to (\overline{\rr},
+      \mathcal{B}(\overline{\rr})$ be measurable functions where
+      $\overline{\rr} = \rr \cup \{ \pm \infty \} $ with $d(x,y) =
+      |\arctan x - \arctan y|$. Then $\sup_{n} f_n$ i.e. the function
+      $x \mapsto \sup_n f_n(x)$, $\inf_n f_n$, $\limsup_{n} f_n$,
+      $\liminf_n f_n$ are all measurable from $(E, \mathcal{E})$ to
+      $(\overline{\rr}, \mathcal{B}(\overline{\rr})) $
+  \end{proposition}
+
+  \begin{proof}
+      Let us show for $f = \sup f_n$. 
+      \vspace{0.5em}
+
+      $\sup_{n \geq 1} x_n \leq a \iff \forall n \geq 1, x_n \leq a$.
+      Thus $\forall a \in \rr$, $f^{-1}([-\infty, a]) = \bigcap_{n
+      \geq 1} f_n^{-1}([-\infty, a]) \in \mathcal{E}$ because $f_n$ is
+      measurable.
+      \vspace{0.5em}
+
+      Since $([-\infty, a] \colon a \in \rr)$ generates
+      $\mathcal{B}(\overline{R}),$ this shows that $f$ is measurable.
+  \end{proof}
+  \begin{definition}
+    [Simple Function]
+    A simple function $f\colon (E, \mathcal{E}) \to (\rr,
+    \mathcal{B}(\rr))$ is a measurable function which takes a finite
+    number of values. Equivalently $f$ can be written 
+    \[
+    f = \sum_{i = 1}^n a_i \ind_{A_i}
+    \]
+    with $a_i \in \rr$ and $A_i \in \mathcal{E}$. It can be uniquely
+    written if we suppose $A_i$ are pairwise disjoint and we order the
+    $a_i$.
+  \end{definition}
+
+  \begin{theorem}
+    Let $f\colon (E, \mathcal{E}) \to (\rr^+, \mathcal{B}(\rr^+))$ be
+    measurable. There exists a sequence $(f_n)$ of simple measurable
+    functions $(E, \mathcal{E}) \to (\rr^+, \mathcal{B}(\rr^+))$
+    such that
+    $\forall x \in E$ the sequence $(f_n(x))_{n \geq 1}$ is weakly
+    increasing and converges to $f(x)$.
+  \end{theorem}
+
+  This is a powerful tool to show properties for general functions.
+  First we check the property for simple functions then conclude by
+  approximations.
+
+  \begin{proof}
+      \hfill
+
+      \underline{Step 1} Approximate the identity function. To do so,
+      just take $\phi_n(x) = \min \left( \frac{1}{2^n} \left\lfloor
+      2^n x \right\rfloor, n  \right) $, which only takes finitely
+      many values.
+      \vspace{0.5em}
+
+      \underline{Step 2} Just take $f_n = \phi_n \circ f$.
+  \end{proof}
+
+  \begin{application}
+    [Doob-Dynkin Lemma]
+    Let $f\colon (E, \mathcal{E}) \to (F, \mathcal{F})$ and $g \colon
+    (E, \sigma(f)) \to (\rr, \mathcal{B}(\rr))$ be measurable. Then
+    $\exists h \colon (F, \mathcal{F}) \to (\rr, \mathcal{B}(\rr))$
+    such that $g = h \circ f $
+  \end{application}
+  \underline{In Probabaility: } A $\sigma(X)-$measurable rv is just a
+  function of $X$.
+  \begin{remark}
+    If $g = h \circ f$ then $g$ is $\sigma(f)-$ measurable since 
+    \[
+      g^{-1}(B) = (h \circ f)^{-1}(B) = f^{-1}(h^{-1}(B)) \in
+      \sigma(f)
+    .\] 
+  \end{remark}
+  \begin{proof}
+    Assume $g \geq 0$ by decomposing $g = max(g, 0) + max(-g, 0)$.
+
+    Now, consider the case $g = \ind_A$ with $A \in \sigma(f)$, then
+    $A = f^{-1}(B)$ with $B \in \mathcal{F}$. we then take $h =
+    \ind_B$, from which it follows.
+
+    By linearity, the statement holds for any simple function, so now
+    we can conclude by using the fact that we can write $g$ as a limit
+    of simple functions $g_n = h_n \circ f$ and build $h$ to be the
+    limit of $h_n$, then the desired result holds.
+  \end{proof}
+\end{document}

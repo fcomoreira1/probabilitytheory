@@ -1,0 +1,174 @@
+%! TEX root = ../main.tex
+\documentclass[../main.tex]{subfiles}
+
+\usepackage[font, sexy]{moreira}
+\usepackage{marginnote}
+\reversemarginpar
+
+\author{Francisco Moreira Machado}
+
+\title{Lecture 10}
+
+\begin{document}
+
+\begin{theorem}
+  If $X_1, \ldots, X_n$ are $\indep$, with $X_i$ having density $p_i$, then
+  $(X_1, \ldots, X_n)$ has density in $\rr^n$ which is $p_1(x_1)
+  \ldots p_n(x_n)$.
+\end{theorem}
+
+\begin{proof}
+    We use the dummy function method. We take $f\colon \rr^n \to
+    \rr_+$ measurable and compute $\ee[f(X_1, \ldots, X_n)]$.
+
+    \vspace{0.2em}
+
+    Due to the Transfer Theorem with $(X_1, \ldots, X_n)$ and $f$ we
+    get
+    \begin{align*}
+      \ee[f(X_1, \ldots, X_n)] &= \int_{\rr^N} f(x_1, \ldots,
+      x_n)\pp_{(X_1, \ldots, X_n)}(dx_1dx_2 \ldots dx_n) \\
+      &= \int_{\rr^N} f(x_1, \ldots,
+      x_n)\pp_{X_1}(dx_1) \otimes \ldots \otimes \pp_{X_n}(dx_n)
+      \text{ by } \indep\\
+      &= \int_{\rr^n} f(x_1,\ldots, x_n)p_1(x_1)\ldots p_n(x_n)
+      \text{ by Fubini-Tonelli}
+    \end{align*}
+\end{proof}
+
+\begin{theorem}
+    If $X, Y$ are $\indep$ random variables and have densities, then
+    $X+Y$ has a density.
+
+    \vspace{0.3em}
+    \noindent Moreover, if $X, Y$ have densities $p, q$, respectively,
+    the density of $Z = X+Y$ is given by $z \mapsto \int_{\rr} p(x)q(z
+    - x) dx$, called the convolution product of $p$ and $q$. 
+\end{theorem}
+
+\begin{remark}
+    This theorem does not hold true in general. Take $Y = -X$ for
+    example.
+\end{remark}
+
+\begin{application}
+  Let $X, Y$ have densitites and be $\indep$. Then $\pp(X = Y) = 0$.
+\end{application}
+\begin{proof}
+    Let $p, q$ be the densities of $X, Y$ respectively. Notice that
+    \begin{align*}
+      \pp(X = Y) &= \ee[\ind_{X = Y}] \\ &= \int_{\rr^2}\ind_{X=Y}(x, y)
+      \pp_{(X, Y)}(dxdy) \\
+      &=\int_{\rr^2}\ind_{X=Y}(x, y)
+      p(x)q(y)dxdy \text{ by } \indep \\
+      &= \int_\rr \left(\int_\rr \ind_{X = y}(x, y) p(x)dx \right) q(y)dy \text{
+        by Fubini-Tonelli} \\
+      &= \int_{\rr} (0)q(y) dy = 0
+    .\end{align*} 
+\end{proof}
+
+\begin{corollary}
+  If $X$ has density, then $(X, X)$ does not have a density in
+  $\rr^2$.
+
+  \vspace{0.3em}
+  \noindent Indeed, one can show that if $(X, Y)$ has a density in $\rr^2$, then
+  $\pp(X = Y) = 0$ \marginnote{Ex. $\rightarrow$}
+\end{corollary}
+
+\begin{theorem}
+    The following are equivalent for $X_i \colon \Omega \to E_i$
+    random variables
+
+    \begin{enumerate}
+      \item $X_1, \ldots, X_n$ are $\indep$
+      \item $\forall f_i \colon E_i \to \rr_+$ measurable
+        \[
+          \ee\left[ f_1(X_1)\ldots f_n(X_n) \right] = 
+          \ee[f_1(X_1)] \ldots \ee[f_n(X_n)]
+        .\] 
+    \end{enumerate}
+\end{theorem}
+
+In practice, to show that $X \indep Y$ one often computes
+$\ee[f(X)g(Y)]$ and checks the previous statement.
+
+\begin{corollary}
+  If $(X_1, \ldots, X_n)$ has a density of the form $g_1(x_1) \ldots
+  g_n(x_n)$, then $X_1, \ldots, X_n$ are $\indep$.
+\end{corollary}
+
+If $X_1, \ldots, X_n $ are $\indep$ and $f_i \colon E_i \to \rr$ the
+equality 
+\[
+  \ee[f_1(X_1) \ldots f_n(X_n)] =  \ee[f_1(X_1)] \ldots \ee[f_n(X_n)]
+\]
+is true under the integrability conditions $\ee[|f_i(X_i)|] < \infty$
+for all $i \leq n$. This implies in particular that $f_1(X_1)\ldots
+f_n(X_n)$ is integrable.
+
+\newpage
+
+\begin{application}
+    \hfill
+
+    \begin{enumerate}
+      \item Let $X$ be a $L^2$ random variable. Then $X \in L^1$ and we
+        can define the variance $Var(X) = \ee[(X - \ee[X])^2] =
+        \ee[X^2] - \ee[X]^2$
+      \item {(\sffamily Cauchy-Schwarz)} If $X \in L^2$ then
+        $\ee[|X|]^2 \leq \ee[X^2]$
+      \item Let $(X_i)_{1 \leq i \leq n}$ be $\indep, L^2$ random
+        variables, then $Var(X_1 + \ldots X_n) = Var(X_1) + \ldots +
+        Var(X_n)$.
+    \end{enumerate}
+
+\end{application}
+
+\section{Sequences and Series of Independent Random
+Variables}
+
+\underline{\sffamily Goal} Study limits of $X_1 + \ldots + X_n$ as $n
+\to \infty$ where $X_1 \ldots, X_n$ are $\indep$. 
+
+\vspace{0.5em}
+
+\noindent Recall that a property $P(\omega)$ is said to hold almost surely if
+$\pp(\{ w \in \Omega \colon P(\omega) \text{ is true }\}) = 1 $.
+
+\subsection{The use of Borel-Cantelli}
+
+Let $(X_n)_{n \geq1}$ be a sequence of independent, real valued random
+variables and let $(a_n)_{n \geq 1}$ be a sequence, then
+
+\begin{itemize}
+  \item $\sum_{i = 1}^\infty \pp(X_n \geq a_n) < \infty$, then almost
+    surely for $n$ sufficiently large, $X_n < a_n$.
+  \item $\sum_{i = 1}^\infty \pp(X_n \geq a_n) = \infty$, then almost
+    surely $X_n \geq a_n$ infinitely many often.
+\end{itemize}
+
+This is very often used in the following way
+\begin{lemma}
+  Assume that $\forall \varepsilon > 0 $, $\sum_{n =1}^\infty \pp(|X_n
+  - X| \geq \varepsilon) < \infty$, then $X_n \to X$ almost surely,
+  i.e.
+  $\pp(\{ \omega \in \Omega \colon X_n(\omega) \to X(\omega) \} = 1 $.
+\end{lemma}
+\begin{proof}
+    Fix $\varepsilon > 0 $. By Borel Cantelli 1. almost surely for $n$
+    sufficiently large $|X_n - X| \leq \varepsilon$.
+
+    \vspace{0.5em}
+    \noindent But notice that what we want is $X_n \to X$ almost
+    surely, which is equivalent to a.s $\forall \varepsilon > 0,
+    \forall n > N, |X_n - X| \leq \varepsilon$. In general, we CANNOT
+    interchange the "almost surely for all $\varepsilon$" and "for all
+    $\varepsilon$ almost surely". 
+
+    This comes due to the almost surely for all being an uncountable
+    intersection. So instead of all $\varepsilon$, we can take a
+    countable sequence converging to $0$, such as $1/n$.
+\end{proof}
+
+\end{document}

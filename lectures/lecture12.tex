@@ -1,0 +1,243 @@
+%! TEX root = ../main.tex
+\documentclass[../main.tex]{subfiles}
+
+% \usepackage[font, sexy]{moreira}
+\author{Francisco Moreira Machado}
+
+\title{Lecture 12}
+
+\begin{document}
+  \begin{theorem}
+      [Kolmogorov 2 Series Theorem]
+      Let $(Z_k)_{k \geq 1}$ be $\indep$ real valued r.v. in $L^2$.
+      Assume that
+      \begin{enumerate}
+        \item $\sum_{n \geq 1} \ee[Z_n]$ converges in $\rr$.
+        \item $\sum_{n \geq 1} Var(Z_n) < \infty$.
+      \end{enumerate}
+      Then $\sum_{k = 1}^n Z_k$ converges almost surely as $n \to \infty$.
+  \end{theorem}
+  \begin{remark}
+    We do not assume that $(Z_k)$ have the same law. In fact, if this was the
+    case, for any $Var(Z_1) > 0$, then the second condition never holds.
+  \end{remark}
+  \begin{proof}
+    We show that almost surely $(\sum_{k=1}^n Z_k)_{n \geq 1}$ is a Cauchy
+    Sequence.
+    \vspace{0.4em}
+
+    Since $Var(Z_n - \ee[Z_n]) = Var(Z_n)$, we can assume that $\ee[Z_n] = 0$
+    for $1 \leq k \leq n$ (we then apply the result with $Z_k - \ee[Z_k]$).
+
+    Set $S_n = Z_1 + \ldots + Z_n$. The idea is to show:
+    \[
+    \forall k \geq 1, \; a.s. \; \exists m \geq 1 \; s.t. \; \forall n \geq m, |S_n -
+    S_m| \leq \frac{1}{k}  \;\;\;\;(\ast) 
+    \] 
+    Indeed, then we interchange $\forall k \geq 1$ and almost surely to get
+    (as it is a countable set):
+    \[
+    a.s. \; \forall k \geq 1, \exists m \geq 1 \; s.t. \; n \geq m \implies
+    |S_n - S_m| < \frac{1}{k} 
+    .\] 
+    Notice that this gives us $\forall p, q \geq m$, $|S_p - S_q| < 2/k$ due
+    to triangular inequality, which in turn is enough to imply that almost
+    surely $(S_n)$ is a Cauchy sequence.
+
+    \vspace{1em}
+
+    Now let us go back to proving $(\ast)$. 
+
+    \vspace{0.2em}
+
+    Fix $k \geq 1$ and set $A_m =  \{
+      \forall n \geq m, |S_n - S_m| \leq 1/k\} $. We want to show that
+    $\pp(\bigcup_{m \geq 1} A_m) = 1$, but it is clear by definition that
+    $(A_m)$ is increasing, so $\pp(\bigcup_{m \geq 1} A_m) = \lim_{n \to
+    \infty}\pp(A_n)$.
+
+    \vspace{0.2em}
+
+    But now notice $1 - \pp(A_m) = \pp(\exists n \geq m \colon |S_n - S_m| >
+    1/k) = \lim_{l \to \infty} \pp(\exists n, m \leq n \leq l \colon |S_n -
+    S_m| > 1/k$. 
+
+    \vspace{0.2em}
+
+    Finally, we rewrite this more explicitly to 
+    \begin{align*}
+      \pp(\exists n, m \leq n \leq l \colon |Z_{m +1} + \ldots + Z_n| > 1/k)
+      \leq k^2 (\ee[Z_{m+1}^2] + \ldots + \ee[Z_{l}^2])
+    \end{align*} 
+    which holds by Kolmogorov Max Inequality.
+    \vspace{0.2em}
+
+    Moreover, this yields
+    \[
+      1 - \pp(A_m) \leq \lim_{l \to \infty} k^2 \sum_{i > m} (Var(Z_i))
+      \underset{m \to \infty}{\longrightarrow} 0
+    \] 
+    which is enough to conclude!
+   \end{proof}
+
+   \subsection{Three Series Theorem}
+   \begin{theorem}
+     [Kolmogorov Three Series Theorem]
+     Let $(X_n)_{ n \geq 1}$ be $\indep$ real random variables. Assume that
+     there exists $a > 0$ such that
+     \begin{enumerate}
+       \item $\sum_{k =1}^\infty \pp(|X_k| \geq a) < \infty$
+       \item $\sum_{k=1}^\infty \ee[X_k \ind_{|X_k| < a}]$ converges in $\rr$
+       \item $\sum_{k=1}^\infty \Var(X_k \ind_{|X_k| < a}) < \infty$ 
+     \end{enumerate}
+     then almost surely $\sum_{k=1}^n X_k$ converges as $n \to \infty$.
+   \end{theorem}
+   \begin{remark}
+     $X_k \ind_{|X_k| > a}$ is bounded random variable so it is in $L^2$.
+   \end{remark}
+   \begin{remark}
+       It is possible to show that the converse is true, that is if
+       $\sum_{k=1}^n X_k$ converges then 1., 2., 3. hold for every $a > 0$.
+
+       \vspace{0.3em}
+
+       \noindent In other words, if 1., 2. or 3. fails for some $a > 0$, then
+       almost surely $\sum_{k=1}^n X_k$ diverges as $n \to \infty$.
+   \end{remark}
+   \begin{remark}
+       Strictly speaking the converse gives that if one of the condition
+       fails, then $\pp(\sum_{k=1}^n X_k \text{ converges}) < 1$, but this
+       implies by Kolmogorov's $0-1$ law that this probability is $0$.
+   \end{remark}
+   \begin{proof}
+      We use Borel Cantelli due to Condition 1. to obtain that almost surely
+      for $k$ sufficiently large, $|X_k| < a$.
+
+      \vspace{0.4em}
+
+      Thus, if we set $Z_k = X_k \ind_{|X_k| < a}$, almost surely for k
+      sufficiently large $Z_k = X_k$, thus almost surely $\sum Z_k$ converges
+      iff $\sum X_k$ converges. However, by the Two Series Theorem, almost
+      surely $\sum Z_k$ converges as $(Z_k)_{k \geq 1}$ are $\indep$ by the
+      composition principle and 2. and 3. satisfy the conditions of the
+      previous theorem.
+   \end{proof}
+
+   \subsection{The Strong Law of Large Numbers}
+   \begin{theorem}
+     Let $(X_i)_{i \geq 1}$ be iid real-valued r.v, $\ee[|X_1|] < \infty$,
+     then
+     \[
+       \frac{X_1 + \ldots + X_n}{n} \underset{n \to \infty}{\longrightarrow}
+       \ee[X_1] 
+     .\] 
+   \end{theorem}
+   \begin{lemma}
+     [Kronecker]
+     Let $(x_n)_{n \geq 1}$ be real numbers such that $\sum_{k = 1}^n x_k / k$
+     converges as $n \to \infty$ then
+     \[
+       \frac{x_1 + \ldots + x_n}{n} \underset{n \to \infty}{\longrightarrow}
+       0
+     .\] 
+   \end{lemma}
+   \begin{proof}
+       Set $w_n = \sum_{k=1}^n \frac{x_k}{k} $, assume $w_n \to w$ as $n \to
+       \infty$. By Cesaro's Theorem, $\frac{1}{N} \sum_{n=1}^N w_n \to w$ as
+       $N \to \infty$.
+
+       Now, let us proceed with calculations
+       \begin{align*}
+         \frac{1}{N} \sum_{n = 1}^N w_n &= \frac{1}{N} \sum_{n = 1}^N
+         \sum_{k=1}^ n \frac{x_k}{k} 
+         = \frac{1}{N} \sum_{n=1}^N \sum_{k =1}^N \ind_{k \leq n}
+         \frac{x_k}{k} \\
+         &= \frac{1}{N} \sum_{k=1}^N \sum_{n =1}^N \ind_{k \leq n}
+         \frac{x_k}{k} 
+         = \frac{1}{N} \sum_{k=1}^N \frac{x_k}{k} \sum_{n =1}^N \ind_{k \leq
+         n} \\
+         &= \frac{1}{N} \sum_{k=1}^N \frac{(N - k + 1)x_k}{k} 
+         = \frac{N+1}{N} \sum_{k=1}^N \frac{x_k}{k} - \frac{1}{N} \sum_{k=1}^N
+         x_k
+       \end{align*}
+
+       Now notice that both $1/N \sum_{k=1}^N x_k$ is the difference of two
+       series that converge, so it must converge as well.
+   \end{proof}
+   \begin{proof}
+     [Strong Law of Large Numbers]
+     \hfill
+
+     \vspace{0.5em}
+
+     First let us assume that $\ee[X_1] = 0$.
+     \vspace{0.5em}
+
+     If $\sum_{k=1}^n \frac{x_k}{k} $ converges almost surely, then by
+     Kronecker Lemma almost surely $\frac{1}{n} \sum_{k=1}^n X_k \to 0 $ as $n
+     \to \infty$. Unfortunately this is not always the case, so we need to
+     move to a cutoff argument.
+
+     \vspace{0.5em}
+     
+     We check that $\sum_{n=1}^\infty \pp(|X_n| > n) < \infty$. Indeed 
+     $\sum_{n = 1}^\infty \pp(|X_n| > n) = \sum_{n=1}^\infty \pp(|X_1| > n) <
+     \ee[|X_1|]$. This gives us by Borel Cantelli that almost surely for $n$
+     sufficiently large $|X_n| \leq n$. 
+
+     \vspace{0.5em}
+
+     Therefore, it is enough to show that $(X_1' + \ldots + X_n')/n$ converges
+     to $0$ almost surely if we define $X_i' = X_i \ind_{|X_i| \leq i}$
+
+     \vspace{0.5em}
+
+     We can check that $\ee[X_i'] = \ee[X_1 \ind_{|X_1| \leq i}] \to \ee[X_1]$
+     as $i \to \infty$. Thus, it is enough to show that 
+     \[
+       \frac{Y_1' + \ldots + Y_n'}{n} \oveset{a.s}{\longrightarrow} 0
+       \;\;\;\;(\ast)
+     \] 
+     with $Y_i' = X_i' - \ee[X_i']$.
+
+     \vspace{0.5em}
+
+     To show $(\ast)$ we shot that almost surely $\sum_{k=1}^n \frac{Y_k'}{k}
+     $ converges as $n \to \infty$ $(\ast\ast)$ and the result will follow by
+     Kronecker's Lemma.
+
+     \vspace{0.5em}
+
+     To show $(\ast\ast)$ we use Kolmogorov's Two Series Theorem. We must just
+     check the conditions for the theorem. First, by the composition principle
+     $(Y_k'/k)_{k \geq 1}$ are independent. Second, as $\ee[Y_k'] = 0$, the
+     condition 1. also holds. Finally, for the sum of the variance, write 
+     \[
+       Var \left( \frac{Y_k'}{k}  \right) = \frac{1}{k^2} Var(X_k')
+       \leq \frac{1}{k^2} \ee[X_k'^2] = \frac{1}{k^2} \ee[X_1^2 \ind_{|X_1| \leq
+       k}] 
+     \] 
+     Moreover, $\ee[X_1^2 \ind_{|X_1| \leq k}] = \sum_{j=1}^n \ee[X_1^2
+     \ind_{j-1 < |X_1| \leq j} \leq \sum_{j=1}^k j^2 \pp(j-1 < |X_1| \leq j)$.
+
+     Thus
+     \begin{align*}
+       \sum_{n = 1}^\infty Var \left( Y_k'/k \right) &\leq \sum_{n=1}^\infty
+       \sum_{j=1}^n \frac{1}{n^2}j^2 \pp(j-1 < |X_1| \leq j) \\
+       &= \sum_{n=1}^\infty \sum_{j=1}^\infty \ind_{j \leq n} \frac{1}{n^2}
+       j^2 \pp(j -1 < |X_1| \leq j) \\
+       &= \sum_{j=1}^\infty \left(\sum_{n=j}^\infty \frac{1}{n^2} \right)
+       j^2 \pp(j -1 < |X_1| \leq j) \\
+       &\leq \sum_{j=1}^\infty \frac{c}{j} \pp(j-1 < |X_1| \leq j) \\
+       &= c\sum_{j=1}^\infty j \int \ind_{j-1 < |X_1| \leq j} \pp_{|X_1|}(dx)
+       \\
+       &= c\int_{0}^\infty \sum_{j=0}^{\infty} j \ind_{j-1 < |X_1| \leq
+       j}\pp_{|X_1|}(dx) \\
+       &\leq  c\int_{0}^\infty \sum_{j=0}^{\infty} (x+1) \ind_{j-1 < |X_1| \leq
+       j}\pp_{|X_1|}(dx) \\
+       &= c \ee[|X_1| + 1] < \infty
+     \end{align*}
+     so the last condition is also satisfied and we are done.
+
+   \end{proof}
+\end{document}

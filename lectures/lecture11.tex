@@ -1,0 +1,188 @@
+%! TEX root = ../main.tex
+\documentclass[../main.tex]{subfiles}
+
+\usepackage[font, sexy]{moreira}
+\usepackage{marginnote}
+\reversemarginpar
+
+\author{Francisco Moreira Machado}
+
+\title{Lecture 11}
+
+\begin{document}
+  \begin{corollary}
+    Let $(X_n)_{n \geq 1}$ be a sequence of real-valued independent and identically
+    distributed (iid) r.v. 
+    \begin{enumerate}
+      \item If $\ee[|X_1|] < \infty,$ then almost surely $X_n / n \underset{n
+        \to \infty}{\to} 0$.
+      \item If $\ee[|X_1|] = \infty,$ then almost surely $X_n / n \underset{n
+        \to \infty}{\not\to} 0$.
+      \item If $\frac{X_1 + \ldots X_n}{n} $ converges as $n \to \infty$, then
+        $\ee[|X_1|] < \infty$.
+    \end{enumerate}
+  \end{corollary}
+  \begin{proof}
+      We show that $\forall \varepsilon > 0$, $\sum_{n \geq 1} \pp 
+      \left( \left| \frac{X_n}{n}  \right| \geq \varepsilon \right) < \infty$.
+      
+      \vspace{0.5em}
+
+      Recall that if $Z \geq 0$, $\ee[Z] = \int_0^\infty \pp(Z \geq t) dt$
+      (Identity from PSet4), thus
+      \[
+        \infty > \ee \left[ \frac{|X_n|}{\varepsilon}  \right] = \int_{0}^\infty
+        \pp \left( \frac{|X_n|}{\varepsilon} \geq t \right)dt \geq \sum_{n =
+        1}^\infty \int_{n}^{n+1} \pp(|X_n| \geq t \varepsilon)dt
+      ,\] 
+      but notice that for $t \in [n, n+1]$, $\pp(|X_n| \geq t \varepsilon) \geq
+      \pp(|X_n| \geq (n+1)\varepsilon$, thus we can conclude that the desired
+      sum converges, and apply the lemma above.
+
+      \vspace{1em}
+      Item 2. goes simularly, thus it stays as an exercise. \marginnote{Ex.
+      $\rightarrow$}
+
+      \vspace{1em}
+
+      For part 3. if we take $S_n = X_1 + \ldots + X_n$ and assume that almost
+      surely $S_n / n \to X$, then it is clear that $S_{n+1}/n - S_n/n \to 0$
+      almost surely, which in turn give us $X_{n+1}/n$ converges almost surely 
+      to $0$, and we can apply the contrapositive of 2.
+
+      \vspace{0.3em}
+
+      A remark for this contrapositive is that the negation of statement 2. goes
+      by If $\pp(X_n/n \not\to 0) \neq 1$, then $\ee[|X_1|] < \infty$ and not
+      that if it almost surely converges to $0$, then has finite expectation.
+  \end{proof}
+
+  \begin{theorem}
+    [Strong Law of Large Numbers - SLN]
+    Let $(X_i)_{i \geq 1}$ be iid real-valued r.v. such that $\ee[|X_1|] <
+    \infty$, then
+    \[
+      \frac{X_1 + X_2 \ldots + X_n}{n} \to \ee[X_1] \;\;a.s
+    .\] 
+  \end{theorem}
+
+  By the previous corollary 3. the integrability condition cannot be removed.
+
+  \vspace{1em}
+
+  We will start by proving some variants of this theoorem which are easier to
+  establish.
+
+  \subsection{$L^4$ version of SLN}
+  \begin{theorem}
+    [$L^4$ version of SLN] Take $(X_n)_{n \geq 1}$ iid real valued r.v. with
+    $\ee[|X_1|^4] < \infty$ then 
+    \[
+      \frac{X_1 + \ldots + X_n}{n} \to \ee[X_1] 
+    .\] 
+  \end{theorem}
+  \begin{proof}
+    Without loss of generality, assume $\ee[X_1] = 0$. Set $S_n = X_1 + \ldots
+    +X_n, K = \ee[X_1^4] < \infty$.
+    \vspace{0.4em}
+
+    We show that $\sum_{n \geq 1} \ee[ (S_n/n)^4] < \infty (\ast)$. Indeed if this
+    holds, then 
+    \[
+      \sum_{n \geq 1} \ee \left[ \left( \frac{S_n}{n}  \right) ^4 \right] = \ee
+      \left[ \sum_{n \geq 1} \frac{S_n}{n} ^4 \right] < \infty
+    ,\] 
+  which in turn gives us $\sum_{n \geq 1} (S_n/n)^4 < \infty$ almost surely,
+    thus
+    almost surely $S_n/n \to 0 $ as it is the general term of a convergent
+    series.
+
+    \vspace{0.5em}
+
+    Hence, let us show the desired identity with a combinatorial argument.
+    Observe that 
+    $$\ee[S_n^4] = \sum_{1 \leq j_1, j_2, j_3, j_4 \leq n} \ee[ X_{j_1} X_{j_2} X_{j_3}
+    X_{j_4}]$$
+    however, by independence and the fact that $\ee[X_{j_i}] = 0$, we have that
+    $\ee[X_{j_1} X_{j_2} X_{j_3} X_{j_4}] = 0$ as soon as of one these indices
+    is independent from the others. Thus we can simplify to
+
+    \[
+      \ee[S_n^4] = \sum_{1 \leq j \leq n} \ee[X_j^4] + 6\sum_{1 \leq j_1 < j_2
+      \leq n} \ee[X_{j_1}^2 X_{j_2}^2] = n \ee[X_1^4] + 3n(n-1)\ee[X_1^2]^2
+    .\] 
+
+    Moreover, by Cauchy-Schwarz, $\ee[X_1^2]^2 \leq \ee[X_1^4] = K$, hence 
+    $\ee[S_n^4] \leq 4K n^2$ and $\ee[(S_n / n)^4] \leq 4k/n^2$ and therefore
+    $(\ast)$ holds, as we wanted.
+  \end{proof} 
+
+  \begin{application}
+    Let $(A_i)_{i \geq 1}$ be independent events with same probability $p$, then
+    \[
+      \frac{1}{n} \sum_{i = 1}^n \ind_{A_i} \underset{n \to \infty}{\to} p \;\;
+      a.s.
+    \] 
+  This makes a connection between the "historical" definition of probabilities
+    as the frequency of an event happening when repeating an experiment many
+    times and our "modern" axiomatic approach of probability theory.
+  \end{application}
+
+  \subsection{Kolmogovor's Two Series Theorem}
+
+  Kolmogorov's series theorems gives condtions for almost sure convergence of
+  $\indep$ random variables (not identically distributed).
+
+  \begin{lemma}
+    [Kolmogorov's Maximal Inequality]
+
+    Let $(Z_k)_{1 \leq k \leq n}$ be $\indep$ real-valued r.v. in $L^2$. Set
+    $S_K = Z_1 + \ldots Z_k$ for $1 \leq k \leq n$. Assume tat $\ee[Z_K] = 0$
+    for every $1 \leq k \leq n$. Then $\forall \lambda > 0$
+    \[
+      \pp \left( \max\limits_{1 \leq k \leq n}|S_k| \geq \lambda \right)  \leq
+      \frac{\ee[S_n^2]}{\lambda^2} 
+    .\] 
+  \end{lemma}
+  \begin{proof}
+    \underline{Idea} For $1 \leq k \leq n$, introduce $A_k = \{ |S_k| \geq
+    \lambda, |S_i| < \lambda \forall i < k \} $. These events are disjoint and
+    they union is $\{ \max_{1 \leq k \leq n} \} $. Since they are disjoint, $0
+    \leq \sum_{i=1}^k \ind_{A_i} \leq 1$. 
+
+    Then $S_n^2 \geq S_n^2 \sum_{k=1}^n \ind_{A_k}$, so $\ee[S_n^2] \geq \sum_{k=1}^n \ee[S_n^2 \ind_{A_k}]
+    .$ 
+    \vspace{0.8em}
+
+    \underline{Idea} $S_n^2 = S_k^2 + 2(S_k)(S_n - S_k) + (S_n - S_k)^2$. We
+    force the appearence of $S_n - S_k$ because $S_n - S_k \indep (Z_1, \ldots,
+    Z_k)$.
+
+    \vspace{0.3em}
+
+    Hence using that $(S_n - S_k)^2 \geq 0$
+    \[
+      \ee[S_n^2] \geq \sum_{k=1}^n \ee[S_k^2 \ind_{A_k}] + \sum_{k=1}^n
+      \ee[2S_k(S_n - S_k)\ind_{A_k}]
+    \] 
+    observe that $2 S_k \ind_{A_k}$ is $\sigma(Z_1, \ldots Z_k)$-measurable
+    and $(S_n - S_k)$ is $\sigma(Z_{k+1}, \ldots, Z_n)$-measurable, thus they
+    are independent.
+
+    \vspace{0.6em}
+
+    So $\ee[2 S_k(S_n - S_k) \ind_{A_k}] = 2 \ee[S_k \ind_{A_k}]\ee[S_n - S_k] =
+    0$ as we have $\ee[Z_k] = 0$.
+    
+    \vspace{0.6em}
+
+    Finally, as $S_k^2 \ind_{A_k} \geq \lambda^2 \ind_{A_k}$ we obtain
+    \[
+      \ee[S_n^2] \geq \sum_{k=1}^n \ee[S_k^2 \ind_{A_k}] + \sum_{k=1}^n
+      \ee[2S_k(S_n - S_k)\ind_{A_k}] \geq \lambda^2 \left( \sum_{k =1}^n
+      \pp(A_k) \right) = \lambda^2 \pp(\max_{1 \leq k \leq n} |S_k| \geq
+      \lambda)
+    \] 
+  \end{proof}
+
+\end{document}
