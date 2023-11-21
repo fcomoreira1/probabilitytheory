@@ -1,0 +1,210 @@
+%! TEX root = ../main.tex
+\documentclass[../main.tex]{subfiles}
+
+\author{Francisco Moreira Machado}
+
+\title{Lecture 13}
+
+\begin{document}
+   \subsection{Different Notions of Convergence} 
+
+   Let $X, X_n$ be random variables in $\rr^k$ (with
+   any norm). We have already seen the notion of almost sure convergence:
+   \[
+     X_n \overset{a.s}{\longrightarrow} X \;\;\text{ if } \pp(\{\omega \in \Omega
+     \colon X_n(\omega) \to X(\omega) \} ) = 1
+   \] 
+
+   \begin{definition}
+     We say that $X_n \to X$ in probability and write $X_n
+     \overset{\pp}{\longrightarrow} X$ if $\forall \varepsilon>0$, $\pp(|X_n -
+     X| \geq \varepsilon) \underset{n \to \infty}{\longrightarrow} 0$.
+     Here the norm $|\cdot|$ is the norm in $\rr^k$.
+
+     \vspace{0.2em}
+
+     \noindent
+     If $X_n, X$ are $\rr-$valued, we say that $X_n$ converges to $X$ in $L^p$ if 
+     $\ee[|X_n-X|^p] \underset{n\to \infty}{\longrightarrow} 0$.
+   \end{definition}
+
+   \begin{remark}
+     Almost sure convergence involves the joint law of $(X, X_1, X_2, \ldots)$
+     while convergence in probability and $L^p$ only involve the joint law of
+     $(X_n, X)$.
+   \end{remark}
+
+   \begin{remark}
+     By monotonicity, $\varepsilon' > \varepsilon$ then $\pp(|X_n - X| \geq
+     \varepsilon') \leq \pp(|X_n - X| \geq \varepsilon)$, so $ X_n
+     \overset{\pp}{\longrightarrow} X$ if $\forall \varepsilon>0$ small enough
+     the condition holds.
+   \end{remark}
+
+   \begin{proposition}
+     $X_n \overset{\pp}{\longrightarrow} X$ iff $\ee[\min(|X_n - X|, 1)]
+     \to 0$. 
+   \end{proposition}
+   \begin{proof}
+     $\boxed{\Rightarrow}$ Take $\varepsilon>0$ and write $$\ee[min(|X_n - X|,
+     1)] = \ee[\min(|X_n - X|, 1) \ind_{|X_n - X| < \varepsilon}] + 
+     \ee[\min(|X_n - X|, 1) \ind_{|X_n - X| \geq \varepsilon}]$$
+     Moreover, we have $\ee[\min(|X_n - X|, 1) \ind_{|X_n - X| < \varepsilon}]
+     \leq \ee[\varepsilon] = \varepsilon$ and $\ee[\min(|X_n - X|, 1)
+     \ind_{|X_n - X| \geq \varepsilon}] \leq \ee[\ind_{|X_n - X| \geq
+     \varepsilon}] = \pp(|X_n - X| \geq \varepsilon)$ 
+     \vspace{0.3em}
+
+     \noindent
+     Thus $\limsup_{n \to \infty} \ee[\min(|X_n - X|, 1)] \leq
+     \varepsilon$, which holds for all $\varepsilon$, so it must be $0$.
+
+     \vspace{1em}
+     \noindent
+     $\boxed{\Leftarrow}$ Take $\varepsilon \in [0, 1]$ and observe that $|X_n
+     - X| \geq \varepsilon \implies \min(|X_n - X|, 1) \geq \varepsilon$, thus
+     $\pp(|X_n - X| \geq \varepsilon) \leq \pp(\min(|X_n - X|, 1) \geq
+     \varepsilon) \leq \ee[min(|X_n - X|, 1)] / \varepsilon \underset{n \to
+     \infty}{\longrightarrow} 0$, by Markov's inequality.
+   \end{proof}
+
+   \begin{proposition}
+       If $X_n \overset{a.s}{\longrightarrow} X$ or $X_n
+       \overset{L^p}{\longrightarrow} X$ then $X_n
+       \overset{\pp}{\longrightarrow} X$
+   \end{proposition}
+   \begin{proof}
+       Assume $X_n \overset{L^p}{\longrightarrow} X$. Fix $\varepsilon>0$ and
+       write $\pp(|X_n - X| \geq \varepsilon) = \pp(|X_n - X|^p \geq
+       \varepsilon^p) \leq \ee[|X_n - X|^p] / \varepsilon^p \underset{n \to
+       \infty}{\longrightarrow}0$ again by Markov's Inequality.
+
+       \vspace{1em}
+       \noindent
+       Assume that $X_n \overset{a.s.}{\longrightarrow} X$. Now observe that
+       $\min(|X_n - X|, 1) \overset{a.s.}{\longrightarrow} 0$ and $0 \leq
+       \min(|X_n - X|, 1) \leq 1$, hence by Dominated Convergence we get the
+       result.
+   \end{proof}
+   \begin{remark}
+     For $p = 2$ and $X = \ee[X_n]$
+     the inequality
+       \[
+         \pp(|X_n - \ee[X_n]| \geq \varepsilon) \leq \frac{\ee[(X_n -
+        \ee[X])^2]}{\varepsilon^2} = \frac{Var(X_n)}{\varepsilon^2}
+       \]
+       is know as the Bienaymé-Tchebyshev Inequality.
+   \end{remark}
+   \begin{example}
+     Fix $\alpha > 0$ and let $(X_n)_{n \geq 1}$ be $\indep$ r.v. with
+     $\pp(X_n=1) = 1/n^\alpha$ and $\pp(X_n = 0) = 1 - 1/n^\alpha$.
+
+     \vspace{1em}
+
+     \noindent
+     For this, we can compute $\ee[X_n^p] = 1/n^\alpha \underset{n \to
+     \infty}{\longrightarrow} 0$, hence it converges in $L^p$ and probability
+     to $0$.
+     
+     \vspace{0.5em}
+     \noindent\underline{What about a.s convergence?}
+     \newline
+     For $\alpha > 1$, we have that $\sum_{n=1}^\infty \pp(X_n = 1) < \infty$,
+     thus by Borel Cantelli, almost surely $X_n = 1$ happens a finite number
+     of times, thus $X_n \overset{a.s.}{\longrightarrow}0$.
+     \newline
+     For $\alpha \leq 1$, we have that $\sum_{n=1}^\infty \pp(X_n = 1) =
+     \infty$, and $\sum_{n = 1}^\infty \pp(X_n = 0) = \infty$
+     thus by Borel Cantelli, since $(\{ X_n = 1 \})_{n \geq 1}$ are
+     independent and $(\{ X_n = 0 \})_{n \geq 1}$ are as well, we have 
+     that almost surely $X_n = 1$ and $X_n = 0$ infinitely often, so almost
+     surely it does not converge.
+   \end{example}
+  \begin{lemma}
+      If $X_n \overset{\pp}{\longrightarrow} X$ and $X_n \overset{\pp}{\longrightarrow} Y$, then $X = Y$  almost surely.
+  \end{lemma}
+  \begin{proof}
+    Fix $m \geq 1$, then $\pp(|X - Y| \geq 2/m) \leq \pp(|X_n - X| \geq 1/m) +  
+    \pp(|X_n - Y| \geq 1/m)$, but as $n \to \infty$, we have that the terms in
+    the right hand side converge to $0$, thus $\pp(|X - Y| \geq 2/m) = 0$,
+    fomr which the result follows.
+  \end{proof}
+   \begin{lemma}
+     [Subsequence Lemma]
+     We have $X_n \overset{\pp}{\longrightarrow} X$ iff of every subsequence
+     of $(X_n)$ we can extract a subsubsequence which converges $a.s$ to $X$.
+     (a subsequence of $(X_n)$ is $(X_{\varphi(n)})$ with $\varphi$ an increasing
+     function mapping the naturals to itself.)
+   \end{lemma}
+   \begin{proof}
+      $\boxed{\Rightarrow}$ Let $\phi$ be a subsequence. Since $X_n
+      \overset{\pp}{\longrightarrow} X$, we have $X_{\varphi(n)}
+      \overset{\pp}{\longrightarrow} X$ so $\ee[\min(|X_{\varphi(k)} - X|, 1)]
+      \underset{k \to \infty}{\longrightarrow} 0$
+
+      \vspace{0.3em}
+
+      \noindent
+      Therefore we can find a subsequence $\psi$ such that $\forall n \geq 1$
+      $\ee[min(|X_{\varphi(\psi(n))} - X|, 1)] \leq 1/2^n$. 
+      Indeed, for $k$ sufficiently large we have $\ee[\min(|X_{\varphi(k)} - X|
+      , 1)] \leq 1/2^n$. Then $\sum_{n=1}^\infty
+      \ee[\min(|X_{\varphi(\psi(n))} - X|, 1)] < \infty$, which then implies
+      $\ee[\sum_{n=1}^\infty
+      \min(|X_{\varphi(\psi(n))} - X|, 1)] < \infty$, thus almost surely
+      $\sum_{n=1}^\infty \min(|X_{\varphi(\psi(n))} -X|, 1) < \infty$, which
+      is enough to conclude that $|X_{\varphi(\psi(n))} -X|$ 
+      converges almost surely to $0$.
+
+      \vspace{1em}
+      \noindent
+      $\boxed{\Leftarrow}$ Assume that $\forall \varphi$, $\exists \psi$ such
+      that $X_{\varphi(\psi(n))} \overset{a.s.}{\longrightarrow} X$. Argue by
+      contradiction, then $\ee[\min(|X_n - X|, 1)] \underset{n \to
+      \infty}{\not\rightarrow}0$.
+
+      \vspace{0.3em}
+      \noindent
+
+      Thus there exists $\varepsilon>0$ and a subsequence $\phi$ such that
+      $\ee[\min(|X_{\phi(n)} - X|, 1)] \geq \varepsilon$. But by assumption,
+      there exists a $\psi$ subsequence such that $X_{\varphi(\psi(n))}
+      \overset{a.s.}{\longrightarrow} X$, thus $X_{\varphi(\psi(n))}
+      \overset{\pp}{\longrightarrow} X$, thus $\ee[\min(|X_{\varphi(\psi(n))}
+      - X|, 1)] \underset{n \to \infty}{\longrightarrow} 0$, which contradicts
+      the first identity of this paragraph.
+   \end{proof}
+
+   \begin{application}
+       Assume $X_n \overset{\pp}{\longrightarrow}X$ and $f$ continuous. Then
+       $f(X_n) \overset{\pp}{\longrightarrow} f(X)$.
+   \end{application}
+   \begin{proof}
+       Take any $\varphi$ a subsequence, then by the subsequence lemma there
+       exists $\psi$ such that $X_{\varphi(\psi(n))}
+       \overset{a.s}{\longrightarrow} X$, which implies
+       $f(X_{\varphi(\psi(n))}) \overset{a.s.}{\longrightarrow} f(X)$, which
+       in turn implies by the subsequence lemma the desired identity.
+   \end{proof}
+   \begin{example}
+     [Flying Saucepans]
+     Equip $[0, 1]$ with the Borel $\sigma-$field, and let $\lambda$ be the
+     Lebesgue Measure. For $k\geq0$ and $0 \leq j \leq 2^k - 1$ define
+     \[
+       X_{2^k + j}(\omega) = \ind_{\left[\frac{j}{2^k}, \frac{j+1}{2^k} \right]}(\omega)
+     .\] 
+   Then $X_n \overset{\pp}{\longrightarrow} 0 $ as $\pp(|X_n| > \varepsilon)
+     \leq 1/n$.
+
+     \noindent
+     But $\forall \omega \in [0, 1]$, there exists infinitely many $n \geq 1$
+     such that $X_n(\omega) = 1$, so $X_n$ diverges almost surely.
+   \end{example}
+   \begin{example}
+     [Spiky Cat]
+     Take again $[0, 1]$
+     Set $X_n(\omega) = 2^n \ind_{[0, 1/2^n]}(\omega)$ for $\omega \in[0, 1]$,
+     then $X_n \overset{a.s}{\longrightarrow} 0$ but $\ee[X_n] = 1$, so $X_n$
+     does not converge to $0$ by $L^1$.
+   \end{example}
+\end{document}

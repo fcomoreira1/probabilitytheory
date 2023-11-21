@@ -1,0 +1,221 @@
+%! TEX root = ../main.tex
+\documentclass[../main.tex]{subfiles}
+
+\author{Francisco Moreira Machado}
+
+\title{Lecture 14}
+
+\begin{document}
+In the example above, the portion of space where $X_n \neq 0$ becomes small, 
+however its contribution to the expected value is constant. We have 
+a probabilistic notion that prevents such spikes, wich is \underline{uniform
+integrability}.
+
+\vspace{0.5em}
+
+\noindent
+We saw that for $X \in L^1$ we have $\ee[|X| \ind_{|X| \geq x}] \underset{x \to
+\infty}{\longrightarrow} 0$ by dominated convergence.
+Uniform integrability extends this to a family of random variables.
+
+\begin{definition}
+  [Uniformly Integrable Family]
+  A family $(X_i)_{i \in I}$ of integrable random variables is uniformly
+  integrable if $\sup_{i \in I} \ee[|X_i| \ind_{|X_i| \geq x}] \underset{x \to
+  \infty}{\longrightarrow}0$
+\end{definition}
+
+Equivalently, $\forall \varepsilon > 0, \exists x > 0$ such that $\forall i \in
+I, \ee[|X_i| \ind_{|X_i| \geq x}] \leq \varepsilon$.
+
+\begin{example}
+    \hfill
+    \begin{itemize}
+      \item A finite family of $L^1$ random variables is UI by dominated
+        convregence applied a finite number of times.
+      \item If $Z \geq 0$ is integrable, then $\{ X \colon |X| \leq Z \} $ is
+        UI. Indeed if $|X| \leq Z$, the $\ee[|X| \ind_{|X|\geq x}] \leq \ee[Z
+        \ind_{Z \geq x}]$.
+      \item If $(X_i)_{i \in I}$ is bonuded in $L^p$ for $p > i$ i.e., $\exists
+        c>0$ such that $\forall i \in I$ $\ee[|X_i|^p] \leq C$, then $(X_i)$ is
+        uniformly integrable. Indeed 
+        \[
+          \ee[|X_i|\ind_{|X_i| \geq x}] = 
+          \ee\left[\frac{|X_i|}{|X_i|^p} |X_i|^p\ind_{|X_i| \geq x}\right] \leq
+          \frac{\ee[|X_i|^p]}{x^{p-1}} \leq \frac{C}{x^{p-1}} 
+        .\] 
+    \end{itemize}
+\end{example}
+
+\begin{remark}
+  By definition, a sequence $(X_n)_{n \geq 1}$ of $L^1$ random variables is UI
+  if $$\sup_{n \geq 1} \ee[|X_n|\ind_{|X_n| \geq k}] \underset{k \to
+  \infty}{\longrightarrow}0$$ But since it is a finite family of  $L^1$ random
+  variables, this is equivalent to
+  $$\limsup_{n \geq 1} \ee[|X_n|\ind_{|X_n| \geq k}] \underset{k \to
+  \infty}{\longrightarrow}0$$
+\end{remark}
+
+\begin{theorem}
+  [$\varepsilon-\delta$ condition]
+  A family $(X_i)_{i \in I}$ of $L^1$ random variables is Uniformly Integrable
+  iff 
+  $(X_i)_{i \in I}$ is bounded in $L^1$ (i.e. $\sup_{i \in I} \ee[|X_1|] < A$)
+  and $\forall \varepsilon > 0 \exists \delta > 0$ such that $\forall$ event $A$
+  with $\pp(A) \leq \delta$, $\ee[|X_i| \ind_{A}] \leq \varepsilon$ for every $i
+  \in I$
+\end{theorem}
+\begin{corollary}
+  If $(X_i)_{i \in I}$ and $(Y_j)_{j \in J}$ are two families which are UI, then
+  $\{ X_i + Y_j \colon i \in I, j \in J \} $ is UI.
+\end{corollary}
+\begin{proof}
+  $\boxed{\Rightarrow}$
+  Let $K > 0$ be such that $\ee[|X_i| \ind_{|X_i| \geq k}] \leq 1$ for every $i
+  \in I$, then 
+  $$
+  \ee[|X_i|] = \ee[|X_i| \ind_{|X_i| \geq k}] + \ee[|X_i| \ind_{|X_i| \leq k}]
+  \leq 1 + k
+  $$ 
+  so $(X_i)$ is bounded in $L^1$.
+
+  \vspace{0.5em}
+
+  \noindent Now we proceed for the $\varepsilon-\delta$ condition. Fix
+  $\varepsilon > 0$. Let $K_{\varepsilon}$ be such that $\sup_{i \in I}
+  \ee[|X_i| \ind_{|X_i| \geq K_{\varepsilon}}] \leq \varepsilon$, then taking
+  $\delta = \varepsilon / K_{\varepsilon}$ we get for $\pp(A) \leq \delta$
+  \[
+    \ee[|X_i| \ind_A] = 
+    \ee[|X_i| \ind_A \ind_{|X_i| \geq K_{\varepsilon}}] +
+    \ee[|X_i| \ind_A \ind_{|X_i| \geq K_{\varepsilon}}] 
+    \leq \varepsilon + K_{\varepsilon}\pp(A) \leq 2 \varepsilon
+  .\] 
+
+  \vspace{1em}
+  $\boxed{\Leftarrow}$ Fix $\varepsilon > 0, \delta > 0$ such that the condition
+  holds. Let $k > 0$ be such that $\sup_{i \in I}\ee[|X_i|] \leq K \delta$. Then
+  by Markov's inequality
+  \[
+    \pp(|X_i| \geq k) \leq \frac{\ee[|X_i|]}{K} \leq \delta 
+  \] 
+  Thus we can just apply the $\varepsilon-\delta$ condition with $A = \{ |X_i|
+  \geq k \} $ to get the desired result.
+\end{proof}
+
+UI bridges the gap between convergence in $\pp$ and convergence in $L^1$
+
+\begin{theorem}
+  [Super Dominated Convergence]
+  Let $(X_n)$ be integrable real-valued random variables, $X$ a real valued
+  random variable then the following conditions are equivalent
+  \begin{enumerate}
+    \item $X \in L^1$ and $X_n \overset{L^1}{\longrightarrow} X$
+    \item $X_n \overset{\pp}{\longrightarrow} X$ and $(X_n)_{n \geq 1}$ is UI.
+  \end{enumerate}
+\end{theorem}
+(The name comes from the fact that $\{ X \colon |X| \leq Z \} $ with $Z \geq 0$
+integrable is a UI family: it implies dominated convergence).
+
+\begin{proof}
+  $\boxed{1. \Rightarrow 2.}$ We know that  $X_n \overset{L^1}{\longrightarrow}
+  X$ implies $X_n \overset{\pp}{\longrightarrow}X$. To show that $(X_n)_{n \geq
+  1}$ is UI by the corollary, it suffices to show that $(X_n - X)_{n \geq 1}$ is
+  UI.
+  \vspace{0.4em}
+
+  \noindent
+  To do this, fix $\varepsilon>0$ and choose $n_0$ such that $n \geq n_0$
+  implies $\ee[|X_n - X|] \leq \varepsilon$. Let $k_0$ be such that $k \geq k_0$
+  implies $\max _{1 \leq i \leq n_0} \ee[|X_i - X| \ind_{|X_i - X| \geq k}] \leq
+  \varepsilon$.
+
+  \vspace{0.4em}
+  \noindent
+  Thus $\forall n \geq 1$, $\ee[|X_n - X| \ind_{|X_n - X| \geq k}] \leq
+  \varepsilon$ for $k \geq k_0$.
+
+  \vspace{1em}
+  \noindent
+  $\boxed{2. \Rightarrow 1.}$ We first show that $X \in L^1$. Since $X_n
+  \overset{\pp}{\longrightarrow} X$, there exists a subsequence $\psi$ such
+  that $X_{\psi(n)} \overset{a.s.}{\longrightarrow} X$.
+
+  \vspace{0.4em}
+  \noindent
+  Thus by Fatou's Lemma 
+  \[
+    \ee[|X|] = \ee[\liminf_{n \to \infty} |X_{\psi(n)}|] \leq \liminf_{n \to
+    \infty} \ee[|X_{\psi(n)}] < \infty
+  \] 
+  Now we show that $X_n \overset{L^1}{\longrightarrow} X$. Since $X \in L^1$, we
+  have $(X_n - X)$ is UI by the corollary. Now fix $\varepsilon > 0$ and let
+  $\delta > 0$ be such that the $\varepsilon-\delta$ condition holds.
+
+  \vspace{0.4em}
+  \noindent
+  Then for $n$ sufficiently large $\pp(|X_n - X| \geq \varepsilon) \leq \delta$
+  because $X_n \overset{\pp}{\longrightarrow} X$. Thus
+
+  \[
+    \ee[|X_n - X|] = \ee[|X_n - X|\ind_{|X_n - X| < \varepsilon }] + 
+    \ee[|X_n - X|\ind_{|X_n - X| \geq \varepsilon }]
+    \leq \varepsilon + \varepsilon
+  \] 
+  finishing the proof.
+\end{proof}
+\begin{remark}
+    Existence of a sequence of iid random variables. We have implicitly used the
+    following theorem so far
+\begin{theorem}
+  Let $\mu$ be a probability distribution on $\rr$. There exists a sequence
+  $(X_n)_{n \geq 1}$ of iid random variables with law $\mu$.
+\end{theorem}
+    This is related to the existence of product measures on infinite product
+    spaces (see lecture notes).
+\end{remark}
+
+\section{Conditional Expectation}
+\subsection{Discrete Setting}
+\underline{Goal:} see how the knowledge of information modifies probability
+measures. Here we will "just" define the conditional expectation of random
+variables given a $\sigma-$field.
+
+\vspace{0.5em}
+\noindent
+Let $(\Omega, \mathcal{A}, \pp)$ be a probability space. Take $B \in
+\mathcal{A}$ with $\pp(B) > 0$. We can define
+\[
+  \pp(A | B) = \frac{\pp(A \cap B)}{\pp(B)} 
+\]
+for $A \in \mathcal{A}$. 
+
+\vspace{0.5em}
+\noindent
+$\pp(\cdot \vert B)$ defines a probability measure called the conditional
+probability given the EVENT B.
+
+\vspace{0.5em}
+\noindent
+Similarly for $X \in L^1$ we define 
+\[
+  \ee[X | B] = \frac{\ee[X \ind_{B}]}{\pp(B)} 
+.\] 
+\underline{Interpretation:} Average value of $X$ when $B$ occours. $\ee[X | B]$
+is the expectation of $X$ in $(\Omega, \mathcal{A}, \pp(\cdot | B))$.
+
+\vspace{1em}
+\noindent
+Now let $Y \colon \Omega \to E$ be a random variable with E countable. We want
+to define $\ee[X | Y]$. From before, we have $\ee[X | Y = y] = \cfrac{\ee[X \ind_{Y =
+y}]}{\pp(Y = y)}$ for every $y$ with $\pp(Y = y) > 0$. 
+
+\vspace{0.5em}
+\noindent
+Thus we naturally set $\phi(y) \colon E \to \rr$ to $y \mapsto \ee[X | Y = y]$
+if $\pp(Y = y) > 0$ and $0$ otherwise. Moreover, $\phi(Y)$ is itself a random
+variable which is $\sigma(Y)-$measurable.
+
+\vspace{0.3em}\noindent
+In other words: $\ee[X | Y] (\omega) = \phi(Y(\omega))$
+\end{document}

@@ -8,7 +8,7 @@
 
 \begin{document}
   \begin{theorem}
-      [Kolmogorov 2 Series Theorem]
+      [Kolmogorov Two Series Theorem]
       Let $(Z_k)_{k \geq 1}$ be $\indep$ real valued r.v. in $L^2$.
       Assume that
       \begin{enumerate}
@@ -50,8 +50,8 @@
 
     \vspace{0.2em}
 
-    Fix $k \geq 1$ and set $A_m =  \{
-      \forall n \geq m, |S_n - S_m| \leq 1/k\} $. We want to show that
+    Fix $k \geq 1$ and set $A_m$ to be the event that 
+      $\forall n \geq m, |S_n - S_m| \leq 1/k $. We want to show that
     $\pp(\bigcup_{m \geq 1} A_m) = 1$, but it is clear by definition that
     $(A_m)$ is increasing, so $\pp(\bigcup_{m \geq 1} A_m) = \lim_{n \to
     \infty}\pp(A_n)$.
@@ -88,12 +88,12 @@
      \begin{enumerate}
        \item $\sum_{k =1}^\infty \pp(|X_k| \geq a) < \infty$
        \item $\sum_{k=1}^\infty \ee[X_k \ind_{|X_k| < a}]$ converges in $\rr$
-       \item $\sum_{k=1}^\infty \Var(X_k \ind_{|X_k| < a}) < \infty$ 
+       \item $\sum_{k=1}^\infty Var(X_k \ind_{|X_k| < a}) < \infty$ 
      \end{enumerate}
      then almost surely $\sum_{k=1}^n X_k$ converges as $n \to \infty$.
    \end{theorem}
    \begin{remark}
-     $X_k \ind_{|X_k| > a}$ is bounded random variable so it is in $L^2$.
+     $X_k \ind_{|X_k| < a}$ is bounded random variable so it is in $L^2$.
    \end{remark}
    \begin{remark}
        It is possible to show that the converse is true, that is if
@@ -173,7 +173,7 @@
      First let us assume that $\ee[X_1] = 0$.
      \vspace{0.5em}
 
-     If $\sum_{k=1}^n \frac{x_k}{k} $ converges almost surely, then by
+     If $\sum_{k=1}^n \frac{X_k}{k} $ converges almost surely, then by
      Kronecker Lemma almost surely $\frac{1}{n} \sum_{k=1}^n X_k \to 0 $ as $n
      \to \infty$. Unfortunately this is not always the case, so we need to
      move to a cutoff argument.
@@ -195,7 +195,7 @@
      We can check that $\ee[X_i'] = \ee[X_1 \ind_{|X_1| \leq i}] \to \ee[X_1]$
      as $i \to \infty$. Thus, it is enough to show that 
      \[
-       \frac{Y_1' + \ldots + Y_n'}{n} \oveset{a.s}{\longrightarrow} 0
+       \frac{Y_1' + \ldots + Y_n'}{n} \overset{a.s}{\longrightarrow} 0
        \;\;\;\;(\ast)
      \] 
      with $Y_i' = X_i' - \ee[X_i']$.

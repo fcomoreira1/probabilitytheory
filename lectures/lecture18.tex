@@ -1,0 +1,175 @@
+%! TEX root = ../main.tex
+\documentclass[../main.tex]{subfiles}
+
+\title{Lecture 18}
+
+\begin{document}
+\begin{proposition}
+  [Discrete Stochastic Calculus (You can't trick the game)]
+  A sequence $(H_n)_{n \geq 1}$ of real-valued random variables is called
+  predictable if $\forall n \geq 1$, $H_n$ is bounded and $\mathcal{F}_{n-1}$
+  measurable.
+
+  For a sequence $(M_n)_{n \geq 0}$ we define $(H \cdot M)_{m} = \sum_{k=1}^n
+  H_k(M_k - M_{k-1})$.
+  \begin{itemize}
+    \item If $(M_n)_{n \geq 0}$ is a martingale, then $(H \cdot M)_n)$ is a
+      martingale. In particular $\ee[(H \cdot M)_n)] = 0$
+    \item If $(M_n)$ is a sub/supermartingale and $H_n \geq 0 \forall n \geq 1$ 
+      then  $(H \cdot M)_n)$ is a sub/supermartingale.
+  \end{itemize}
+\end{proposition}
+\underline{Interpretation:} If $M_n$ represents the wealth of a player at time
+$n$, $M_{n+1} - M_n$ represents the amount "won" at time $n$, and
+$H_{n+1}(M_{n+1} - M_n$ represents the amount won if the player had multiplied
+by $H_{n+1}$ the bet at time $n$.
+
+\begin{proof}
+    \hfill
+    \begin{itemize}
+      \item $(H \cdot M)_{n} \in L^1(\Omega, \mathcal{F}_n, \pp)$ by definition.
+        We check that $\ee[(H \cdot M)_{n+1} - (H \cdot M)_{n} | \mathcal{F}_n]
+        = 0$ $\forall n \geq 0$.
+
+        Indeed, $\ee[(H \cdot M)_n | \mathcal{F}_n] = (H \cdot M)_{n}$ so this
+        implies $\ee[(H \cdot M)_{n+1} | \mathcal{F}_n] = (H \cdot M)_{n}$.
+
+        Thus it suffices to check the identity above
+        \[
+          \ee[(H \cdot M)_{n+1}- (H \cdot M)_n | \mathcal{F}_n] =
+          \ee[H_{n+1}(M_{n+1} - M_n) | \mathcal{F}_n] = H_{n+1} \ee[M_{n+1} -
+          M_n | \mathcal{F}_n] = 0
+        .\] 
+    \item It goes similarly. \marginnote{Ex. $\rightarrow$}
+    \end{itemize}
+\end{proof}   
+
+\subsection{The (sub/super)martingale a.s. convergence theorem}
+Recall that a family $(X_i)_{i \in I}$ of random variables is bounded in $L^1$
+if $\sup_{i \in I} \ee[|X_i|] < \infty$.
+
+\begin{theorem}
+  [Doob]
+  Let $(M_n)$ be a (sub/super)martingale \textbf{bounded in $L^1$}. Then $(M_n)$
+  converges a.s. to some real valued random variable $M_{\infty}$ with
+  $\ee[|M_{\infty}|] < \infty$.
+\end{theorem}
+\begin{corollary}
+    A non-negative supermartingale or martingale converges almost surely.
+\end{corollary}
+
+We need some ingredients before starting to tackle the proof. 
+
+First we may assume that $(M_n)$ is a supermartingale.
+
+The main idea is to introduce the notation of upcrossing. Fix $a < b$ and set 
+$S_1 = \inf \{ n \geq 0 \colon M_n \leq a \} $, $T_1 = \inf \{ n \geq S_1 \colon
+M_n \geq b\} $ and by induction $S_{k+1} = \inf \{ n \geq T_k \colon M_n \leq a
+\}, T_{k+1} = \inf \{ n \geq S_{k+1} \colon M_n \geq b \} $ with the convention
+$\inf \emptyset = \infty$. 
+
+Then for $n \geq 1$, define $N_n([a, b]) = \sum_{k=1}^\infty \ind_{\{ T_k \leq n \} } $
+which are the number of upcrossings of $[a, b]$ by $(M_n)_{n \geq 0}$ up to time
+$n$.
+
+\begin{lemma}
+  $(M_n)_{n \geq 1}$ converges in $[-\infty, \infty]$ iff $\forall a < b, a, b
+  \in \qq$, $N_{\infty}[a, b] < \infty$.
+\end{lemma}
+
+\begin{lemma}
+  [Doob Upcrossing Lemma]
+  Let $(M_n)$ be a supermartingale. Then $\forall a < b, \forall n \geq 1$
+  $\ee[N_n([a, b])] \leq \frac{1}{b - a} \ee[(a - M_n)^+] $
+\end{lemma}
+\begin{proof}
+    \hfill
+
+    \noindent\textbf{\sffamily Step 1}
+    Observe that $\forall k, n \geq 1$, $\{ T_k \leq n \}, \{ S_k \leq n \} \in
+    \mathcal{F}_n$. The idea is to define $H_n = \sum_{k=1}^\infty \ind_{\{ S_k
+    < n \leq T_k\} }$ which is one iff $M$ is in the process of doing an
+    upcrossing at time $n$. Notice that this is predictable, as for each $k$,
+    $\{ S_k < n \leq T_k \} = \{ S_k \leq n-1 \} \setminus \{ T_k \leq n-1 \}
+    \in \mathcal{F}_{n-1}$.
+
+    We now consider $(H \cdot M)_n$ which is a supermartingale. Write
+    \begin{align*}
+      (H \cdot M)_l &= 
+          \sum_{n=1}^l H_n (M_n - M_{n-1}) \\
+          &= \sum_{n=1}^l \sum_{k=1}^\infty \ind_{\{ S_k < n \leq T_k \} } (M_n -
+          M_{n - 1}) \\
+          &=
+          \sum_{k=1}^\infty\sum_{n=1}^l  \ind_{\{ S_k < n \leq T_k \} } (M_n -
+          M_{n - 1}) \\
+          &= \sum_{k=1}^\infty \sum_{n=S_k + 1}^{\min(T_k, l)} (M_n - M_{n - 1})
+          \\
+          &= \sum_{k = 1}^{N_l([a, b])} (M_{T_k} - M_{S_k}) \\ 
+          &+ \ind_{S_{N_l([a,
+          b]) + 1}\leq l}(M_l - M_{S_{N_l([a, b]) + 1}}) \\
+          &\geq (b - a) N_{l}([a, b]) - (a - M_l)^+
+    \end{align*}
+
+    But now notice that $(H \cdot M)_l$ is a supermartingale and $\ee[(H \cdot
+    M)_0] = 0$, thus we get by taking expectation
+    \[
+      0 \geq \ee[(H \cdot M)_l] \geq (b-a) \ee[N_l([a, b])] - \ee[(a - M_l)^+]
+    \]
+    from which we get the result.
+\end{proof}
+
+\begin{proof}
+  [Proof of the Theorem using the lemma]
+  Take $(M_n)_{n \geq 0}$ a supermartingale, bounded in $L^1$. Set $K = \sup_{n
+  \geq 1} \ee[|M_n|] < \infty$. By the "deterministic" upcrossing result, it is
+  enough to show that $\forall a < b, a, b \in \qq$ almost surely
+  $N_{\infty}([a, b])<\infty$. Indeed, we then have $a.s. \forall a < b, a, b
+  \ni \qq N_{\infty}([a, b]) < \infty$ thus almost surely $(M_n)$ converges.
+
+  First, by the Doob upcrossing lemma, $\ee[N_n([a, b])] \leq \frac{a + K}{b -a}
+  $ but $N_n([a, b]) \to N_{\infty}([a, b])$ increasingly, thus by monotone
+  convergence, 
+  \[
+    \ee[N_{\infty}([a, b])] = \lim_{n \to \infty} \ee[N_{n}([a, b])] \leq
+    \frac{a + K}{b - a} < \infty
+  .\] 
+Thus $N_{\infty}([a, b]) < \infty$ almost surely. This shows that $M_n
+  \overset{a.s.}{\longrightarrow} M_{\infty}$.
+
+  Next we show that $\ee[|M_{\infty}|] < \infty$. By Fatou's Lemma:
+  \[
+    \ee[|M_{\infty}|] = \ee[\liminf_{n \to \infty} |M_n|] \leq \liminf_{n \to
+    \infty}\ee[|M_n|] \leq K < \infty
+  .\] 
+\end{proof} 
+
+\begin{remark}
+    A (sub/super)martingale bounded in $L^p$ with $p > 1$ is also bounded in
+    $L^1$ because $\ee[|X|] \leq \ee[|X|^p]^{1/p}$. If this is the case, it
+    converges almost surely by Doob's theorem. 
+
+    But we also seen that bounded in $L^p$ implies uniform integrability thus 
+    $M_n \overset{\pp}{\longrightarrow} M_{\infty}$ and $(M_n)$ UI, so $M_n
+    \overset{L^1}{\longrightarrow} M_{\infty}$.
+
+    {\color{red} Warning} for this to hold $p$ must be strictly greater than
+    $1$.
+\end{remark}
+
+\subsection{Example: The Bienaymé Galton-Watson branching processes}
+
+\underline{Goal:} introducea simple model for the evolution of a population.
+
+Let $\mu$ be a probability distribution on $\nn = \{ 0, 1, \ldots \} $.
+Interpretation $\mu(k)$ is the probability of having $k$ children.
+
+Let $(K_{n, j})_{n \geq 0, j \geq 1}$ be an iid family of $\mu-$ distributed
+random variables. Define by induction $X_0 = 1$ and for $n \geq 0$ $X_{n+1} =
+\sum_{j=1}^{X_n} K_{n, j}(w)$. Interpretation: $X_n$ is the size of the
+population at generation $n$.
+
+\begin{question}
+    What is the behavior of $X_n$ as $n \to \infty$?
+\end{question}
+
+\end{document}

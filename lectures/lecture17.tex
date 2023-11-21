@@ -1,0 +1,187 @@
+%! TEX root = ../main.tex
+\documentclass[../main.tex]{subfiles}
+
+\title{Lecture 17}
+
+\begin{document}
+\begin{proposition}
+  [Tower Property]
+  Let $\mathcal{A}_1 \subset \mathcal{A}_2 \subset \mathcal{F}$ be $\sigma-$field. Take 
+  $X$ a random variable with $X \in [0, \infty]$ or $X \in L^1$. Then
+  \[
+    \ee[\ee[X | \mathcal{A}_2] | \mathcal{A}_1] = \ee[X | \mathcal{A}_1]
+  .\] 
+\end{proposition}
+\begin{proof}
+    Let $Z \geq 0$ be $\mathcal{A}_1$ measurable and bounded. We check that
+    $\ee[ZX] = \ee[Z\ee[\ee[X | \mathcal{A}_2] | \mathcal{A}_1]]$.
+
+    To see this, we write
+    $\ee[Z\ee[\ee[X | \mathcal{A}_2] | \mathcal{A}_1]] = \ee[Z \ee[X |
+    \mathcal{A}_2]]]$ because $Z$ is $\mathcal{A}_1-$measurable. But notice that
+    $Z$ is also $\mathcal{A}_2$ measurable, bounded and positive, so we can use
+    the characteristic property again to conclude $\ee[Z \ee[X | \mathcal{A}_2]]
+    = \ee[ZX]$.
+
+    Hence, $\ee[\ee[X | \mathcal{A}_2] | \mathcal{A}_1]$ satisfies the
+    characteristic property, finishing the proof.
+\end{proof}
+
+\begin{lemma}
+    Let $\mathcal{A}_1, \mathcal{A}_2 \subset \mathcal{F}$ be $\sigma-$fields
+    and $X$ random variable in $[0, \infty]$ or integrable. Assume
+    $\mathcal{A}_2 \indep \sigma(\sigma(X), \mathcal{A}_1)$. Then
+    \[
+      \ee[X | \sigma(\mathcal{A}_1, \mathcal{A}_2)] = \ee[X | \mathcal{A}_1]
+    .\] 
+\end{lemma}
+\begin{proof}
+  We show that $\ee[\ind_C X] = \ee[\ind_C \ee[X | \mathcal{A}_1]]$ for every
+  $C$ is a generating $\pi$-system of $\sigma(\mathcal{A}_1, \mathcal{A}_2)$.
+  Indeed, by an exercise of PSet 8, this implies the result.
+
+  We use $\{ A_1 \cap A_2 \colon A_1 \in \mathcal{A}_1, A_2 \in \mathcal{A}_2 \}
+  $ as the generating $\pi-$system of $\sigma(\mathcal{A}_1, \mathcal{A}_2)$.
+  Indeed, for $A_1 \in \mathcal{A}_1, A_2 \in \mathcal{A}_2$ we have 
+  $\ee[\ind_{A_1 \cap A_2} X] = \ee[\ind_{A_1} \ind_{A_2} X]$, but
+  $\mathcal{A}_2 \indep \sigma(\sigma(X), \mathcal{A}_1)$, so 
+  we continue by 
+  $$\ee[\ind_{A_2} \ind_{A_1} X] = \ee[\ind_{A_2}] \ee[\ind_{A_1}
+  X] = \ee[\ind_{A_2}] \ee[\ind_{A_1} \ee[X | \mathcal{A}_1]] = \ee[\ind_{A_1
+  \cap A_2} \ee[X | \mathcal{A}_1]$$
+  Therefore we conclude by the Dynkin Lemma.
+\end{proof}
+
+\begin{remark}
+  [Approximation Toolbox]
+  \hfill
+
+  \begin{itemize}
+    \item $Z \in \rr, Z = Z^+ - Z^-$ with $Z^+, Z^- \geq 0$
+    \item If $Z \geq 0$, $\exists 0 \leq Z_n \to Z$ increasingly with $Z_n$ simple.
+    \item $Z \in \rr$, $Z \ind_{|Z| \leq n} \underset{n to
+      \infty}{\longrightarrow} Z$
+    \item $Z \geq 0$, $Z\ind_{Z \leq n} \to Z$ increasingly.
+  \end{itemize}
+\end{remark}
+
+\newpage
+\section*{4 Martingales and their a.s. convergence}
+\subsection{Definintions and first properties}
+We work on $\Omega, \mathcal{F}, \pp)$.
+
+\begin{definition}
+  A filtration $(\mathcal{F}_n)_{n \geq 0}$ is an weakly increasing sequence of
+  $\sigma-$fields in $\mathcal{F}$.
+\end{definition}
+\underline{Interpretation:} $n$ is the time and $\mathcal{F}_n$ represents the
+information accesible at time $n$.
+
+\begin{definition}
+  Let $(M_n)_{n \geq 0}$ be a sequence of real-valued random vrabiels such that 
+  $M_n \in L^1(\Omega, \mathcal{F}_n, \pp) \;\forall n \geq 0$ (we say that
+  "$(M_n)$ is adapted and integrable"). It is called a
+  \begin{itemize}
+    \item A $(\mathcal{F}_n)$ \textbf{martingale} if $\ee[M_{n+1} |
+      \mathcal{F}_n] = M_n$
+      $\forall n \geq 0$.
+    \item A $(\mathcal{F}_n)$ \textbf{submartingale} if $\ee[M_{n+1} |
+      \mathcal{F}_n]
+      \geq M_n$
+      $\forall n \geq 0$.
+    \item A $(\mathcal{F}_n)$ \textbf{supermartingale} if $\ee[M_{n+1} |
+      \mathcal{F}_n]
+      \leq M_n$
+      $\forall n \geq 0$.
+  \end{itemize}
+\end{definition}
+\underline{Interpretation:} Imagine a player betting at a casino. $M_n$
+corresponds to her wealth at time $n$ and $\mathcal{F}_n$ is the information the
+player has at time $n$ to lace a bet and "win" an amount of $M_{n+1} - M_n$.
+\begin{itemize}
+  \item $(M_n)$ martingale: \underline{fair game}
+  \item $(M_n)$ supermartingale: \underline{defavorable game}
+  \item $(M_n)$ submartingale: \underline{favorable game}
+\end{itemize}
+
+\begin{remark}
+  The definitions are always with respect to some filtration, however if $(M_n)$ 
+  is a $(\mathcal{F}_n)$ martingale, set $\mathcal{A}_n = \sigma(M_0, \ldots,
+  M_n)$ called canonical filtration. Then $(M_n)$ is a $(\mathcal{A}_n)$
+  martingale. Indeed, this holds by the tower property.
+\end{remark}
+\begin{remark}
+  If $(M_n)$ is a $(\mathcal{F}_n)$ martingale, then $\ee[M_n | \mathcal{F}_m] =
+  M_m$ for $0 \leq m \leq n$. Indeed this holds by induction on $n$.
+  For $n = m$ it clearly holds. Now for the induction step, assume $\ee[M_n |
+  \mathcal{F}_m] = M_n$, then
+  \[
+    \ee[M_{n+1} | \mathcal{F}_m] = \ee[\ee[M_{n+1} | \mathcal{F}_n ] |
+    \mathcal{F}_m] = \ee[M_n | \mathcal{F}_m] = M_{m}
+  .\] 
+Moreover, this implies that $\ee[M_n] = \ee[M_m]$ for any $n, m$, hence the
+  expectation of the martingales are constant.
+
+  \vspace{0.5em}
+  \noindent
+  Very similarly:
+
+  For a submartingale $\ee[M_n | \mathcal{F}_m] \geq M_m$ for $0
+  \leq m \leq n$ and $(\ee[M_n])$ is weakly increasing
+
+  For a supermartingale $\ee[M_n | \mathcal{F}_m] \leq M_m$ for $0
+  \leq m \leq n$ and $(\ee[M_n])$ is weakly decreasing
+
+  \begin{remark}
+    $(M_n)$ is a $(\mathcal{F}_n)$ supermartingale iff $(-M_n)$ is a
+    $(\mathcal{F}_n)$ submartingale. For this reason, results are often written
+    using either submartingales or supermartingales.
+  \end{remark}
+
+  \newpage
+  \begin{example}
+      \hfill
+
+      \begin{enumerate}
+        \item Random walk in $\rr$: Fix $x \in \rr$, and let $(X_i)_{i \geq 1}$
+          be iid integrable rv. Set $M_0 = x$, $M_n = x + X_1 + \ldots + X_n$
+          for $n \geq 1$. Let $(\mathcal{F}_n)$ be the canonical filtration.
+          Then $\ee[M_{m+1} | \mathcal{F}_n] = x + X_1 + \ldots + X_n +
+          \ee[X_{n+1}] = M_n + \ee[X_1]$.
+
+        \item If $M \in L^1(\omega, \mathcal{F}, \pp)$, set $M_n = \ee[M |
+          \mathcal{F}_n]$. Then $(M_n)$ is a $(\mathcal{F}_n)$ martingale,
+          called a \underline{closed martingale}.
+
+        \item If $M_n \in L^1 (\Omega, \mathcal{F}, \pp)$ and $M_{n+1} \leq M_n$
+          for every $n \geq 0$, then $(M_n)$ is a $(\mathcal{F}_n))$
+          supermartingale.
+      \end{enumerate}
+  \end{example}
+\end{remark}
+
+\begin{proposition}
+  Assume that $M_n \in L^1(\Omega, \mathcal{F}_n, \pp)$ and let $\phi\colon \rr
+  \to \rr_+$ be a convex function with $\ee[|\phi(M_n)|] < \infty$ for $n \geq 0$
+  then
+  \begin{itemize}
+    \item If $(M_n)$ is a $(\mathcal{F}_n)$ martingale, then $(\phi(M_n))$ is a
+      $(\mathcal{F}_n)$ submartingale.
+
+    \item If $(M_n)$ is a $(\mathcal{F}_n)$ submartingale and $\phi$ is weakly
+      increasing, then $(\phi(M_n))$ is a $(\mathcal{F}_n)$ submartingale.
+  \end{itemize}
+\end{proposition}
+\begin{sketch}
+    Apply Jensen's inequality for conditional expectation in both cases!
+\end{sketch}
+\begin{corollary}
+  If $(M_n)$ is a $(\mathcal{F}_n)$ martingale, then
+\begin{itemize}
+  \item $(|M_n|)$ is a submartingale
+  \item $(M_n^+)$ is a submartingale
+  \item If $\ee[M_n^2] < \infty$, then $(M_n^2)$ is a submartingale
+  \item If $(M_n)$ is a submartingale, then $(M_n^+)$ is a submartingale
+\end{itemize}
+\end{corollary}
+\end{document}

@@ -1,0 +1,151 @@
+%! TEX root = ../main.tex
+\documentclass[../main.tex]{subfiles}
+
+\author{Francisco Moreira Machado}
+
+\title{Lecture 15}
+
+\begin{document}
+\begin{example}
+  Let the space be such that
+    $\Omega = \{ 1,2,,3,4,5,6 \} $, $\pp(\{ \omega \} ) = 1/6 \;\forall \omega \in \Omega$
+  Now let $X(\omega) = \omega$ and $Y(\omega)$ be the indicator of $\omega$ being odd.
+  \\
+  What is $\ee[X | Y]?$
+\end{example}
+
+\begin{lemma}
+    We have
+    \begin{enumerate}
+      \item $\ee[X | Y] \in L^1$
+      \item $\forall Z$ a bounded random variable, $\sigma(Y)-$measurable, 
+        $\ee[ZX] = \ee[Z\ee[X | Y]]$
+    \end{enumerate}
+\end{lemma}
+\begin{proof}
+  For the first statement, we have $\ee[ |\ee[X | Y] |] = \ee[|\phi(Y)|] =
+  \sum_{y \in E} \pp(Y = y) |\phi(y)|$, so substituting the definition 
+  \[
+    \ee[|\ee[X | Y]|] = \sum_{y \in E} |\ee[X \ind_{Y = y}]| \leq \sum_{y \in
+    Y} \ee[|X| \ind_{Y = y}] = \ee[|X|] < \infty
+  .\] 
+
+  \vspace{0.5em}\noindent
+  Now for the second statement, we take $Z$ $\sigma(Y)-$measurable and
+  bounded, which ensures that $ZX$ and $Z\ee[X | Y]$ are both $L^1$. 
+
+  By the Doob-Dynkin Lemma, there exists $F$ measurable such that 
+  $Z = F(Y)$. Then 
+  \begin{align*}
+    \ee[Z \ee[X | Y]] &= \ee[F(Y) \ee[X | Y]] = \sum_{y \in E}
+    \pp(Y = y) F(y) \phi(y)  \\
+    &= \sum_{\substack{y \in E \\ \pp(Y = y) > 0}} F(Y) \ee[X \ind_{Y = y}] \\
+    &= \ee [ X \sum_{\substack{y \in E \\ \pp(Y = y) > 0}} F(y) \ind_{Y =
+    y} ] \;\;\;\;\;\text{By Fubini-Lebesgue} \\
+    &= \ee[X F(Y)] \;\;\;\;\;\text{as the sum is almost surely $F(Y)$}
+  \end{align*}
+\end{proof}
+
+\subsection{Definition and First Properties}
+Let $(\Omega, \mathcal{F}, \pp)$ be a probability space. If $\mathcal{A}
+\subset \mathcal{F}$ is a sub $\sigma-$ field we write $(X \in L^1(\Omega,
+\mathcal{A}, \pp)$ if
+\begin{itemize}
+  \item $X\colon (\Omega, \mathcal{A}) \to (\rr, \mathcal{B}(\rr))$ is
+    measurable
+  \item $\ee[|X|] < \infty$.
+\end{itemize}
+\begin{theorem}
+  \label{thm:condexp}
+  Fix $X \in L^1(\Omega, \mathcal{F}, \pp)$. Let $\mathcal{A} \subset
+  \mathcal{F}$ be a $\sigma-$field. There exists a $\rr-$valued random
+  variable $X'$ with
+  \begin{itemize}
+    \item $X' \in L^1(\Omega, \mathcal{A}, \pp)$.
+    \item $\forall Z \geq 0$ random variable $\mathcal{A}$-measurable and bounded
+      $\ee[ZX] = \ee[ZX']$.
+  \end{itemize}
+\end{theorem}   
+Moreover, if $X''$ is another variable satisfying the theorem above, then $X' =
+X''$ almost surely.
+
+\vspace{0.5em}\noindent
+
+We denote by $\ee[X | \mathcal{A}]$ any such random variable, called a version
+of the conditional expectation of $X$ given $\mathcal{A}$.
+
+\begin{remark}
+    \hfill
+    \begin{enumerate}
+      \item 2. is called "characteristic property of conditional expectation"
+      \item $\ee[X | \mathcal{A}] $ is a random variable, $\mathcal{A}$ measurable, 
+        defined uniquely up to $0$ probability events. In practice this is not
+        a problem because we only consider its expectation or almost sure
+        properties.
+      \item Interpretation of 2.: "$ \langle Z, X - X' \rangle $ = $\ee[Z (X -
+        X')] = 0$". Intuitively, $\ee[X | \mathcal{A}]$ is the projection of
+        $X$ on $\mathcal{A}-$measurable random variables. We will make this
+        precise for $X \in L^2$.
+    \end{enumerate}
+\end{remark}
+\begin{notation}
+  \hfill
+  \begin{itemize}
+    \item
+      Take $Y\colon (\Omega, \mathcal{A}) \to (E, \mathcal{E})$ a random variable,
+      we define
+      \[
+        \ee[X | Y] = \ee[X | \sigma(Y)] 
+      .\] 
+    \item If $B \in \mathcal{F}$ is an event, we define
+      \[
+        \pp(B | \mathcal{A}) = \ee[\ind_{B} | \mathcal{A}]
+      ,\] 
+    it is an $\mathcal{A}-$ measurable random variable.
+  \end{itemize}
+\end{notation}
+\begin{remark}
+    This definition is consistent with what we saw in the discrete setting.
+    Indeed take $Y\colon (\Omega, \mathcal{A}) \to (E, \mathcal{E})$ a random
+    variable with $E$ countable. Let us find $\ee[X | Y]$.
+    \begin{itemize}
+      \item We know that $\forall Z$ $\rr-$valued and $\sigma(Y)-$measurable
+        $\ee[XZ] = \ee[\ee[X | Y] Z]$
+      \item $\ee[X | Y]$ is $\sigma(Y)-$measurable, so by the Doob-Dynkin
+        lemma we can write $\ee[X | Y] = \phi(Y)$. Let us find $\phi$.
+
+        We take $Z = \ind_{Y = y}$ for $y \in E$ and get $\ee[X \ind_{Y = y}]
+        = \ee[\phi(Y) \ind_{Y = y}] = \ee[\phi(y) \ind_{Y = y}] = \phi(y)
+        \pp(Y = y)$, from which we get the desired definition of $\phi$.
+    \end{itemize}
+\end{remark}
+\begin{remark}
+  [Generalization of Doob-Dynkin]
+  More generally, if $Y$ is $\rr^n-$valued, then a $\sigma(Y)-$measurable
+  function is of the form $F(Y)$ with $F$ measurable. 
+\end{remark}
+
+As a consequence, to find $\ee[X | Y]$ we often find a function $\phi$ such
+that for every $f$ $\rr-$valued and bounded
+$\ee[X f(Y)] = \ee[\phi(X) f(Y)]$. Indeed, by Doob-Dynkin this implies that
+$\ee[X Z] = \ee[\phi(Y) Z]$ for every $Z$ real valued and bounded (prop 2 of
+the definition). Since $\phi(Y) \in L^1(\Omega, \sigma(Y), \pp)$ we conclude
+that $\ee[X|Y] = \phi(Y)$.
+
+
+\vspace{1em}\noindent
+\underline{Simple properties of conditional expectation}
+Take $X \in L^1(\Omega, \mathcal{F}, \pp)$, $A \subset \mathcal{F}$ a
+$\sigma-$field. Then we have the following almost sure properties:
+\begin{enumerate}
+  \item $\ee[X | \mathcal{F}] = X$. and $\ee[X | \{ \emptyset, \Omega \}] =
+    \ee[X] $.
+  \item If $X$ is $\mathcal{A}-$measurable, then $\ee[X | \mathcal{A}] = X$.
+  \item $X \mapsto \ee[X | \mathcal{A}]$ is linear.
+  \item $\ee[\ee[X | \mathcal{A}]] = \ee[X]$.
+  \item $X_1 \geq X_2$ implies $\ee[X_1 | \mathcal{A}] \geq \ee[X_2 |
+    \mathcal{A}]$.
+  \item $|\ee[X | \mathcal{A}]| \leq \ee[|X| | \mathcal{A}]$.
+\end{enumerate}
+
+\end{document}

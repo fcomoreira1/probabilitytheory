@@ -1,0 +1,199 @@
+%! TEX root = ../main.tex
+\documentclass[../main.tex]{subfiles}
+
+\title{Lecture 16}
+
+\begin{document}
+    \begin{proposition}
+      Let $Y$ be a random variable with $X \indep Y$ $(Y \colon \Omega \to
+      E)$. Then $\ee[X|Y] = \ee[X]$ (almost surely).
+    \end{proposition}
+    \begin{proof}
+      We show that $\ee[X]$ satisfies the conditional conditions. First, it is
+      straight-forward that $\ee[X] \in L^1(\Omega, \sigma(Y), \pp)$.
+
+      Now take $Z$ rea lvalued, $\sigma(Y)-$measurable and bounded. Let us
+      show that $\ee[ZX] = \ee[Z\ee[X]]$. We write $\ee[ZX] = \ee[Z] \ee[X]$
+      as $Z$ is $\sigma(Y)-$measurable and $X \indep Y$, then $X \indep Z$,
+      finishing the proof.
+    \end{proof}
+
+    Now let us move back and prove the Theorem \ref{thm:condexp}.
+    \begin{proof}
+      \hfill
+
+      \noindent
+      \textbf{\sffamily Proof of Uniqueness} Assume that $X'$ and $X''$ satisfy the two
+      contidions of the theorem. Take 
+
+      \vspace{1em}
+      \noindent
+      \textbf{\sffamily Proof of Existence} We will use some results from measure
+      theory concerning $L^2$ spaces.
+
+      \vspace{0.4em}
+
+      Assume that $X \in L^2(\Omega, \mathcal{F}, \pp)$. We equip $L^2(\Omega,
+      \mathcal{F}, \pp)$ with a scalar product $\langle Y,Z \rangle = \ee[YZ]$
+      and the norm that comes with it, so that $(L^2(\Omega, \mathcal{F}, \pp,
+      \|\cdot\|)$ is a normed vector space which is complete (it is a Hilbert
+      Space).
+
+      Also $L^2(\omega, \mathcal{A}, \pp) \subset L^2(\Omega, \mathcal{F},
+      \pp)$ is a closed subset of $L^2(\Omega, \mathcal{F}, \pp)$. We can
+      therefore consider the orthogonal projection of $X$ onto
+      $L^2(\Omega,\mathcal{A}, \pp)$. If we let $X'$ be the orthogonal projection, 
+      it satisfies $\langle X - X' ,Z \rangle = 0$ for every $Z \in
+      L^2(\Omega, \mathcal{A}, \pp)$. Thus, as $X'$ is bounded, we get the two
+      desired properties.
+
+      \vspace{0.5em}
+
+      Now Let us go back to the $L^1$ case. Assume $X \in L^1(\omega,
+      \mathcal{F}, \pp)$ with $X \geq 0$. We use a truncation argument: for $n
+      \geq 1$ set $x_n = min(X, n)$ so that $0 \leq X_n \leq X$, set 
+      $x_{n}' = \ee[X_n  |\mathcal{A}]$. Because $X_n \in L^2(\Omega,
+      \mathcal{F}, \pp)$.
+
+      Since $X_n \leq X_{n+1}$ we get $X_n' \leq X_{n+1}'$, so $(X_n')_{n \geq
+      1}$ is increasing and bounded, so we can define the limit $X' = \lim_{n
+      \to \infty} X_n'$. We check that this $X'$ satisfies the two properties.
+
+      First take $Z \geq 0$ real valued $\mathcal{A}-$measurable and bonuded.
+      We have $\ee[ZX_n] = \ee[ZX_n']$, but by monotone converge theorem
+      twice, this gives us $\ee[ZX] = \ee[ZX']$. Moreover, since $X'$ is an
+      almost sure limit of $\mathcal{A}-$measurable random variables, it is
+      $\mathcal{A}-$measurable, so $X' \in L^1(\Omega, \mathcal{A}, \pp)$.
+
+      Now it sufficies to extend the characteristic property for real valued
+      $\mathcal{A}-$measurable random variables, but it is straight from
+      linearity by writing $Z = Z^+ - Z^-$.
+      
+      Finally, we use the same argument as above to extend it from $X \geq 0$
+      to any real-valued.
+    \end{proof}
+
+    \subsection{Conditional Expectations for $[0, \infty]$-valued Random Variables}
+
+    \begin{theorem}
+      Fix $X$ a $[0, \infty]-$valued random variable. 
+      Let $\mathcal{A} \subset \mathcal{F}$ be a sub $\sigma-$field. Then
+      there exists a random variable $X'$ such that
+      \begin{enumerate}
+        \item $X'$ $[0, \infty]-$valued and $\mathcal{A}-$measurable
+        \item For every $Z \geq 0$ $\mathcal{A}-$measurable and bounded $\ee[ZX] =
+          \ee[ZX']$.
+      \end{enumerate}
+      Moreover, if $X''$ is another such random variable, $X' = X''$ almost
+      surely. We denote this random variable by $\ee[X | \mathcal{A}]$ and
+      call it the conditional expectation of $X$ given $\mathcal{A}$.
+    \end{theorem}
+    \begin{proof}
+        Uniquenes follow by a similar argument as in the $L^1$ case.
+
+        Existence by a truncation argument: as above, we set $X_n  = min(X,
+        n)$, $X_n' = \ee[X_n | \mathcal{A}]$ and take $X' = \lim_{n \to
+        \infty}X_n'$.
+    \end{proof}
+
+    As in $L^1$ we have the following properties for conditional expectations
+    in the $[0, \infty]-$valued case:
+
+    \vspace{1em}\noindent
+
+    \underline{Properties:} Let $X$ be $[0, \infty]-$valued and let
+    $\mathcal{A} \subset \mathcal{F}$ be a $\sigma-$field.
+    \begin{enumerate}
+      \item $\ee[X | \{ \emptyset, \Omega \} = \ee[X]$.
+      \item If $X$ is $\mathcal{A}-$measurable $\ee[X | \mathcal{A}] = X$.
+      \item If $X, Y$ are $[0, \infty]$ valued, $a, b \geq 0$, $\ee[aX + bY |
+        \mathcal{A}] = a\ee[X | \mathcal{A}] + b \ee[Y | \mathcal{B}]$.
+      \item $\ee[\ee[X | \mathcal{A}]] = \ee[X]$.
+      \item $X \geq Y \geq 0$, then $\ee[X | \mathcal{A}] \geq \ee[Y |
+        \mathcal{A}]$.
+      \item If $Y \colon \Omega \to E$ is a random variable with $X \indep Y$
+        then $\ee[X | Y] = \ee[X]$
+    \end{enumerate}
+
+    (almost surely is implicit in every statement).
+    
+    \newpage
+    \subsection{Convergence Theorems}
+    \begin{theorem}
+        Let $\mathcal{A} \subset \mathcal{F}$ be a $\sigma-$field.
+        \begin{enumerate}
+          \item \textbf{\sffamily (Conditional Monotone Convergence)}
+            Let $(X_n)_{n \geq 0}$ be an increaseing sequence of $[0, \infty]-$valued
+            random variables with $X = \lim_{n \to \infty} X_n$ then $\ee[X_n | \mathcal{A}]$ 
+            converges increasingly to $\ee[X | \mathcal{A}]$ as $n \to \infty$
+            almost surely.
+
+          \item \textbf{\sffamily (Conditional Fatou)}
+            Let $(X_n)_{n \geq 1}$ be $[0, \infty]-$valued rv then
+            $\ee[\liminf_{n \to \infty} X_n | \mathcal{A} ] \leq \liminf_{n \to
+            \infty}\ee[X_n | \mathcal{A}]$.
+
+          \item \textbf{\sffamily (Conditional Dominated Convergence)}
+            Let $(X_n)$ be a sequence of integrable random variables with
+            \begin{itemize}
+              \item $X_n \overset{a.s.}{\longrightarrow} X$
+              \item $\exists Y \geq 0$ in $L^1$ such that $|X_n| \leq Y$ for
+                every $n \geq 1$.
+            \end{itemize}
+            then $\ee[X_n | \mathcal{A}] \underset{n \to
+            \infty}{\longrightarrow} \ee[X | \mathcal{A}]$ almost surely and in
+            $L^1$.
+
+          \item \textbf{\sffamily (Conditional Jensen)}
+            Let $f \colon \rr \to \rr_+$ be a convex function. Assume $X \in L^1$
+            then $f(\ee[X | \mathcal{A}]) \leq \ee[f(X) | \mathcal{A}]$ almost
+            surely.
+
+        \end{enumerate}
+    \end{theorem}
+    \begin{proof}
+      Exercise: Solve 1,2,3.
+      \vspace{0.4em}
+
+      For 4, set $E_f = \{ (a, b) \in \rr^2 \colon \forall x \in \rr, f(x) \geq
+      a \geq ax + b\}$. Then $\forall x \in \rr$, $f(x) = \sup_{(a, b) \in E_f}
+      (ax + b) = \sup_{(a, b) \in E_f \cap \qq^2} (ax + b)$.
+
+      Then $$\ee[f(x) | \mathcal{A}] = \ee[sup_{(a, b) \in E_f \cap \qq^2} ax +
+      b | \mathcal{A}] \geq \ee[ax + b | \mathcal{A}] \forall (a, b) \in E_f
+      \cap \qq^2$$
+
+      Therefore
+      \[
+        \ee[f(x) | \mathcal{A} ] \geq \sup_{(a, b) \in E_f \cap \qq^2} a\ee[X
+        | \mathcal{A}] + b = f(\ee[X | \mathcal{A}])
+      \] 
+      where we used countability because conditional expectations are defined
+      almost surely.
+    \end{proof}
+
+    {\color{red} Warning!} $\ee[X]$ is defined as $\int \pp(d\omega)$ but $\ee[X
+    | \mathcal{A}]$ is not defined using an integral, it is defined using the
+    characteristic property.
+
+    \subsection{Some other useful properties}
+    There are other useful properties when we have several random variables or
+    $\sigma-$fields.
+
+    \begin{proposition}
+        Let $\mathcal{A}$ be a $\sigma-$field, $X, Y$ are random variables with
+        $X, Y$ $[0, \infty]$-valued or $X$ and $XY$ integrable. Assume that $Y$ is
+        $\mathcal{A}$ measurable.
+        then
+        \[
+          \ee[XY | \mathcal{A}] = Y \ee[X |\mathcal{A}]
+        .\] 
+    \end{proposition}
+    \begin{proof}
+        Based on the fact that if $Z$ is $\mathcal{A}-$measurable then $YZ$ is
+        also $\mathcal{A}-$measurable, which allows to show that $ X' = Y\ee[X |
+        \mathcal{A}]$ satisfies $\ee[X' Z] = \ee[XYZ]$ for every $Z$
+        $\mathcal{A}-$measurable, positive and bonuded.
+    \end{proof}
+
+\end{document}
