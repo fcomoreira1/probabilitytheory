@@ -1,0 +1,231 @@
+%! TEX root = ../main.tex
+\documentclass[../main.tex]{subfiles}
+
+\title{Lecture 19}
+
+\begin{document}
+\vspace{0.5em}
+  To void degenerate cases, assume $\mu(0) \neq 1$, $\mu(1) \neq 1$. 
+  Our main assumption is $R = \sum_{i=0}^\infty i\mu(i) < \infty$. 
+  Now to define a Martingale, set $\mathcal{F}_0 = \{ \emptyset, \Omega \},
+  \mathcal{F}_n = \sigma(K_{i,j} \colon i < n, j \geq 1)$.
+
+  \begin{claim}
+    $M_n = \cfrac{X_n}{R^n}$ is a $\mathcal{F}_n$ martingale
+  \end{claim}
+  \begin{proof}
+      First, $M_n$ is $\mathcal{F}_n$ measurable because the definition of $X_n$
+      only involves $X_{i, j}$ for $i < n, j \geq 1$. Also, $M_n \geq 0$, so it
+      suffices to prove it is integrable to guarantee it is $L^1(\Omega,
+      \mathcal{F}_n, \mu)$.
+
+      This can be proved by computing $\ee[X_{n+1} | \mathcal{F}_n]$.
+      \begin{align*}
+        \ee[X_{n+1} | \mathcal{F}_n] &= \ee[\sum_{j=1}^{X_n} K_{n, j} |
+      \mathcal{F}_n] = \ee[\sum_{j=1}^\infty \ind_{j \leq X_n} K_{n, j} |
+      \mathcal{F}_n] \\
+        &= \sum_{j=1}^\infty \ee[\ind_{j \leq X_n} K_{n, j} | \mathcal{F}_n]
+        = \sum_{j=1}^{\infty} \ind_{j \leq X_n} \ee[K_{n, j} | \mathcal{F}_n]
+      \end{align*}
+      where the last inequality holds by monotone convergence and because $X_n$
+      is $\mathcal{F}_n$ measurable.
+
+      Moreover, $\ee[K_{n, j} | \mathcal{F}_n] = \ee[K_{n, j}] = R$ because
+      $K_{n, j} \indep \mathcal{F}_n$ by the coalition principle, from which we
+      conclude that 
+      \[
+        \ee[X_{n+1} | \mathcal{F}_n] = \sum_{j=1}^\infty \ind_{j \leq X_n} R = R
+        X_n
+      \]
+      from which it follows that $(M_n)$ is a martingale and in particular,
+      $\ee[M_n] = 1$ for all $n$, hence it is also integrable, finishing the
+      proof of the claim.
+  \end{proof} 
+
+  Recall that we just proved that $(M_n)$ is bounded in $L^1$, hence it
+  converges almost surely to some r.v. $M_{\infty} \geq 0$. 
+
+  Thus
+  \[
+  \frac{X_n}{R^n} \overset{a.s.}{\longrightarrow} M_{\infty}
+  .\]
+    
+  \vspace{0.5em} \noindent
+  \textbf{\sffamily Questions.}
+  Does this convergence also hold in $L^1$? Is $M_{\infty} > 0$.
+  \vspace{0.5em}
+
+  To answer these questions, we distinguish $3$ cases.
+
+  \vspace{0.4em} \noindent
+  \textbf{\sffamily Case 1.} $R < 1$ (subcritical). 
+  
+  \noindent
+  In this case it is clear
+  from the equation above that $X_n$ will converge to $0$ a.s.
+
+  \vspace{0.4em} \noindent
+  \textbf{\sffamily Case 2.}
+  $R = 1$ (critical).
+
+  \noindent
+  Then $X_n \overset{a.s.}{\longrightarrow} M_{\infty}$. But because $X_n \in
+  \nn$, we have $M_{\infty} \in \nn$, which allows us to show $\forall k \geq 1$,
+  $\pp(M_{\infty} = k) = 0$.
+  
+  If $M_{\infty} = k \geq 1$ then for every $n$ sufficiently large, $X_n =
+  X_{n+1} \ldots = k$. This is very unlikely as the events $\{ \sum_{j=1}^k
+  K_{n,j} \neq k \}_{n \geq 1} $ are $\indep$. 
+
+  Let us prove there is positive probability of each of them happening. Indeed,
+  $R = 1$, $\mu(1) \neq 1$ implies $\mu(0) > 0$, so 
+  $$\pp(\sum_{j=1}^n K_{n, j} \neq k) \geq \pp(K_{n,j} = 0 \colon 1 \leq j \leq
+  k) = \mu(0)^{k} > 0$$
+  Hence, by Borel-Cantelli, we get that almost surely for infinitely many $n$,
+  if $X_n = k$, then $X_{n+1} \neq k$, which contradicts our previous
+  assumption.
+
+  So we conclude with $X_n \overset{a.s.}{\longrightarrow} 0 $, 
+  so almost surely $X_n = 0$ for
+  $n$ sufficiently large.
+
+  Moreover, If $X_n = M_n \overset{a.s.}{\longrightarrow} 0$ and in particular, 
+  $M_n$ does not converge in $L^1$, because $\ee[M_n] = 1$ does not converge to
+  $\ee[0]=0$.
+
+  \vspace{0.4em} \noindent
+  \textbf{\sffamily Case 3.}
+  $R > 1$ (supercritical)
+  
+  \noindent
+  In this case, if $M_{\infty} > 0$, $X_n \thicksim M_{\infty} R^n$. This raises
+  the question of whether $M_{\infty} > 0$.
+
+  One can show that $\pp(\forall n \geq 0, X_n \neq 0) > 0$, but it could still
+  be the case that $\pp(M_{\infty}) = 0$.
+
+  However, if we can have $M_{\infty} > 0$ with positive probability, 
+  which is the case when
+  $\sum_{k=0}^\infty k^2 \mu(k) < \infty$. 
+
+  Indeed, one can then show by computing $\ee[X_{n+1}^2 | \mathcal{F}_n]$ that
+  $(\ee[M_n^2])_{n \geq 1}$ is bounded.
+
+  So $(M_n)$ is a $L^2$ bounded martingale, so $M_n$ converges to $M_{\infty}$
+  almost surely and in $L^1$. In particular, $\ee[M_{\infty}] = 1$ which gives
+  us $\pp(M_{\infty}) > 0$.
+
+  \section{Uniformly Integrable Martingales}
+  \subsection{Reminder on uniform integrability}
+  \begin{definition}
+    $(X_i)_{i \in I}$ family of $\rr-$valued is uniformly integrable (UI) if 
+    \\
+    $\sup_{i \in I} \ee[|X_i| \ind_{|X_i| \geq k}] \underset{k \to
+    \infty}{\longrightarrow} 0$.
+  \end{definition}
+    We saw that this is equivalent to $\sup_{i \in I} \ee[|X_i|] < \infty$ and
+    $\forall \varepsilon, \exists \delta > 0$ such that $\pp(A) \leq \delta
+    \implies \ee [|X_i| \ind_{A}] \leq \varepsilon$ for all $i \in I$
+    ($\varepsilon-\delta$ condition). 
+
+  We saw $X_n \overset{ L^1}{\longrightarrow} X$ iff $(X_n)$ UI and $X_n
+  \overset{\pp}{\longrightarrow}X$ which is called Superdominated Convergence
+  Theorem.
+
+  \begin{theorem}
+    [Strong Law of large numbers: a.s. and $L^1$]
+    Let $(X_n)_{n \geq 1}$ be iid $\rr-$valued integrable r.v. then
+    \[
+      \cfrac{X_1 + \ldots + X_n}{n} \underset{n \to \infty}{\longrightarrow}
+      \ee[X_1]
+    \]
+    almost surely and in $L^1$.
+  \end{theorem}
+  \begin{proof}
+      We already proved it for a.s.
+
+      For $L^1$ convergence, we use super dominated convergence. Indeed, set
+      $Z_n = (X_1 + \ldots + X_n) / n$. We know $Z_n
+      \overset{\pp}{\longrightarrow} \ee[X_1]$. It thus remains to check that
+      $Z_n$ is UI. We use the $\varepsilon-\delta$ condition.
+
+      First, $\ee[|Z_n|] \leq \ee[|X_1|]$. 
+
+      Second, take $\varepsilon > 0$. Since $X_1 \in L^1$, the family $(X_i)_{i
+      \geq 1}$ is UI. So we can find $\delta > 0$ such that 
+      $\pp(A) \leq \delta$ implies $\ee[|X_i| \ind_{A}] \leq \sigma$ for $i \in
+      I$.
+      
+      Now write
+      \[
+        \ee[|Z_n| \ind_{A}] \leq \sum_{k=1}^n \frac{\ee[|X_k| \ind_A]}{n} \leq
+        \sum_{k=1}^n \frac{\varepsilon}{n} = \varepsilon
+      .\] 
+  \end{proof}
+
+  \begin{proposition}
+    Take $X \in L^1(\Omega, \mathcal{F}, \pp)$ and $(\mathcal{A}_i)_{i \in I}$
+    a collection of $\sigma-$fields contained in $\mathcal{F}$.
+    Then $(\ee[X | \mathcal{A}_i])_{i \in I}$ is UI. 
+  \end{proposition}
+  \begin{proof}
+    \underline{Step 1:} By writting $X = X^+ - X^-$ and using the fact that if
+    $(Y_{i})_{i \in I}$ and $(Z_i)_{i \in I}$ are UI, then $(Y_i - Z_i)_{i \geq
+    I}$ is UI, we may assume that $X \geq 0$.
+
+    \vspace{0.3em}
+    \noindent
+    \underline{Step 2:}
+    Fix $\varepsilon>0$. Since $X \in L^1$ we can find $\delta > 0$ such that
+    $\pp(A) \leq \delta \implies \ee[X \ind_A] \leq \varepsilon$. Now choose $k
+    \geq \ee[X] / \delta$ and write
+    $\ee[\ee[X | \mathcal{A}_i] \ind_{\ee[X | \mathcal{A}_i] \geq k}] = \ee[X
+    \ind_{\ee[X|\mathcal{A}_i] \geq k}]$ by the characteristic property of
+    conditional expectation. Now take $A = \{ \ee[X | \mathcal{A}_i] \geq k\} $,
+    and by Markov's Inequality
+    \[
+      \pp(A) \leq \frac{1}{k} \ee[\ee[X | \mathcal{A}_i]] = \frac{1}{k} \ee[X]
+      \leq \delta
+    .\]     
+  Hence $\ee[X \ind_{A}] \leq \varepsilon$ which shows that $(\ee[X |
+    \mathcal{A}_i])_{i \in I}$ satisfies the definition of UI.
+  \end{proof}
+
+  \subsection{UI Martingales}
+
+  Take
+  $\mathcal{F}_0 \subset \mathcal{F}_1 \subset \ldots \subset \mathcal{F}$ to be a
+  filtration.
+
+  \begin{theorem}
+    Let $(M_n)$ be a $(\mathcal{F}_n)$ martingale. The following are equivalent
+    \begin{enumerate}
+      \item $(M_n)_{n \geq 0}$ converges almost surely and in $L^1$ to a random
+        variable denoted by $M_{\infty}$.
+      \item $\exists X \in L^1 (\Omega, \mathcal{F}, \pp)$ such that $\forall n
+        \geq 0$, $M_n = \ee[X | \mathcal{F}_n]$.
+      \item $(M_n)_{n}$ is UI.
+    \end{enumerate}
+    If these conditions holds, we may take $X = M_{\infty}$ in 2.
+  \end{theorem}
+  \begin{proof}
+    \hfill
+
+    \underline{2. implies 3.} as we have just seen $(\ee[X | \mathcal{F}_n])_{n \geq 0}$ is
+    UI.
+
+    \underline{3. implies 1.} If $(M_n)$ is UI martingale, then it is bounded in
+    $L^1$, so it converges a.s. to some random variable $M_{\infty}$ and thus
+    also in probability. Since it is $UI$, we get $L^1$ convergence.
+
+    \underline{1. implies 2.} Fix $n \geq 1$. We know that for $p \geq n$,
+    $\ee[M_p | \mathcal{F}_n] = M_n $. Then write $|\ee[M_{\infty} |
+    \mathcal{F}_n] - \ee[M_p | \mathcal{F}_n]| \leq \ee[|M_{\infty} - M_{p}] |
+    \mathcal{F}_n]$. So $\ee[|\ee[M_{\infty} | \mathcal{F}_n] - M_n|] \leq \ee[|M_{\infty} -
+    M_p|] \underset{p \to \infty}{\longrightarrow} 0$ because $M_p
+    \overset{L^1}{\longrightarrow}M_{\infty}$.
+
+    We conclude $\ee[M_{\infty} | \mathcal{F}_n] = M_n$.
+
+  \end{proof}
+\end{document}

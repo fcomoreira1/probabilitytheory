@@ -1,0 +1,135 @@
+%! TEX root = ../main.tex
+\documentclass[../main.tex]{subfiles}
+
+\title{Lecture 21}
+
+\begin{document}
+  \underline{Goal:} Use optional stopping to study properties of simple random walks.
+
+  Assume $(X_i)_{i \geq 1}$ iid $\pp(X_1 = 1) = \pp(X_1 = -1) = 1/2$, and define
+  $S_0 = 0$, $S_n = \sum_{i=0}^n X_i$ for $n \geq 0$. Take $(\mathcal{F}_n)_{n
+  \geq 0}$ to be the canonical filtration for $S_n$. Since $\ee[X_1] = 0$, we
+  know that $(S_n)$ is a $(\mathcal{F}_n)$ martingale.
+
+  For $x \in \zz,$ set $T_x = \inf \{ n \geq 1 \colon S_n = x \} $, with the
+  convetion that $\inf \emptyset = \infty$, which is a $(\mathcal{F}_n)$
+  stopping time.
+
+  Finally, for $a < 0 < b$, set $T_{a, b} = T_a \wedge T_b$.
+
+  \begin{proposition}
+      For $x \in \zz$, $a < 0 < b$ with $a, b \in \zz$
+      \begin{enumerate}
+        \item $\pp(T_a < T_b) = \frac{b}{b - a} $.
+        \item a.s $T_x < \infty$.
+        \item $\ee[T_{a, b}] = |a| b$
+        \item For $u \geq 0$, $\ee[e^{-uT_b}] = \exp(- \cosh^{-1}(\exp(u))b)$.
+      \end{enumerate}
+  \end{proposition}
+  \begin{proof}
+    \hfill
+    
+     \boxed{1.} $T_{a,b}$ is a stopping time, so let us check that $T_{a, b} < \infty$
+     a.s. We check that a.s. there exists $|a| + b$ consecutive $"+1"$ in the
+     outcomes of $X_i$. Indeed, this event is included in $\{ T_{a, b}< \infty
+     \} $.
+
+     The idea is to use "block" type arguments. More formally, let $(A_i)_{i
+     \geq 1}$ be events defined by $A_{1} = \{ X_1 = \ldots = X_k = +1 \}, \ldots $, 
+     $A_{i} = \{ X_{(i-1)k + 1} = \ldots X_{ik} = 1 \} $.
+     Then, by the coalition principle, $(A_i)_{i \geq 1}$ are $\indep$ and
+     $\pp(A_i) = 1/2^k$, hence in particular, $\sum_{i=0}^\infty\pp(A_i) =
+     \infty$, thus by Borel Cantelli, a.s. $(A_i)$ occours infinitely often.
+     This is enough to conclude that the stopping time is finite.
+
+     Now we can resort to the Optional Stopping Theorem. $(S_{n \wedge T_{a,
+     b}})_{n \geq 0}$ is a martingale which converges a.s. to $S_{T_{a, b}}$.
+     But $|S_{n \wedge T_{a, b}}| < |a| + b$, thus this is a UI martingale,
+     which then we conclude by the Optional Stopping that $\ee[S_{T_{a, b}}] = 0$.
+
+     Finally, we can alternatively write $\ee[S_{T_{a, b}}] = b \pp(T_b < T_a) +
+     a \pp(T_a < T_b) = 0$ (they cannot be equal), which directly implies the result.
+
+     \vspace{0.8em}
+
+     \boxed{2.}
+     Idea is to take $b \to \infty$ in 1. Indeed, since $T_b \geq b$, $T_b
+     \underset{b \to \infty}{\longrightarrow} \infty$, and $(T_b)_{b \geq 1}$ is
+     increasing, so $\pp(T_a < T_b) \underset{b \to \infty}{\longrightarrow}
+     \pp(T_a < \infty)$. But $\frac{b}{b - a} \underset{b \to
+     \infty}{\longrightarrow}1$, so $\pp(T_a < \infty) = 1$. By symmetry of
+     taking $(-S_n)_{n \geq 1}$ we get $\pp(T_b < \infty) = 1$.
+
+     \vspace{0.8em}
+
+     \boxed{3.} The idea is to consider the quadratic martingale $Q_n = S_n^{2}
+     - n$. $Q_n \in L^1 (\Omega, \mathcal{F}_n, \pp)$ because $|Q_n| \leq n^2 +
+     n$. Moreover, $\ee[Q_{n+1} | \mathcal{F}_n] = \ee[S_{n+1}^2 - (n+1) |
+     \mathcal{F}_n] = S_n^2 + 2S_n \ee[X_{n+1}] + \ee[X_{n+1}^2] - n - 1 = S_n^2
+     - n = Q_n$.
+
+     Hence, $(Q_{n \wedge T_{a, b}})_{n \geq 0}$ is also a martingale. However,
+     it is not immediate to check that it is UI, so we argue directly: $\ee[Q_{n
+     \wedge T_{a, b}}] = 0$, thus $\ee[S^2_{n \wedge T_{a, b}}] = \ee[n \wedge
+     T_{a, b}]$. The idea is to make $n \to \infty$ in this equality, which by
+     Monotone Convergence gives us $\ee[n \wedge T_{a,b}] \underset{n \to
+     \infty}{\longrightarrow} \ee[T_{a, b}]$
+
+     Moreover, $S_{n \wedge T_{a, b}}^2 \overset{a.s.}{\longrightarrow} S_{T_{a,
+     b}}^2$ because $T_{a, b} < \infty$ a.s. In addition, 
+     $S_{n \wedge T_{a, b}}^2 < (|a| + b)^2$, hence by dominated convergence, 
+     $S_{n \wedge T_{a, b}}^2 \overset{L^1}{\longrightarrow} S_{T_{a,
+     b}}^2$
+
+     Now we conclude with $\ee[T_{a, b}] = \ee[S_{T_{a, b}}^2] = a^2 \pp(T_a <
+     T_b) + b^2 \pp(T_b < T_a) = |a|b$.
+
+     \vspace{0.8em}
+
+     \boxed{4.} We show that $\ee[(\cosh \lambda)^{-T_b}] = e^{-\lambda b}$ for
+     $\lambda \geq 0$.
+
+     For this, the idea is to consider the so-called exponential martingale:
+     $M_n = \frac{e^{\lambda S_n}}{(\cosh \lambda) ^ n} $. We know that $M_n$ is
+     $\mathcal{F}_n$ measurable and bounded, so it is in $L^1(\Omega,
+     \mathcal{F}_n, \pp)$. We can easily check that it satisfies the other
+     martingale defining property.
+
+     Now, $(M_{n \wedge T_{b}})_{n \geq 0}$ is a martingale which is UI
+     because it is bounded by $e^{\lambda b}$, so we can apply optional
+     stopping: $1 = \ee[M_0] = \ee[M_{T_{b}}] = \ee[e^{\lambda S_{T_b}} / (\cosh
+     \lambda)^{T_b}]$, hence $\ee[(\cosh \lambda)^{-T_b} = e^{- \lambda b}$
+
+     (Observe that here, $(M_{n \wedge T_b})_{n \geq 0}$ is UI but $(S_{n \wedge
+     T_b})_{n \geq 0}$ is not)
+  \end{proof}
+
+  \section{Martingales bounded in $L^p$, $p>1$}
+  We saw that if $(M_n)$ is a martingale bounded in $L^1$, then $(M_n)$
+  converges a.s., but not necessarily in $L^1$. In $L^p, p > 1$ the situation is
+  different.
+
+  $(\Omega, \mathcal{F}, \pp)$ is a probability space, $\mathcal{F}_0 \subset
+  \mathcal{F}_1 \subset \ldots \subset \mathcal{F}$ a filtration.
+
+  \subsection{Doob maximal inequalities}
+  \begin{theorem}
+    [Doob Maximal Inequalities]
+    \hfill
+    \begin{enumerate}
+        \item Let $(M_n)$ be a submartingale. Then $\forall a > 0, n \geq 0$, 
+          $$a \pp(\max_{0 \leq k \leq n} M_n \geq a) \leq \ee[M_n \ind_{\{
+            \max_{0 \leq k \leq n} M_k \geq a \} }] \leq \ee[M_n^+]$$
+
+        \item Let $(M_n)$ be a martingal. Set $M_n^* = \max_{0 \leq k \leq n}
+          |M_k|$. Then for $a > 0, n \geq 0$ we have 
+          \[
+            a \pp(M_n^* \geq a) \leq \ee[|M_n| \ind_{M^*_n \geq a}] \leq \ee[|M_n|]
+          .\] 
+    \end{enumerate}
+  \end{theorem}
+  \begin{remark}
+    \boxed{2.} immediately follows from \boxed{1.} since $(M_n)$ martingale
+    implies $(|M_n|)$ is a submartingale.
+  \end{remark}
+\end{document}

@@ -1,0 +1,222 @@
+%! TEX root = ../main.tex
+\documentclass[../main.tex]{subfiles}
+
+\title{Lecture 20}
+
+\begin{document}
+\begin{corollary}
+  Take $Z \in L^1(\Omega, \mathcal{F}, \pp)$. The martingale $M_n = \ee[Z |
+  \mathcal{F}_n]$ converges a.s. and in $L^1$ to $M_{\infty} = \ee[Z |
+  \mathcal{F}_{\infty}]$, where $\mathcal{F}_{\infty} = \sigma(\bigcup_{n \geq
+  0} \mathcal{F}_n)$
+\end{corollary}
+\begin{proof}
+    By the theorem, $M_n$ converges a.s. and in $L^1$ to some r.v. $M_{\infty}$,
+    now our goal is to prove $M_{\infty} = \ee[Z | \mathcal{F}_{\infty}]$. Let
+    us use the defining properties of conditional expectations.
+
+    First, $M_{\infty}$ is $F_{\infty}$ measurable because it is a a.s. limit of
+    $M_n$, hence it is $\mathcal{F}_n$ measurable for all $n$ and thus
+    $F_{\infty}$ measurable.
+
+    Now we check it is $L^1$. Indeed, it is a $L^1$ limit of random variables,
+    so it is in $L^1$.
+    
+    Finally, we check the characteristic property: $\ee[M_{\infty}Y] = \ee[ZY]$
+    for all bounded and $F_{\infty}$ measurable r.v. $Y$. To do this, we show
+    that for any $\ee[M_{\infty}\ind_A] = \ee[Z \ind_A]$ for all $A \in
+    \bigcup_{n \geq 0} \mathcal{F}_n$, as this is a generating $\pi-$system of
+    $\mathcal{F}_{\infty}$ containing $\Omega$ (which we showed on Exercise 2 of
+    PSet 8 is equivalent to the characteristic property).
+
+    To do this, take $A \in \mathcal{F}_n$ for fixed $n \geq 0$. Take $p \geq n$
+    and knowing that $\ind_A$ is $\mathcal{F}_p$ measurable we write
+    \[
+      \ee[Z \ind_A] = \ee[ \ee[Z | \mathcal{F}_p] \ind_A] = \ee[M_p\ind_A]
+      \underset{p \to \infty}{\longrightarrow} \ee[M_{\infty} \ind_A]
+    .\] 
+    indeed, $M_p \ind_A \overset{L^1}{\longrightarrow} M_{\infty}\ind_A$ as
+    $M_p$ converges in $L^1$ to $M_{\infty}$.
+\end{proof}
+
+\subsection{Optional Stopping}
+
+\underline{Motivation:} If $(M_n)$ is a martingale, $\forall n \geq 0, \ee[M_n]
+= \ee[M_0]$. But what if we stop at random times?
+
+\begin{definition}
+  [Stopping Time]
+  A r.v. $T: (\Omega, \mathcal{F}) \to \nn \cup \{ +\infty \} $ (here $\nn$ also
+  contains 0) is called a $(\mathcal{F}_n)$
+  stopping time if $\forall n \geq 0$, $\{ T = n \} \in \mathcal{F}_n$.
+
+  If $T < \infty$ a.s., then we say that $T$ is a finite stopping time.
+\end{definition}
+\noindent
+\underline{Interpretation:} In the game interpretation, stopping times are the
+random times at which we can decide to stop to play "without looking at the
+future".
+
+\begin{remark}
+    $T$ is a stopping time iff $\forall n \geq 0$ $\{ T \leq n \} \in
+    \mathcal{F}_n$ iff $\forall n \geq 0$ $\{ T > n \} \in \mathcal{F}_n $. 
+
+    $\{ T = \infty \} = \Omega \setminus \bigcup_{n \geq 0} \{ T = n \} \in
+    \mathcal{F}_{\infty}$.
+\end{remark}
+
+\newpage
+\begin{example}
+    \hfill
+    \begin{enumerate}
+      \item If $k \geq 0$ is a fixed constant, $T = k$ is a stopping time.
+      \item If $X_n$ is $\mathcal{F}_n$ measurable, $A \in \mathcal{B}(\rr)$,
+        then $T_A = \inf \{ n \geq 0 \colon X_n \in A \} $ with the convention
+        $\inf \emptyset = \infty$ is a stopping time, called hitting time of
+        $A$.
+    \end{enumerate}
+\end{example}
+
+\begin{lemma}
+  Let $(M_n)$ be a $(\mathcal{F}_n)$ martingale, $T$ be a $\mathcal{F}_n$
+  stopping time, then the so-called stopped process $(M_{n \wedge T})_{n \geq
+  0}$ with $n \wedge T = \min(n, t)$ is a $(\mathcal{F}_n)$ martingale. As a
+  consequence, for every $n \geq 0$, $\ee[M_{n \wedge T}] = \ee[M_0]$.
+\end{lemma}
+\begin{proof}
+    First, to be more formal on the definition of our new martingale, set $M_{n
+    \wedge T}(\omega) = M_{n \wedge T(\omega)}(\omega)$.
+
+    For $n \geq 0$, write $M_{n \wedge T} = \sum_{j=0}^n \ind_{T = j} M_j +
+    \ind_{T > n}M_n$. In particular, all the elements in this expression are
+    $\mathcal{F}_n$ measurable, hence so is $M_{n \wedge T}$ and in $L^1$ as a
+    finite sum of $L^1$ random variables.
+
+    Now we check that $\ee[M_{(n+1) \wedge T} | \mathcal{F}_n] =  M_{n \wedge
+    T}$. Indeed, observe that if $T \leq n$, then $M_{(n+1)\wedge T} = M_{n
+    \wedge T}$, in particular
+    \begin{align*}
+      \ee[M_{(n+1)\wedge T} - M_{n \wedge T} | \mathcal{F}_n]
+      &= \ee[(M_{(n+1)\wedge T} - M_{n \wedge T})\ind_{T > n} | \mathcal{F}_n]
+      \\
+      &= \ee[(M_{n+1} - M_{n})\ind_{T > n} | \mathcal{F}_n] \\
+      &= \ind_{T > n}\ee[(M_{n+1} - M_{n})| \mathcal{F}_n]  \\
+      &= 0
+    .\end{align*} 
+    because $M_n$ is a martingale. Hence we conclude $(M_{n \wedge T})$ is a
+    $(\mathcal{F}_n)$ martingale.
+\end{proof}
+
+\underline{Goal:} Get rid of $n$ in $\ee[M_{n \wedge T}] = \ee[M_0]$ and hope
+that $\ee[M_t] = \ee[M_0]$.
+
+Unfortunately, this is \textbf{false} in general.
+
+\begin{example}
+  Take $(X_n)_{n \geq 1}$ iid $\pp(X_1 = 1) = \pp(X_1 = -1) = 1/2 $ and $S_0 =
+  0$, $S_n = X_1 + \ldots + X_n$ for $n \geq 1$. Consider the canonical
+  filtration, then $(S_n)$ is a martingale.
+
+  If we set $T = \inf \{ n \geq 1 \colon S_n = -1 \} $ (we will later see $T <
+  \infty$ a.s.), then $S_T = -1$, thus our goal does not hold.
+\end{example}
+
+The optional stopping theorem gives a condition for $\ee[M_T] = \ee[M_0]$ to
+hold.
+
+\vspace{0.3em}
+We need the following:
+\begin{definition}
+    Let $T$ be a stopping time. Set $\mathcal{F}_T = \{ A \in \mathcal{F} \colon
+    \forall n \geq 0, A \cap \{ T = n \} \in \mathcal{F}_n\} $
+\end{definition}
+\begin{remark}
+    Although $T$ is a random variable, $\mathcal{F}_T$ is not. In particular,
+    $\mathcal{F}_T$ is a $\sigma-$field. Moreover, if $T = n$ is a constant
+    r.v., then $\mathcal{F}_T = \mathcal{F}_n$.
+\end{remark}    
+
+\noindent
+\underline{Interpretation:} $\mathcal{F}_T$ is the information concerning what
+happened until time $T$.
+
+\begin{lemma}
+    Assume that $\forall n \geq 0$, $M_n$ is $\mathcal{F}_n$ measurable and let
+    $T$ be a $(\mathcal{F}_n)$ stopping time.
+    \begin{enumerate}
+      \item Assume that $T < \infty$ a.s.
+      then $M_T = \sum_{n=0}^\infty \ind_{\{ T =n \}} M_n$ ($M_T=0$ if $T =
+        \infty$) is $\mathcal{F}_T$ measurable.
+      \item Assume now that $M_n \overset{a.s.}{\longrightarrow} M_{\infty}$.
+        Then $M_T = \sum_{n=0}^\infty \ind_{\{T=n\}} M_n + \ind_{\{ T = \infty
+        \} M_{\infty}}$, then $M_T$ is $\mathcal{F}_T$ measurable.
+    \end{enumerate}
+\end{lemma}
+\begin{proof}
+  For 1., we check that $\forall n \geq 0$, $\ind_{\{T = n}\}M_n $ is
+  $\mathcal{F}_T$ measurable and that $\{ T = \infty \} $ is $\mathcal{F}_T$
+  measurable.
+
+  Take $n \geq 0$, $\{ T = \infty \} \cap \{ T = n \} = \emptyset \in
+  \mathcal{F}_n$. 
+
+  Now take $B \in \mathcal{B}(\rr)$ and show that for $n \geq
+  0$,  $\{ \ind_{T = n} M_n \in B \} \in \mathcal{F}_n$. Take $p \geq 0$,
+  $\{ \ind_{T = n} M_n \in B \} \cap \{ T = p \} \in \mathcal{F}_p$, but this
+  intersection is $\emptyset$ if $p \neq n$ and $\{ T = n \} \cap \{ M_n \in B
+  \} $ when $n = p$ (If $0 \not\in B$), both of which are $\mathcal{F}_n$
+  measurable, finishing this step for $B$ such that $0 \not\in B$. For the other
+  case just use the same result but with $B^C$.
+
+  For 2. is similar. \marginnote{Ex. $\longrightarrow$}
+\end{proof}
+
+\begin{theorem}
+  [Optimal Stopping Theorem]
+  Let $(M_n)_{n \geq 1}$ be a UI martingale, converging a.s. and in $L^1$ to
+  $M_{\infty}$. Let $T$ be a stopping time. Then $M_T = \ee[M_{\infty} |
+  \mathcal{F}_T]$.
+
+  In particular, $\ee[M_T] = \ee[M_{\infty}] = \ee[M_0]$.
+\end{theorem}
+
+\begin{corollary}
+  If  $(M_n)$ is a martingale, $T$ a finite stopping time such that $(M_{n
+  \wedge T})_{n \geq 0}$ is UI, then $\ee[M_T] = \ee[M_0]$.
+\end{corollary}
+
+\underline{Tip:} In practice, we use often the fact that a bounded sequence of
+r.v. is UI.
+
+\begin{proof}
+    Recall that $M_T = \sum_{n = 0}^\infty \ind_{\{ T = n \}} M_n + \ind_{\{ T =
+    \infty\} } M_{\infty}$ we saw that $M_T$ is $\mathcal{F}_T$ measurable. 
+
+    Let us check that $M_T$ is in $L^1$.
+    \begin{align*}
+      \ee[|M_T|] &= \sum_{n \in \nn \cup \{ \infty \} } \ee[|M_T| \ind_{T = n}] 
+               = \sum_{n \in \nn \cup \{ \infty \} } \ee[|M_n| \ind_{T = n}] \\
+               &= \sum_{n \in \nn \cup \{ \infty \} } \ee[|\ee[M_{\infty} |
+               \mathcal{F}_n]]| \ind_{T = n}] 
+               \leq \sum_{n \in \nn \cup \{ \infty \} } \ee[\ee[|M_{\infty}| |
+               \mathcal{F}_n]] \ind_{T = n}] \\
+               &= \sum_{n \in \nn \cup \{ \infty \} } \ee[|M_{\infty}| \ind_{T = n}]
+               = \ee[|M_{\infty}|] < \infty.
+    \end{align*}
+
+    Now we show that $M_T = \ee[M_{\infty} | \mathcal{F}_T]$. To do this, we
+    show that $\forall A \in \mathcal{F}_T$ $\ee[M_T \ind_{A}] = \ee[M_{\infty}
+    \ind_{A}] $, from which the results follow by standard approximation
+    approaches.
+
+    We use the same method. For $A \in \mathcal{F}_T$
+    \begin{align*}
+      \ee[\ind_A M_T] &= \sum_{n \in \nn \cup \{ \infty \} } \ee[\ind_{A \cap
+      \{ T = n \} } M_n] \\
+      &= \sum_{n \in \nn \cup \{ \infty \} } \ee[\ind_{A \cap
+      \{ T = n \} } \ee[M_{\infty} | \mathcal{F}_n]] \\
+      &= \sum_{n \in \nn \cup \{ \infty \} } \ee[\ind_{A \cap
+      \{ T = n \} } M_{\infty}] = \ee[\ind_A M_{\infty}] 
+    \end{align*}
+\end{proof}
+\end{document}

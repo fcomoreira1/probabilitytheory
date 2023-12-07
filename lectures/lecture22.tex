@@ -1,0 +1,208 @@
+%! TEX root = ../main.tex
+\documentclass[../main.tex]{subfiles}
+
+\title{Lecture 22}
+
+\begin{document}
+\begin{proof}[\boxed{1.}]
+  THe idea is to introduce the stopping time $T = \inf \{ k \geq 0 \colon M_k
+  \geq a \} $, with $\inf \emptyset = \infty$ and observe that
+  $\pp(\max_{0 \leq k \leq k} M_k \geq a) = \pp(T \leq n)$.
+
+  Now, let us expand $a \pp(T \leq n) = a \sum_{k=0}^n  \pp(T = k) =
+  \sum_{k=0}^n \ee[a \ind_{a = k}]$, but $a \ind_{a = k} \leq M_k \ind_{a =
+  k}$, thus $\sum_{k=0}^n \ee[a \ind_{T = k}] \leq \sum_{k=0}^n \ee[M_k
+  \ind_{T = k}]$.
+
+  Moreover, $(M_n)$ is a submartingale, so $M_k \leq \ee[M_n | \mathcal{F}_k]$
+  and thus $\sum_{k=0}^n \ee[M_k \ind_{T = k}] \leq \sum_{k=0}^n \ee[\ee[M_n |
+  \mathcal{F}_k] \ind_{T = k}] = \sum_{k=0}^n \ee[M_n \ind_{T = k}] = \ee[M_n
+  \ind_{T \leq n}]$ which is what we wanted.
+\end{proof}
+
+\begin{theorem}
+  [Doob $L^p$ inequalities, $p > 1$]
+  Fix $p > 1$.
+
+  \begin{enumerate}
+    \item Let $(M_n)$ be a positive submartingale, then $\forall n \geq 0$
+      \[
+        \ee[(\max_{0 \leq k \leq n} M_k)^p] \leq \left( \frac{p}{p-1}
+        \right)^p \ee[M_n^p] )
+      .\] 
+    \item Let $(M_n)$ be a martingale. Write $M_n^* = \max_{0 \leq k \leq n}
+      |M_k|$ then
+      \[
+        \ee[(M_n^*)^p] \leq \left( \frac{p}{p-1}
+        \right)^p \ee[|M_n|^p] )
+      .\] 
+  \end{enumerate}
+\end{theorem}
+\begin{remark}
+  Again, \boxed{2.} follows immediately from \boxed{1.} as if $(M_n)$ is
+  martingale, then $(|M_n|)$ is a submartingale.
+\end{remark}
+
+Before proving the theorem, we prove some useful results:
+
+\begin{lemma}
+  [Holder's inequality]
+  Let $q > 1$ be such that $1/p + 1/q = 1$. Let $X, Y$ be $\rr-$valued r.v.
+  with $X \in L^p$ and $Y \in L^q$, then
+  \[
+    \ee[|XY|] \leq \ee[|X|^p]^{1/p} \ee[|Y|^q]^{1/q} 
+  .\] 
+\end{lemma}
+\begin{proof}
+  First step: (Young's Inequality) for $a, b \geq 0$, it holds that $ab \leq a^p/p + b^q/q$.
+
+    Second step: We may assume that the expectations on the RHS are positive,
+    as otherwise either $X$ or $Y$ would be almost surely $0$, and thus the
+    inquality is trivially true. Moreover, we may divide $X$ by
+    $\ee[|X|^p]^{1/p}$ and similarly for $Y$ and obtain $\ee[|X|^p] = 1$,
+    $\ee[|Y|^q] = 1$.
+
+    Now we apply Young's inequality and conclude $|XY| \leq |X|^p/p +
+    |Y|^q/q$, so taking expectations $\ee[|XY|] \leq 1/p + 1/q = 1$.
+\end{proof}
+
+\begin{lemma}
+  [Moment-tail]
+  Let $X \geq 0$ be a random variable, then $\forall p > 0$
+  \[
+    \ee[X^p] = p \int_{0}^\infty x^{p-1} \pp(X \geq x) dx
+  .\] 
+\end{lemma}
+\begin{proof}
+    Using Fubini-Tonelli we get
+    \begin{align*}
+      p \int_{0}^\infty x^{p-1} \pp(X \geq x) dx 
+      &= p \int_{0}^\infty x^{p-1} \ee[\ind_{X \geq x}] dx \\
+      &= \ee [\int_{0}^{\infty} px^{p-1} \ind_{X \geq x} dx] \\
+      &= \ee[\int_0^\infty p x^{p-1}dx] = \ee[X^p]
+    \end{align*}
+\end{proof}
+\begin{proof}
+  [Doob's $L^p$ Inequality]
+  If $\ee[M_n^p] = \infty$, then there is nothing to prove. Assume $M_n \in
+  L^p$. We further check that for $0 \leq k \leq n$ $M_k \in L^p$ as well: 
+  write $\ee[M_k^p] \leq \ee[(\ee[M_n | \mathcal{F}_k])^p] \leq \ee[\ee[M_n^p
+  | \mathcal{F}_k]] = \ee[M_n^p] < \infty$ because $(M_n)$ is
+  a submartingale and applying conditional Jensen.
+
+  Now write $M_n^* = \max_{0 \leq k \leq n} M_k$. We check $M_n^* \in L^p$ as
+  $\ee[(M_n^*)^p] \leq \sum_{k=0}^n \ee[M_k^p] < \infty$.
+
+  Using the tail-moment lemma and Doob's maximal inequality
+  \begin{align*}
+    \ee[(M_n^*)^p] &= p \int_{0}^\infty a^{p-2} a\pp(M_n^* \geq a) da
+    \tag*{Tail-Moment}\\
+    &\leq p \int_{0}^\infty a^{p-2} \ee[M_n \ind_{M_n^* \geq a}] da
+    \tag*{Doob's Max Ineq}\\
+    &= \ee[\int_{0}^\infty pa^{p-2} M_n \ind_{M_n^* \geq a} da] \tag*{Fubini}\\
+    &= \ee[p M_n \int_{0}^{M_n^*} a^{p-2}da] \\
+    &= p \ee[M_n \frac{(M_n^{*})^{p-1}}{p-1} ] \\
+    &\leq \frac{p}{p-1} \ee[M_n^p]^{1/p} \ee[(M_n^*)^p]^{p-1/p} \tag*{By
+    Holder} \\
+  \end{align*}
+  from which the conclusion holds directly.
+\end{proof}
+
+\subsection{Martingales bounded in $L^p$}
+Recall that for $p>1$, $X$ real-valued r.v. 
+\[
+  \ee[|X|] \leq \ee[|X|^p]^{1/p}
+\] 
+So $(X_n)$ bounded in $L^p$ implies it is bounded in $L^1$ and $X_n
+\overset{L^p}{\longrightarrow} X \implies X_n \overset{L^1}{\longrightarrow}X$
+
+\begin{theorem}
+  [$L^p$ Martingales]
+  Let $(M_n)$ be a martingale bounded in $L^p$, $p > 1 (\sup_{n} \ee[|M_n|^p]
+  < \infty$. Then
+  \begin{enumerate}
+    \item $M_n$ converges a.s. and in $L^p$ to a random variable $M_{\infty}$
+      with $\ee[|M_{\infty}|^p] = \sum_{n \geq 0}\ee[|M_n|^p]$
+    \item Setting $M_{\infty}^* = \sum_{n \geq 0} |M_n|$, we have
+      \[
+        \ee[(M_{\infty}^*)^p] \leq \left(\frac{p}{p-1}\right)^p
+        \ee[|M_{\infty}|^p] 
+      .\] 
+  \end{enumerate}
+\end{theorem}
+\begin{proof}
+  For \boxed{1.} $(M_n)$ is bounded in $L^p$, so it is bounded in $L^1$ and in
+  particular, it converges a.s to some r.v. $M_\infty$. 
+
+  To show that this
+  convergence also holds in $L^p$, we use Doob's $L^p$ inequality:
+  $\ee[(M_{\infty}^*)^p] \leq (p/(p-1))^p \sup_{k \geq 0} \ee[|M_k|^p]$, but 
+  $M_n^*$ converges increasingly to $M_{\infty}^*$, so by monotone convergence
+  $\ee[(M_n^{*})^p] \underset{n \to \infty}{\longrightarrow}
+  \ee[(M_{\infty}^*)^p]$ and we conclude that $\ee[(M_{\infty}^*)^p] \leq
+  (p/(p-1))^p \sup_{k \geq 0} \ee[|M_k|^p]$ thus $M_{\infty}^* \in L^p$ and so
+   $M_{\infty} \in L^p$. 
+
+   Now, notice $|M_n - M_{\infty}|^p \overset{a.s.}{\longrightarrow} 0$ and
+   $|M_n - M_{\infty}|^p \leq (|M_n| + |M_{\infty}|)^p \leq 2^p (|M_n|^p +
+   |M_{\infty}|^p) \leq 2^p (|M_{\infty}^*|^p +
+   |M_{\infty}|^p)$, so it is bounded and we may apply dominated convergence
+   to conclude convergence in $L^p$.
+  Now, since $M_n \overset{L^p}{\longrightarrow} M_{\infty}$ we
+   have $\ee[|M_n|^p] \to \ee[|M_{\infty}|^p]$. Since $(|M_n|^p)$ is a
+   submartingale, the sequence $(\ee[|M_n|^p|])$ is nondecreasing, so the
+   limit and the supremum coincide
+\end{proof}
+\begin{remark}
+  If $(M_n)$ converges in $L^p$, then it is bounded in $L^p$ (true for any
+  sequence of random variables).
+\end{remark}
+
+\section{Convergence in distribution of random variables}
+In a.s., $\pp$, $L^p$ convergence of random varialbles $X_n \to X$, the
+quantity "$X_n(\omega) - X(\omega)$" was involved, it says something about the
+joint realization of $X_n$ and the limit $X$.
+
+Here we define a notion of convergence for the \underline{laws} of random
+variables.
+
+\vspace{0.5em}
+
+We work with $\rr^d-$valued random variables (but most that follows can be
+extended to general metric spaces).
+
+\begin{notation}
+  [Set of bounded continuous functions]
+  $\mathcal{C}_b(\rr^d) = \{ f: \rr^d \to \rr \text{ cotinuous and bounded}\}
+  $. For $f \in \mathcal{C}_b(\rr^d)$, we write $\| f \|_{\infty} = \sup_{x
+  \in \rr^d} |f(x)|$. Here $|\cdot|$ is any norm in $\rr^d$.
+\end{notation}
+
+\begin{definition}
+  A sequence $(\mu_n)$ of probability measures on $\rr^d$ is said to converge
+  \underline{weakly} to a probability measure $\mu$ on $\rr^d$ if $$\forall f
+  \in \mathcal{C}_b(\rr^d), \int_{\rr^d} f(x)\mu_n(dx) \underset{n \to \infty}{\longrightarrow} \int_{\rr^d}
+  f(x)\mu(dx) $$
+  ($f$ is called a test function).
+
+  Moreover, a sequence $(X_n)$ of $\rr^d-$valued r.v. is said to converge in
+  distribution or converge in law to a $\rr^d-$valued r.v. if $\pp_{X_n} \to
+  \pp_X$ weakly, that is
+  \[
+    \forall f \in \mathcal{C}_b(\rr^d), \ee[f(X_n)] \underset{n \to
+    \infty}{\longrightarrow}\ee[f(X)]
+  .\] 
+\end{definition}
+\begin{remark}
+    When we say $X_n$ converges in distribution to $X$, there is an abuse of
+    notation. The limiting random variable is not uniquely defined, only its
+    LAW is.
+
+    For this, we sometimes say that "$X_n$ converges in distribution to $\mu$"
+    a probability measure.
+
+    Finally, the random variables $(X_n), X$ are not necessarily defined on
+    the same space.
+\end{remark}
+
+\end{document}
