@@ -1,0 +1,230 @@
+%! TEX root = ../main.tex
+\documentclass[../main.tex]{subfiles}
+
+\title{Lecture 23}
+\begin{document}
+\begin{theorem*}
+  [Probabilistic Formulation]
+  Let $X_n, X$ be r.v. in $\rr^d$. The following are equivalent
+  \begin{enumerate}
+    \item $X_n \overset{(d)}{\longrightarrow} X$
+    \item $\forall f : \rr^d \to \rr$ lipschitz bounded
+    \item $\forall F \subset \rr^d$ closed, $\limsup_{n \to \infty} \pp(X_n \in
+      f) \leq \pp(X \in f)$
+    \item $\forall O \subset \rr^d$ open, $\liminf_{n \to \infty} \pp(X_n \in
+      O) \geq \pp(X \in O)$
+    \item $\forall A \subset \rr^d$ with $\pp(X \in \partial A) = 0$, $\pp(X_n
+      \in A) \to \pp(X_A)$.
+    \item   $\forall f: \rr^d \to \rr$ measurable bounded, a.s. continuous ate
+      $X$, $\ee[f(X_n)] \to \ee[f(X)]$.
+  \end{enumerate}
+\end{theorem*}
+\begin{corollary}[Extended Continuous Mapping]
+  If $X_n \overset{(d)}{\longrightarrow} X$, $F : \rr^d \to \rr^n$ is almost
+  surely continuous at $X$, then $F(X_n) \overset{(d)}{\longrightarrow} F(X)$.
+\end{corollary}
+\begin{proof}
+    This comes from the fact that if $f : \rr^n \to \rr$ is continuous bounded,
+    then $f \circ F \colon \rr^d \to \rr$ is bounded, almost surely continous at
+    X and the result follows from \boxed{6.}
+\end{proof}
+
+\begin{example}
+  If $X_n$ is $\rr$ valued and $X_n \overset{(d)}{\longrightarrow} X$ with $X
+  \neq 0$ a.s. then $1/X_n \overset{(d)}{\longrightarrow} 1/X$
+\end{example}
+
+\vspace{0.4em}
+\noindent
+\underline{\sffamily Connection with CDF's in $\rr$}
+
+\vspace{0.4em}
+\noindent
+If $X$ is a $\rr-$valued r.v., $F_X(t) = \pp(X \leq t)$ for $t \in \rr$ is its
+CDF.
+
+\begin{itemize}
+  \item $F_X$ is continuous at $x$ iff $\pp(X=x) = 0$
+  \item $F_X$ has at most a countable number of discontinuity points
+\end{itemize}
+
+\begin{theorem}
+  Let $X_n, X$ be a $\rr-$valued r.v. then $X_n \overset{(d)}{\longrightarrow}
+  X$ iff $\pp(X_n \leq t) \to \pp(X \leq t)$ for every $t \in \rr$ 
+  that is a continuity point of $F_x$.
+\end{theorem}
+\begin{example}
+  $X_n = 1/n$, $X_n \overset{(d)}{\longrightarrow} 0$.
+\end{example}
+
+\begin{proof}
+  $\boxed{\implies}$ Let $t \in \rr$ be a continuity point of $F_X$, so $\pp(X =
+  t)  = 0$. Take $A = (-\infty, t]$ in \boxed{5.} of Portemanteau, $\partial A =
+  \{ t \} $ so $\pp(X \in \partial A) \pp(X = t) = 0$. Thus $F_{X_n}(t) =
+  \pp(X_n \in A) \to \pp(X \in A) = F_X(t)$.
+
+  \vspace{0.4em}
+  \noindent
+  \boxed{\impliedby} We show \boxed{4.} in Portemanteau, i.e. $\forall O \subset
+  \rr$ open, $\limsup_{n \to \infty} \pp(X_n \in O) \geq \pp(X \in O) (\star)$
+
+  We show first that $\forall a, b \in \rr$, $\limsup_{n \to \infty} \pp(X_n
+  \leq b) \leq \pp(X_b)$ and $\liminf_{n \to \infty} \pp(X_n > a) \geq \pp(X >
+  a) $, puttings this together $(\star)$ will hold for all open intervals.
+
+  Since $F_X$ has at most countable number of discontinuity points, its
+  continuity points are dense in $\rr$, so we can choose $t > b$ with $F_X$
+  continuous at $t$. 
+
+  Then $\limsup_{n \to \infty} \pp(X_n \leq b) = \limsup_{n \to \infty} \pp(X_n
+  \leq t) = \pp(X \leq t)$ by assumption. Now take $t$ converge decreasingly to
+  $b$ and this together with the right continuity of the cdf implies $\pp(X \leq
+  t) \to \pp(X \leq b)$. Finally, to prove the limsup result is very similar \marginnote{Ex.
+  $\rightarrow$}
+
+  \vspace{0.4em}
+  \noindent
+  Now we go back to taking $O \subset \rr$ open. We know that we can write $O =
+  \bigcup_{i \in I} (a_i, b_i)$ with $I$ being at most countable and $(a_i,
+  b)i)$ being pairwise disjoint open intervals. In particular
+  \begin{align*}
+    \pp(X \in O)  &= \pp(X \in \bigcup_{i \in I} (a_i, b_i)) = \sum_{i \in I}
+    \pp(X \in (a_i, b_i)) \\
+    &\leq \sum_{i \in I} \liminf_{n \to \infty} \pp(X_n \in (a_i, b_i )) \\ 
+    &\leq \liminf_{n \to \infty} \sum_{i \in I} \pp(X_n \in (a_i, b_i))
+    \tag*{ by Fatou} \\
+    &= \liminf_{n \to \infty} \pp(X_n \in O)
+  \end{align*}
+\end{proof}
+
+\begin{corollary}
+  $X_n \overset{(d)}{\longrightarrow} X$ with density $p$ iff $\forall t \in
+  \rr, \pp(X_n \leq t) \to \pp(X \leq t)$ iff $\forall t \in \rr, \pp(X_n < t)
+  \to \pp(X < t) = \pp(X \leq t)$ iff $\forall a < b$ $\pp(a \leq X_n \leq b)
+  \to \int_{a}^b p(t) dt$.
+\end{corollary}
+\begin{application}
+  Fix $\lambda > 0$, and take $X_n \sim Geo(\frac{\lambda}{n} )$, then $X_n / n
+  \overset{(d)}{\longrightarrow} Exp(\lambda)$. 
+\end{application}
+
+\begin{proposition}
+    Let $X_n$ be $\rr^d$ valued and $a \in \rr^d$ a constant, then $X_n
+    \overset{(d)}{\longrightarrow}a$ iff $X_n \overset{\pp}{\longrightarrow}a$
+\end{proposition}
+\begin{proof}
+  $\boxed{\impliedby}$ We have already seen that convergence in probability
+  implies convergence in distribution 
+
+  $\boxed{\implies}$ We show $\forall \varepsilon > 0$, $\pp(|X_n - a| \geq
+  \varepsilon) \to 0$. Take $B(x, \varepsilon)$ to be the open ball of radius
+  $\varepsilon$ around $x$, in particular, $\pp(|X_n - a| \geq \varepsilon) =
+  \pp(X_n \in B(a, \varepsilon)^c)$. Then by Portemanteau for closed sets
+  \[
+    \limsup_{n \to \infty} \pp(|X_n - a| \geq \varepsilon) \leq \pp(a \in B(a,
+    \varepsilon)^c) = 0
+  .\] 
+\end{proof}
+\begin{theorem}
+  [Slutsky's Theorem]
+  Let $X_n, X, Y_n$ be $\rr^d-$valued random variable, $a \in \rr^d$ constant.
+  Assume $X_n \overset{(d)}{\longrightarrow} X$, $Y_n
+  \overset{\pp}{\longrightarrow} a$, then $(X_n, Y_n)
+  \overset{(d)}{\longrightarrow} (X, a)$.
+\end{theorem}
+\begin{application}
+  If $a = 0$, then $X_n + Y_n \overset{(d)}{\longrightarrow} X$. Indeed, $(X_n,
+  Y_n) \overset{(d)}{\longrightarrow} (X, 0)$, thus by continuous mapping
+  $f(X_n, Y_n) \overset{(d)}{\longrightarrow} f(X, 0)$ with $f(x, y) = x+y$
+
+  Moreover, if $a \neq 0$, then $X_n / Y_n \overset{(d)}{\longrightarrow} X /
+  a$, which we can prove by extended continuous mapping with $f(x, y) = x / y$
+  if $y \neq 0$ and $0$ otherwise. One can check that $f$ is almost surely
+  continuus at $(X, a)$.
+\end{application}
+
+\underline{\sffamily Take home message:} in a cv in $(d)$ one can replace a
+random varirable by its limiting values when it converges in probability without
+changing the limit.
+
+{\color{red} Warning!} In general, $X_n \overset{(d)}{\longrightarrow} X, Y_n
+\overset{(d)}{\longrightarrow} Y$ does not imply $(X_n, Y_n)
+\overset{(d)}{\longrightarrow} (X, Y)$. Indeed take $X$ with $\pp(X = 1) = \pp(X
+= -1/2) = 1/2$ and $X_n = X$, $Y_n = -X$, then it will not hold.
+
+We will prove later that the implication works under assumption of $\indep$.
+
+\begin{lemma}
+  Let $X_n, X, Y_n$ be $\rr^d-$valued. Assume $X_n
+  \overset{(d)}{\longrightarrow} X$ and $|X_n - Y_n|
+  \overset{\pp}{\longrightarrow} 0$, then $Y_n \overset{(d)}{\longrightarrow} X$
+\end{lemma}
+\begin{proof}
+  We show that $\forall F$ closed, $\limsup \pp(Y_n \in F) \leq \pp(X \in F)$.
+  Define for $p \geq 1$ $F^{(1/p)} = \{ x \in \rr^d \colon d(x, F) \leq
+  \frac{1}{p}  \} $ called the $1/p-$closed enlargement of $F$.
+  \begin{align*}
+    \pp(Y_n \in F) &= \pp(Y_n \in F, |X_n - Y_n| \leq \frac{1}{p} ) + 
+    \pp(Y_n \in F, |X_n - Y_n| > \frac{1}{p} )  \\
+    &= \pp(X_n \in F^{(1/p)}) + \pp(|X_n - Y_n| > \frac{1}{p}).
+  \end{align*}
+  So $\limsup \pp(Y_n \in F) \leq \pp(X \in F^{(1/p)} + 0$. 
+
+  Now take $p \to \infty$ since $F^{(1/p)}$ is decreasing and $\bigcap_{p \geq
+  1} F^{(1/p)} = F$ as $F$ is closed, we get $\pp(X \in F^{(1/p)}) \underset{p
+  \to \infty}{\longrightarrow} \pp(X \in F)$.
+\end{proof}
+\begin{proof}
+  [Slutsky's Theorem]
+  By continuous mapping, we have $(X_n, a) \overset{(d)}{\longrightarrow} (X,
+  a)$. 
+
+  Now equp $\rr^2$ with the $L^1$ norm and observe that $|(X_n, a) - (X_n, Y_n)|
+  = |Y_n- a| \overset{\pp}{\longrightarrow} 0$ by assumption, thus by the lemma
+  $(X_n, Y_n) \overset{(d)}{\longrightarrow} (X, a)$.
+\end{proof}
+
+\subsection{Restricting Test Functions}
+Let $\mathcal{C}_c(\rr^d) = \{ f \colon \rr^d \to \rr \text{ continuous with
+compact support} \} $.
+
+\begin{theorem}
+    Take, $\mu_n, \mu$ prob measures on $\rr^d$. Then $\mu_n \to \mu$ weakly iff
+    $\forall f \in \mathcal{C}_c(\rr^d)$, $$\int_{\rr^d} f(x) \mu_n(dx) \to
+    \int_{\rr^d}f(x)\mu(dx)$$
+\end{theorem}
+{\color{red} Warning!} this result is specific to $\rr^d$ and is not true for
+general metric spaces.
+\begin{proof}
+  $\boxed{\implies}$ is clear because $\mathcal{C}_c(\rr^d) \subset
+  \mathcal{C}_b(\rr^d)$.
+
+  $\boxed{\impliedby}$ Take $f \in \mathcal{C}_b(\rr^d)$, let us use a
+  truncation argument. 
+
+  Take $R > 1$ and define $g_R(x) = 1$ if $|x|< R$ and
+  $\max(R+1 - |x|, 0)$ if $|x| \geq R$. 
+  Notice $f g_R \in \mathcal{C}_c (\rr^d)
+  \forall r \geq 1$.
+
+  For $R > 0$ fixed, 
+  \begin{align*}
+    \left| \int f(x)\mu_n(dx) - \int f(x) \mu(dx) \right| &\leq \int |f(x) -
+    f(x) g_R(x) \mu_n(dx)| \\ &+ \left| \int f(x)g_R(x)\mu_n(dx) - \int f(x) g_R(x)
+    \mu(dx)\right| \\ &+ \int |f(x) - f(x)g_R(x)|\mu(dx)  \\
+  \end{align*} 
+
+  Hence, taking limsup on both sides and using tkat $g_R, fg_R \in
+  \mathcal{C}_c(\rr^d)$
+  \begin{align*}
+    \limsup_{n \to \infty}
+    \left| \int f(x)\mu_n(dx) - \int f(x) \mu(dx) \right| &\leq
+    \limsup_{n \to \infty }\|f\|_{\infty}( 1 - \int g_R(x)\mu_n(dx)) + 0 \\ &+ \|f\|_{\infty} (1 - \int
+    g_R(x)\mu(dx)) \\
+    &= 2 \|f\|_{\infty} (1 - \int
+    g_R(x)\mu(dx))
+  \end{align*}
+  But $\int g_R(x) \mu(dx) \underset{R \to \infty}{\longrightarrow} 1$ by
+  dominated convergence, finishing the proof
+\end{proof} 
+\end{document}

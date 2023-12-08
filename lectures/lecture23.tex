@@ -1,0 +1,77 @@
+%! TEX root = ../main.tex
+\documentclass[../main.tex]{subfiles}
+
+\title{Lecture 23}
+
+\begin{document}
+\begin{example}
+    \hfill
+    \begin{itemize}
+      \item If $X_n$ is uniform on $\{ 1,2,\ldots, n \} $, then $X_n / n$ converges
+        in distribution to the Uniform Law in $[0, 1]$
+      \item Let $X_n \sim N(0, \sigma_n^2)$ with $\sigma_n \to 0$, then $X_n$
+        converges in distribution to $0$, i.e., to the random variable whose law
+        is $\delta_0$.
+      \item If $\mu_n = \delta_{1/n}$ then $\mu_n
+        \overset{weakly}{\longrightarrow} \delta_0$. In particular, $\mu_n(\{ 0
+        \} ) = 0$ and $\mu(\{ 0 \} ) = 1$.
+    \end{itemize}
+\end{example}
+
+\begin{lemma}
+    If $X_n \overset{(d)}{\longrightarrow} X$, $X_n
+    \overset{(d)}{\longrightarrow} Y$ then $X \overset{(d)}{=} Y$
+\end{lemma} 
+\begin{proof}
+    Notice that this implies that for all bounded continue function $f: \rr^d
+    \to \rr$, we have $\ee[f(X)] = \ee[f(Y)]$. To prove the desired equality, we
+    need to establish that $\forall A \in \mathcal{B}(\rr), \pp_X(A) =
+    \pp_Y(A)$.
+
+    Let us first restrict ourselves to $F \subset \rr^d$ closed. Indeed, we can
+    do this by approximating $\ind_F$ by bounded continuous functions.
+
+    Define $f_n(x) = \max(1 - nd(x, F), 0)$ then $\ee[f_n(X)] = \ee[f_n(Y)]$ as
+    $f_n \in \mathcal{C}_b (\rr^d)$. It is clear also that $f_n
+    \overset{pointwise}{\longrightarrow} \ind_F$ and $|f_n| \leq 1$, thus by
+    dominated convergence twice
+    $$
+    \ee[\ind_F(X)] \longleftarrow \ee[f_n(X)] = \ee[f_n(Y)] \longrightarrow
+    \ee[\ind_F(Y)]
+    $$
+    Thus $\pp_X(F) = \pp_Y(F)$. Therefore, we have two probability measures
+    equal on a generating $\pi-$system, thus they are equal by the Dynkin Lemma.
+\end{proof}
+\begin{proposition}
+  [Continuous Mapping]
+  Take $X_n, X$ $\rr^d$ valued random variables such that $X_n
+  \overset{(d)}{\longrightarrow} X$. Take $F: \rr^d \to \rr^n$ continuous then
+  $F(X_n) \overset{(d)}{\longrightarrow} F(X)$ in $\rr^n$.
+\end{proposition}
+\begin{proposition}
+    Let $X_n, X$ be $\rr^d$ valued r.v. such that $X_n
+    \overset{a.s.}{\longrightarrow} X$, $X_n\overset{L^p}{\longrightarrow}X$ $X_n \overset{\pp}{\longrightarrow}
+    X$, then $X_n \overset{(d)}{\longrightarrow} X$
+\end{proposition}
+\subsection{Portemanteau Thereom}
+\begin{theorem}
+  [Portemanteau Theorem]
+  Let $\mu_n, \mu$ be probability measures on $\rr^d$. The following are
+  equivalent:
+  \begin{enumerate}
+    \item $\mu_n \to \mu$ weakly.
+    \item $\forall f: \rr^d \to \rr $ bounded and Lipschitz, $\int f(x) \mu_n(dx)
+      \to \int f(x) \mu(dx)$.
+    \item $\forall F \subset \rr^d$ closed, $\limsup_{n \to \infty} \mu_n(F)
+      \leq \mu(F)$.
+    \item $\forall O \subset \rr^d$ open, $\liminf_{n \to \infty} \mu_n(O)
+      \geq \mu(O)$.
+    \item $\forall A \in \rr^d$ such that $\mu(\partial A) = 0$, $\lim_{n \to
+      \infty}\mu_n(A) = \mu(A)$
+    \item $\forall f:\rr^d \to \rr $ measurable and bounded, continuous at
+      $\mu-$almost every point (i.e. $\mu(\{ x \in \rr^d : f \text{ continuous
+      at } x \}) = 1 $) $\int f(x) \mu_n(dx)
+      \to \int f(x) \mu(dx)$.
+  \end{enumerate}
+\end{theorem}
+\end{document}
