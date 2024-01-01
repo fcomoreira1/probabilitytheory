@@ -1,0 +1,221 @@
+%! TEX root = ../main.tex
+\documentclass[../main.tex]{subfiles}
+
+\title{Lecture 26}
+
+\begin{document}
+\underline{Important Consequence:} For $X_1, \ldots, X_k$ $\rr-$valued r.v.s, 
+$X_1,\ldots, X_k \indep $ iff $\forall u_1,\ldots, u_k \in \rr$
+$$\varphi_{(X_1,\ldots, X_k)}(u_1,\ldots, u_k) = \varphi_{X_1}(u_1) \ldots
+\varphi_{X_k}(u_k)$$
+\begin{proof}
+  $\boxed{\implies}$ We have seen that for $X_1,\ldots,X_k \indep$ and $f_1,
+  f_2,\ldots, f_k$ integrable, $\ee[f_1(X_1)\ldots f_k(X_k)] = \ee[f_1(X_1)]
+  \ldots \ee[f_k(X_k)]$, from which it follows.
+
+  $\boxed{\impliedby}$ We have seen that $(X_1,\ldots, X_k)$ has the same
+  characteristic function as $\pp_{X_1} \otimes \ldots \otimes \pp_{X_k}$. Thus
+  $\pp_{(X_1, \ldots, X_k)}$ and $\pp_{X_1} \otimes \ldots \otimes \pp_{X_k}$
+  have the same characteristic function and they are equal.j
+\end{proof}
+
+\begin{application}
+  Take $X \sim N(m_1, \sigma_1^2)$, $Y \sim N(m_2, \sigma_2^2)$. Assume $X\indep
+  Y$, then $X + Y \sim N(m_1 + m_2, \sigma_1^2 + \sigma_2^2)$.
+\end{application}
+
+\underline{Rule of thumb:}
+\begin{itemize}
+  \item characteristic functions are often well adapted when we have sums of
+    $\indep$ r.v.
+  \item cdfs are often adapted when we have r.v. defined using min, max.
+\end{itemize}
+
+\begin{theorem}
+  [Lévy] Take $X_n, X$ $\rr^d-$valued r.v. then $X_n
+  \overset{(d)}{\longrightarrow} X$ iff $\varphi_{X_n}
+  \to \varphi_X$ pointwise, i.e. $\forall u \in \rr^d$,
+  $\varphi_{X_n}(u) \underset{n \to \infty}{\longrightarrow} \varphi_{X}(u)$
+\end{theorem} 
+\begin{proof}
+    We assume $d=1$ to simplify. 
+
+    $\boxed{\implies}$ If $X_n \overset{(d)}{\longrightarrow} X$, observe that
+    for $u \in \rr$, $f(x) = e^{iux}$ is continious bounded, so $\ee[f(X_n)]
+    \to \ee[f(x)]$ which is what we want.
+
+    $\boxed{\impliedby}$ We use the idea of a small gaussian perturbation $Z_k
+    \sim N(0, 1/k^2)$ with $Z_k \indep X_n$, $Z_k \indep X$. Assuming $\varphi_{X_n}$
+    converges pointwise to $\varphi_X$, we have two steps:
+
+    \underline{Step 1} Show that for $k \geq 1$ fixed, $X_n + Z_k
+    \overset{(d)}{\longrightarrow} X + Z_k$.
+
+    \underline{Step 2} Conclude that $X_n \overset{(d)}{\longrightarrow} X$.
+
+    Let us deal with step 2 assuming step 1 first. By Portemanteau, it is enough
+    to show that $\forall f \colon \rr \to \rr$ $L-$Lipschitz, we have
+    $\ee[f(X_n)] \to \ee[f(X)]$. To do this, write
+    \begin{align*}
+      |\ee[f(X_n)] - \ee[f(X)]| &\leq \ee[|f(X_n) - f(X_n + Z_k)|] \\ &+ |\ee[f(X_n +
+      Z_k)] - \ee[f(X + Z_k)]| + \ee[|f(X) - f(X + Z_k)|] \\
+      &\leq 2L \ee[|Z_k|] + |\ee[f(X_n + Z_k)] - \ee[f(X + Z_k)]|
+    \end{align*}
+    Thus 
+    \[
+      \limsup_{n \to \infty} |\ee[f(X_n)] - \ee[f(X)]| \leq 2 L \ee[|Z_k|] =
+      \frac{2L}{k} \ee[|Z_1|] \to 0
+    .\] 
+
+  Now we shall prove step 1.
+
+  Recall that for $g_{\sigma}(x) = \frac{1}{\sigma \sqrt{n}} e^{-x^2/2
+  \sigma^2}$ and $Z_k \sim N(0, 1/k^2) \indep X$, for $F \geq 0$
+  \[
+    \ee[F(X + Z_k)] = \int_{\rr} dz F(z) \left( \frac{k}{\sqrt{2\pi}} \int_{\rr}
+    e^{iuz} g_k(u) \varphi_X(-u) du \right) \tag*{($\star$)}
+  .\] 
+
+  We take $f\colon \rr \to \rr$ continuous with compact support and show 
+  \[
+    \ee[f(X_n + Z_k)] \to \ee[f(X + Z_k)]
+  .\] 
+We know that $\varphi_{X_n}$ converges pointwise to $\varphi_X$ and will use
+  this with dominated convergence twice.
+
+  First, $e^{iuz} g_k(u) \varphi_{X_n}(-u) \to e^{iuz} g_k(u) \varphi_{X}(u)$
+  and $|e^{iuz} g_k(y) \varphi_{X_n}(-u)| \leq g_k(u) \in L^1(du)$. Hence by
+  dominated convergence
+  \[
+    f(z) \int_{\rr}e^{iuz} g_k(u) \varphi_{X_n}(-u)du \to 
+    f(z) \int_{\rr}e^{iuz} g_k(u) \varphi_{X}(-u)du
+  .\] 
+  Second, let us prove that the expression above is bounded. Indeed
+  \[
+    \left| f(z) \frac{k}{\sqrt{2\pi}} \int_{\rr} e^{iuz} g_k(u)
+    \varphi_{X_n}(-u) du \right|  \leq |f(Z)| \frac{k}{\sqrt{2\pi}} \int_{\rr}
+    g_k(u)du \in L^1(dz)
+  \]
+  because $f$ is continuous with compact support. We conclude by $\star$.
+\end{proof}
+\begin{application}
+  Take $X_n, Y_n, X, Y$ $\rr-$valued r.v. Assume $X_n
+  \overset{(d)}{\longrightarrow} X$, $Y_n \overset{(d)}{\longrightarrow} Y$ and
+  $X_n \indep Y_n \forall n \geq 1$. Then $(X_n, Y_n)
+  \overset{(d)}{\longrightarrow} (X, Y)$ where $X, Y \indep$.
+\end{application}
+\begin{proof}
+  We show $\varphi_{(X_n, Y_n)} \to \varphi_{(X, Y)}$ pointwise in $\rr^2$ with
+  $X, Y \indep$. Take
+  $(u_1, u_2) \in \rr^2$, then
+  \begin{align*}
+    \varphi_{(X_n, Y_n)}(u_1, u_2) &= \ee[ e^{i(u_1X_n + u_2 Y_n)}] 
+    = \varphi_{X_n}(u_1) \varphi_{Y_n}(u_2) \\
+    &\underset{n \to \infty}{\longrightarrow} \varphi_{X}(u_1) \varphi_{Y}(u_2)
+    = \varphi_{(X, Y)}(u_1, u_2)
+  .\end{align*} 
+  from which we conclude by Lévy's theorem. 
+\end{proof}
+
+\begin{remark}
+  If $\mu, \nu$ are two probability measures on $\rr$, a \textbf{coupling}
+  of $\mu, \nu$ is a r.v. $(X, Y)$ with $Law(X) = \mu, Law(Y) = \nu$.
+\end{remark}
+\begin{application}
+    Take $0 \leq p \leq q \leq 1$. Then for every $0 \leq k \leq n$,
+    \[
+      \pp(Bin(n, q) \geq k) \geq \pp(Bin(n, p) \geq k)
+    .\] 
+\end{application}
+\begin{proof}
+  Take $U_1, \ldots, U_n$ iid $Uni([0, 1])$ r.v. Define $Y_n = \sum_{k=1}^n
+  \ind_{U_k \leq q}$
+  $X_n = \sum_{k=1}^n
+  \ind_{U_k \leq p}$, then $X_n \sim Bin(n, p), Y_n \sim Bin(n, q)$ but $Y_n
+  \geq X_n$, which yields the result.
+\end{proof}
+
+\subsection{Central Limit Theorem}
+\begin{theorem}
+  Let $(X_i)_{i \geq 1}$ be a sequence of iid $\rr-$valued r.v.s with
+  $\ee[X_1^2] < \infty$. Set $\sigma = Var(X_1)$ and assume $\sigma > 0$.
+  Then
+  \[
+    \frac{X_1 + \ldots + X_n - n \ee[X_1]}{\sigma \sqrt{n}}
+    \overset{(d)}{\longrightarrow} N(0, 1)
+  .\] 
+\end{theorem}
+\begin{remark}
+    \hfill
+    \begin{itemize}
+      \item $\sigma > 0$ rules out the case of constant r.v
+      \item Since 
+        \[
+    \frac{X_1 + \ldots + X_n - n \ee[X_1]}{\sigma \sqrt{n}}
+        = \frac{\sqrt{n}}{\sigma} \left( \frac{X_1 + \ldots + X_n}{n} - \ee[X_1] \right) )
+        \] 
+        this tells that when $\ee[X_1^2] < \infty$ the "speed" of convergence in
+        the SLN is of order $1/\sqrt{n}$
+    \end{itemize} 
+\end{remark}
+\begin{lemma}
+  Assume that $X$ is a $\rr-$valued with $\ee[X^2] < \infty$ then
+  \[
+    \varphi_X(t) = 1 + i \ee[X_1]t - \frac{\ee[X^2]}{2} t^2 + o(t^2)
+  .\] 
+\end{lemma}
+\begin{proof}
+  $\varphi_X(t) = \ee[ e^{itX}] $. This comes from Taylor's formular as
+  $\varphi_X$ is twice differentiable at $0$.
+
+  Indeed, we use the following result from measure theory (essentially
+  consequence of dominated convergence):
+  if $\forall t \in \rr$, $F(t, X) \in L^1$, a.s. $t \mapsto F(t, X)$ is
+  differentiable, $\exists Y \in L^1$ s.t. a.s $\forall t \in \rr$  $\left|
+  \frac{\partial}{\partial t} F(t, X) \right| \leq Y$, then
+  $t \mapsto \ee[F(t, X)]$ is differentiable and
+  \[
+    \frac{d}{dt} \ee[F(t, X)] = \ee[\frac{d}{dt} F(t, X)]
+  .\] 
+We use this result with $F(t, x) = e^{itx}$
+\end{proof}
+\begin{proof}
+  [Central Limit Theorem]
+  Up to replacing $X_i$ with $X_i - \ee[X_1]$, we can assume $\ee[X_1] = 0$, so
+  $\sigma^2 = \ee[X_i^2]$.
+
+  We use Lévy's theorem and the lemma
+  \begin{align*}
+    \varphi_{\frac{X_1 + \ldots + X_n}{\sigma\sqrt{n}}}(t) &=
+    \ee \left[ e^{i \frac{(X_1 + \ldots + X_n)}{\sigma \sqrt{n}} t} \right]  
+    = \prod_{i=1}^n \ee[e^{i \frac{t}{\sigma \sqrt{n}} X_i}] \tag*{by $\indep$}
+    \\
+    &= \varphi_{X_1} \left( \frac{t}{\sigma \sqrt{n}}  \right)^n \\ &= 
+    \left(1 - \frac{\sigma^2}{2} \left( \frac{t}{\sigma\sqrt{n}}  \right)^2 + \left(
+    \frac{t}{\sigma \sqrt{n}} \right)^2 \varepsilon \left( \frac{t}{\sigma
+    \sqrt{n}}  \right) \right)^n \\
+    &= \left(1 - \frac{t^2}{2n} + \frac{t^2}{\sigma n}\varepsilon \left(
+    \frac{t}{\sigma \sqrt{n}}  \right) \right)^n
+  \end{align*}
+  Now we use a trick to avoid using ln of complex numbers: for $u, v \in \cc$,
+  $|u^n - v^n| \leq n |u - v| \max(|u|^{n-1}, |v|^{n-1})$. We get
+  \begin{align*}
+    \left| \varphi_{X_1}\left( \frac{t}{\sigma \sqrt{n}}  \right)^n - \left( 1 -
+    \frac{t^2}{2n} \right)^n  \right| 
+    &\leq n \frac{t^2}{\sigma n} \varepsilon \left( \frac{t}{\sigma \sqrt{n}}
+    \right) \underset{n \to \infty}{\longrightarrow} 0.
+  \end{align*}
+  And
+  \[
+    \left( 1 - \frac{t^2}{2n}  \right) ^n = \exp(n \ln(1 - t^2/2n)) \to
+    \exp(-t^2)
+  .\] 
+So we conclude
+\[
+  \varphi_{X_1}\left( \frac{t}{\sigma \sqrt{n}}  \right) ^n \underset{n \to
+  \infty}{\longrightarrow} \exp(-t^2/2) = \varphi_{N(0, 1)}(t)
+\] 
+and thus the theorem holds by Lévy's theorem.
+\end{proof}
+
+\end{document}

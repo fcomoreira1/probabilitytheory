@@ -1,0 +1,165 @@
+%! TEX root = ../main.tex
+\documentclass[../main.tex]{subfiles}
+
+\title{Lecture 25}
+
+\begin{document}
+\begin{corollary}
+  Let $X_n, X$ be $\zz-$valued r.v. then $X_n \overset{(d)}{\longrightarrow}
+  X$ iff $\forall k \in \zz$, $\pp(X_n = k) \underset{n \to
+  \infty}{\longrightarrow} \pp(X = k)$.
+\end{corollary}
+\begin{proof}
+  $\boxed{\implies}$ Fix $k \in \zz$ and take $f_k(x) = \max(1 - |x - k|, 0)$
+  which is continuous and bounded, thus $\ee[f_k(X_n)] \to \ee[f_k(X)]$ thus
+  $\pp(X_n = k) \to \pp(X = k)$
+
+  \vspace{0.5em}
+  \noindent
+  $\boxed{\impliedby}$ Take $f \in \mathcal{C}_c(\rr^d)$ and assume $\forall k
+  \in \zz$, $\pp(X_n = k) \to \pp(X = k)$.
+
+  Write $\ee[f(X_n)] = \sum_{j \in \zz} \pp(X_n = j)f(j)$ and $\ee[f(X)] = \sum_{j
+  \in \zz} \pp(X = j)f(j)$. To prove convergence, notice that as $f$ has
+  compact support, the two sums can be indexed by a finite set ($\zz \cap
+  support(f)$). Then we can interchange the limit and sum over a finite set
+  and conclude.
+\end{proof}
+\begin{application}
+  Take $\lambda > 0$, $X_n \sim Bin(n , \frac{\lambda}{n} )$, then $X_n
+  \overset{(d)}{\longrightarrow} Poi(\lambda)$.
+  (This is the reason why the Poisson distribution is used to model rare
+  events)
+\end{application}
+
+\subsection{Characteristic functions and Lévy's theorem}
+
+Characteristic functions are defined as expectations of $\mathbb{C}-$valued
+rnadom variables. When $Z$ is a $\cc-$valued r.v., $\ee[|Z|] < \infty$, we say
+$Z$ is integrable and define $\ee[Z] = \ee[Re Z] + i \ee[Im Z]$.
+
+\begin{definition}
+    The characteristic functionn of a $\rr^d-$valued r.v. X is defined by 
+    \begin{align*}
+      \varphi_X \colon &\rr^d \to \cc \\
+      &u \mapsto \ee[e^{i \langle X | u \rangle}]
+    .\end{align*} 
+\end{definition}
+\begin{remark}
+    $\varphi_X$ is well defined as $e^{i \langle X | u \rangle}$ is an
+    integrable r.v. because its absolute value is $1$.
+\end{remark}
+
+\begin{example}
+  If $X \sim Poi(\lambda)$, for $u \in \rr$, $\varphi_X(u) = \ee[e^{iXu}] =
+  e^{\lambda(e^{iu} - 1)}$
+\end{example}
+
+\begin{remark}
+  By the transfer theorem, $\varphi_X(u) = \int_{\rr^d} e^{i \langle x | u
+  \rangle} \pp_X(dx)$ for $u \in \rr^d$. In measure theoretical terms,
+  $\varphi_X$ is the Fourier transform of $\pp_X$.
+\end{remark}
+
+\begin{proposition}
+    $\varphi_X$ always satisfies the following:
+    \begin{itemize}
+      \item $\varphi_X(0) = 1$.
+      \item $\varphi_X(-u) = \overline{\varphi_X(u)}$ for $u \in \rr^d$.
+      \item $|\varphi_X(u)| \leq \ee[|e^{i \langle X | u \rangle}|] = 1$ for
+        $u \in \rr^d$
+      \item $|\varphi_X(u + h) - \varphi_X(u)| \leq \ee[ |e^{i \langle X | h} -
+        1|]$ for $u, h \in \rr^d$. In particular, $\varphi_X$ is uniformly
+        continuous.
+    \end{itemize}
+\end{proposition}
+
+In what follows Guassian r.v.s play a crucial role.
+\begin{example}
+  Take $X \sim N (m, \sigma^2)$, $\varphi_X(u) = e^{imu - \frac{\sigma^2u^2}{2}
+  }$ for $u \in \rr$.
+\end{example}
+\begin{sketch}
+  Using properties of the Gaussian, it is enough to show the result for $N(0,
+  1)$. Since $\varphi_X(u) = \varphi_X(-u) = \overline{\varphi_X(u)}$ as $N(0,1) = -N(0,1)$
+  we have that $\varphi_X(u) \in \rr$. 
+
+  Thus $$\varphi_X(u) = \int_{\rr} \frac{1}{\sqrt{2\pi}} \cos(xu)
+  e^{-x^2/2} dx$$ To compute this, the idea is to see that $\varphi_X$ solves a
+  differential equation.
+  
+  Indeed, we have 
+  \[
+    \varphi_X'(u) = \frac{1}{\sqrt{2\pi}} \int_{\rr} -x \sin(xu)e^{-x^2 /
+    2}dx.
+  \] (Justification: use the theorem that allows to differentiate an integral
+  depending on a parameter, which is possible because $|-x\sin(xu) e^{-x^2}|
+  \leq x e^{-x^2/2}$ which is integrable)
+
+  Now, integration by parts gives
+  \[
+    \varphi_X'{u} = -\int_{\rr} \frac{1}{\sqrt{2\pi}} e^{-x^2/2} u \cos(ux)dx
+  \]
+  hence $\varphi_X'(u) = -u \phi_X(u)$. But this system has the initial
+  condition $\varphi_X(0) = 1$, which one can solve to obtain $\varphi_X(u) =
+  e^{-u^2/2}$.
+\end{sketch}
+
+\begin{remark}
+  If $g_{\sigma}(x) = \frac{1}{\sigma\sqrt{2\pi}} e^{\frac{-x^2}{2 \sigma^2} }$ this
+  example shows that $g_{\sigma}(z) = \frac{1}{\sigma \sqrt{2\pi}} \int_{\rr}
+  e^{iuz} g_{1/\sigma}(u) du$ for every $z \in \rr$.
+\end{remark}
+
+\begin{theorem}
+    Let $X, Y$ be r.v. in $\rr^d$, $\varphi_X = \varphi_Y$ iff $X$ and $Y$ have the
+    same law.
+\end{theorem}
+\begin{proof}
+    To simplify, assume $d = 1$ and that $X, Y$ are defined in the same
+    probability space.
+
+    $\boxed{\impliedby}$ If $\pp_X = \pp_y$, this is directly true by the
+    transfer theorem.
+
+    $\boxed{\implies}$
+    \underline{Idea:} use a small gaussian perturbation. More precisely let
+    $Z_n$ be a $N(0, 1/n)$ r.v. $\indep X, Y$.
+
+    The idea now is to show $\varphi_X = \varphi_Y$ implies $X + Z_n
+    \overset{(d)}{=} Y + Z_n$ $(\star)$. Indeed, assume this hows, let us see
+    how we can conclude.
+
+    $\ee[Z_n^2] = 1/n$, so $Z_n \overset{L^2}{\longrightarrow} 0$ thus $Z_n
+    \overset{\pp}{\longrightarrow} 0$. Thus $X + Z_n
+    \overset{\pp}{\longrightarrow} X + 0$. Thus $X + Z_n
+    \overset{(d)}{\longrightarrow} X$, similarly $Y + Z_n
+    \overset{(d)}{\longrightarrow} Y$, from which the conclusion holds.
+
+    Now we must go back to show $(\star)$. For this, we show that for $F
+    \colon \rr \to \rr_+$ measurable, $\ee[F(X + Z_n)] = \ee[F(Y + Z_n)]$.
+
+    We will prove that $\ee[F(X + Z_n)] = \ee[F(Y + Z_n)]$ only depends on
+    $\phi_X$. Let's compute
+    \begin{align*}
+      \ee[F(X + Z_n)] &= \int_{\rr} \pp_X (dx) \left( \int_{\rr} F(x + z)
+      \pp_{Z_n}(dz) \right)  \tag*{Transfer+Fubini}\\
+      &= \ee[\int_{\rr} F(x + z) g_{1/\sqrt{n}}(z) dz] \\
+      &= \ee[\int_{\rr} F(z) g_{1/\sqrt{n}}(z - X)dz] \\
+      &= \int_{\rr} F(z)dz \ee[ g_{1/\sqrt{n}} (z - X)] \tag*{Fubini-Tonelli} 
+    .\end{align*} 
+    Now we look at $\ee[g_{1/\sqrt{n}}(z - X)]$. But we know that
+    $g_{1/\sqrt{n}}(z - X) =
+    \frac{\sqrt{n}}{\sqrt{2\pi}} \int_{\rr} e^{iu(z - X)} g_{\sqrt{n}}(u) du$.
+
+    Taking the expectation and using Fubini-Lebesgue
+    \[
+      \ee[g_{\sqrt{\frac{1}{n}}} (z - X)] = \frac{\sqrt{n}}{\sqrt{2\pi}}
+      \int_{\rr} \ee[e^{-iux}] e^{-iuz} g_{\sqrt{n}}(u)du
+    \] 
+    but $\ee[e^{-iux}] = \varphi_X{-u}$, thus $\ee[F(X + Z_n)]$ only depends
+    on $\varphi_X = \varphi_Y$ and the equality holds.  
+  
+\end{proof}
+
+\end{document}

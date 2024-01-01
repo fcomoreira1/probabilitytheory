@@ -1,0 +1,179 @@
+%! TEX root = ../main.tex
+\documentclass[../main.tex]{subfiles}
+
+\title{Lecture 27}
+
+\begin{document}
+\begin{obs}
+  If $\forall t \in \rr$ $\pp(X_n \leq t)$ has a limit as $n \to \infty$, this
+  does \underline{not} imply $X_n$ converge in distribution to $X$.
+
+  Take for example $X_n = n$, $\pp(X_n \leq t) \to 0$, but $0$ is not a cdf of
+  a random variable.
+\end{obs}
+\begin{obs}
+  $X_n$ $\rr-$valued, $\forall t \in \rr$, $\phi_{X_n}(t) = \ee[e^{itX_n}]$ has
+  a limit as $n \to \infty$ does not imply $X_n$ converge in distribution
+
+  Take for example $X_n \sim N(0, n^2)$. It is clear that its characteristic
+  function converges, however if we take $a < b$, then $\pp(a < X_n < b) =
+  \pp(a/n < N(0, 1) < b/n) \to 0$. Indeed, if we argue by contradiction assuming
+  it converges in distribution to $X$, we could pick $a < b$ such that $\pp(a <
+  X < b) \geq 1/2$.
+\end{obs}
+\begin{remark}
+  [Improved Lévy Theorem]
+  Assume $\varphi_{X_n}(t) \underset{n \to \infty}{\longrightarrow} f(t)$ $\forall
+  t \in \rr$, then $X_n$ converges in distribution iff $f$ is continuous at $0$.
+\end{remark}
+
+\subsection{Gaussian vectorrs and the multidimensional CLT}
+\begin{definition}
+  A r.v. $X = (X_1, \ldots, X_d) \in \rr^d$ is a \textbf{gaussian vector} if any
+  linear combination of its cordinates is a gaussian r.v with the convention
+  $N(m, 0) = m$ constant.
+\end{definition}
+
+Recall that if $X \sim N(0, \sigma^2)$, $\ee[e^{itx}] = e^{itm - \sigma^2
+\frac{t^2}{2}} $.
+
+\begin{example}
+    \hfill
+    \begin{itemize}
+      \item If $X_1, \ldots, X_n \indep$ Gaussian r.v. then $(X_1,\ldots,X_d)$
+        is a gaussian vector.
+      \item If $X, Y$ are $\indep$ Gaussian, $(X, X+Y)$ is a gaussian vector
+    \end{itemize}
+\end{example}
+{\color{red} Warning!} If $(X_1, \ldots, X_d)$ is a gaussian vector, then $X_1,
+\ldots, X_d$ are gaussian, but the converse is false.
+
+Indeed take $X \sim N(0, 1)$ and $\varepsilon \sim \pm 1$ with probability
+$1/2$, $\indep X$. We can check that $(X, \varepsilon X)$ is not a gaussian
+vector since $\pp(X + \varepsilon X) = 1/2$, so $X + \varepsilon X)$ is not
+gaussian.
+
+\begin{definition}
+  Let $X = (X_1, \ldots, X_d)$ be a gaussian vector.
+  \begin{itemize}
+    \item $m_X = (\ee[X_1], \ldots, \ee[X_d])$ is called the mean of $X$.
+    \item $K_X = (\ee[X_i X_j] - \ee[X_i]\ee[X_j])_{1 \leq i,j \leq d} \in
+      \mathcal{M}_{d \times d}(\rr)$ is the covariance matrix of $X$.
+    \item $X$ is \underline{centered} if $m_X = (0, 0, \ldots, 0)$.
+  \end{itemize}
+\end{definition}
+\begin{proposition}
+    Let $X$ be a gaussian vector in $\rr^d$. Take $\lambda \in \rr^d$, then
+    $\langle \lambda, X \rangle = N(m_{\lambda}, \sigma^2_{\lambda})$  with
+    $m_{\lambda} = \langle m_X, \lambda \rangle$, $\sigma^2_{\lambda} = \langle
+    \lambda, K_X \lambda \rangle$.
+\end{proposition}
+\begin{corollary}
+    $\forall \lambda \in \rr^d$, $\langle \lambda, K_X \lambda \rangle \geq 0$.
+    Thus $K_X$ is a positive semi-definite matrix.
+\end{corollary}
+\begin{corollary}
+  The characteristic function of a gaussian vector $X$ is given by
+  $\Phi_X(\lambda) = \ee[ e^{i \langle \lambda, X \rangle }] = \exp(i \langle
+  \lambda, m_X \rangle - \frac{1}{2} \langle \lambda, K_X, \lambda \rangle)$ for
+  $\lambda \in \rr^d$.
+  Indeed this is a straight consequence of $\langle \lambda, X \rangle$ being
+  gaussian.
+\end{corollary}
+Since characteristic functions characterize laws, the law of a gaussian vector
+$X$ is characterized by $m_X, K_X$.
+\begin{application}
+    If $X, Y \indep$ gaussian vectors, $X+Y$ is a gaussian vector with $m_{X +
+    Y}= m_X + m_Y$ and $K_{X + Y} = K_X + K_Y$.
+\end{application}
+\begin{remark}
+    One can show that if $K$ is $d \times d$ positive semi-definite and $m \in
+    \rr^d$, then there exists a gaussian vector $X$ with mean $m$ and covariance
+    matrix $K$.
+\end{remark}
+\begin{theorem}
+  \hfill
+  \vspace{-2em}
+
+    \begin{enumerate}
+      \item Let $X = (X_1,\ldots,X_d)$ be a gaussian vector in $\rr^d$. Then
+        $(X_1, \ldots, X_d)$ are $\indep$ iff $K_X$ is diagonal (i.e. $\forall i
+        \neq j \ee[X_i X_j] = \ee[X_i]\ee[X_j]$).
+      \item Let $Z = (X_1,\ldots, X_p, Y_1,\ldots, Y_q)$ be a gaussian vector in
+        $\rr^{p+q}$ then $(X_1, \ldots, X_p) \indep (Y_1, \ldots, Y_q)$ iff
+        $\forall 1 \leq i \leq p, 1 \leq j \leq q$, $\ee[X_i Y_j] = \ee[X_i]
+        \ee[Y_j]$.
+    \end{enumerate}
+\end{theorem}
+Take home message: for gaussian vectors independence is equivalent to $0$
+covariance.
+
+\begin{theorem}
+  [Multidimensional CLT]
+  Let $(X^i)_{i \geq 1}$ be iid r.v. in $\rr^d$. Assume $\ee[|X^1|] < \infty$.
+  Then 
+  \[
+    \cfrac{X^1 + \ldots + X^n - n \ee[X^1]}{\sqrt{n}}
+    \overset{(d)}{\longrightarrow} N(0, K_{X^1})
+  .\] 
+\end{theorem}
+\begin{sketch}
+    Similar to $d = 1$, based on characteristic function and taylor expansion of
+    $\varphi_{X^1}$ at $0$.
+\end{sketch}
+
+\section{A glimpse of statistical theory}
+
+Outline: 
+\begin{enumerate}
+  \item Estimators
+  \item Confidence interval
+\end{enumerate}
+
+So far, we use sequences $(X_i)_{i \geq 1}$ of r.v. with known laws. In
+statistical theory, it is different: we observe a sequence of values (which we
+often assume to be the realization of an iid sequence of r.v.) called
+\textbf{sample} but with unknown law.
+
+\underline{\sffamily Goal:} Use the sample to estimate the unknown law or decide
+to accept or reject some hypothesis on it.
+
+\subsection{Estimators}
+In practice, it often happens that the unkown law belongs to a certain family of
+probability measures depending on a parameter $\theta$.
+
+For example: a company would like to sell a product and the goal is to estimate
+the proportion $\theta \in [0, 1]$ of people susceptible of buying the product.
+
+\begin{definition}
+    A statistical model is a space $\Omega$ with a $\sigma-$field $\mathcal{F}$
+    and a family $(P_{\theta})_{\theta \in \Theta}$ of probability measures on
+    it, where $\Theta$ is the space of parameters.
+\end{definition}
+
+\begin{example}
+  \hfill
+  \begin{itemize}
+    \item $\Theta = [0, 1]$ and $P_{\theta}$ is the law of $Ber(\theta)$.
+    \item $\Theta = (0, \infty)$ and $P_{\theta}$ is the law of $Exp(\theta)$.
+    \item $\Theta = \rr \times \rr_+$ and $P_{(m, \sigma^2)}$ is the law of
+      $N(m, \sigma^2)$.
+  \end{itemize}
+\end{example}
+
+\begin{definition}
+    A sample of size $n$ of a probability measure $P$ is a sequence $X_1,
+    \ldots, X_n$ of r.v. $\indep$ with law $P$.
+
+    An \textbf{estimator} is a function $d$ with values in $\Theta$ which
+    depends on the sample, i.e. of the form $d(X_1, \ldots, X_n)$. It is
+    \textbf{unbiased} if $\forall \theta \in \Theta$, $\ee_{\theta}[d(X_1,
+    \ldots, X_n)] = \theta$.
+    (when $\Theta \subset \rr^+$, $\ee_\theta$ denotes the expectation with
+    respect to $P_\theta$).
+
+    It is strongly consistent if for $\theta \in \Theta$, under $P_\theta$,
+    $d(X_1, \ldots, X_n) \overset{a.s.}{\longrightarrow} \theta$.
+\end{definition}
+    
+\end{document}

@@ -1,0 +1,72 @@
+%! TEX root = ../main.tex
+\documentclass[../main.tex]{subfiles}
+
+\title{Lecture 28}
+
+\begin{document}
+In practice, we often view data as the realization of r.v that are independent
+under $P_\theta$ with $\theta$ unknown.
+\begin{example}
+  In the model $\Theta = [0,1]$, $P_\theta$ the law of $Ber(\theta)$, then
+  $d(X_1, \ldots, X_n) = \frac{X_1 + \ldots + X_n}{n} $ is an unbiased,
+  strongly consistent estimator of $\theta$.
+\end{example}
+
+\subsection{Confidence intervals}
+In practice, we do not just give a numerical estimation of a parameters, but
+also a "small" interval in which the parameter lies with given probability.
+\begin{definition}
+  [Confidence interval]
+  Fix a \underline{confidence level} $1 - \alpha$ with $\alpha \in (0, 1)$
+  representing the "error" allowed. A \textbf{confidence interval} of level $1 -
+  \alpha$ is an interval $I(X_1, \ldots, X_n) = [a(X_1,\ldots, X_n),
+  b(X_1,\ldots,X_n)]$ such that
+  \[
+    P_\theta (\theta \in I(X_1, \ldots, X_n)) \geq 1 - \alpha \;\; \forall
+    \theta \in \Theta
+  .\] 
+\end{definition}
+
+We hope to have large $1 - \alpha$ with a small confidence interval, but
+generally these are antagonistic.
+
+\begin{example}
+  In the model $\Theta = [0,1]$, $P_\theta$ the law of $Ber(\theta)$, take again
+  $d(X_1, \ldots, X_n) = \frac{X_1 + \ldots + X_n}{n} $. For $\theta \in \Theta$
+  \[
+    P_\theta (|d(X_1,\ldots, X_n) - \theta | \geq \varepsilon) \leq
+    \frac{Var(\frac{X_1 + \ldots + X_n}{n} )}{\varepsilon^2} = \frac{\theta (1 -
+    \theta)}{n \varepsilon^2} \leq \frac{1}{4n \varepsilon^2}
+  .\]
+  Therefore, for $\alpha$ fixed, we can pick $\varepsilon =
+  \frac{1}{\sqrt{4n \alpha}}$ to obtain a confidence interval of level $1 -
+  \alpha$.
+\end{example}
+An \textbf{asymptotic} confidence interval $I(X_1, \ldots, X_n)$ satisfies
+$\forall \theta \in \Theta$ $$\liminf_{n \to \infty} P_\theta(\theta \in I(X_1,
+\ldots, X_n) ) \geq 1 - \alpha$$ 
+
+The central limit theorem often gives such intervals. Indeed, assume $Z_n
+\overset{(d)}{\longrightarrow} N(0, 1)$, then $\forall a < b, \pp(a < Z_n < b)
+\underset{n \to \infty}{\longrightarrow} \pp(a < N(0, 1) < b)$. 
+
+Hence choosing
+$q_{\alpha}$ with $\pp(|N(0, 1)| > q_{\alpha}) = \alpha$ we get $\pp(|Z_n| >
+q_{\alpha}) \underset{n \to \infty}{\longrightarrow} \alpha$.
+
+Indeed, if we apply this to the Bernoulli example, we get $I(X_1, \ldots, X_n) =
+[\overline{X_n} - q_{\alpha} \frac{\sqrt{\theta (1 - \theta)}}{\sqrt{n}},
+\overline{X_n} + q_{\alpha} \frac{\sqrt{\theta (1 - \theta)}}{\sqrt{n}}] $.
+The problem here is that the interval cannot depend on $\theta$. We could fix
+ths by bounding $\theta(1 - \theta)$.
+
+However, another interesting solution would be to replace $\theta$ by a strongly
+consistent estimator $(\overline{X_n})$. Indeed, by Slutsky's theorem, we also have
+\[
+  \frac{\sqrt{n}}{\sqrt{\overline{X_n} - \overline{X_n}^2}} (\overline{X_n} -
+  \theta) \overset{(d)}{\longrightarrow} N(0, 1) 
+\]
+so we can repeat similar steps we get $I(X_1, \ldots, X_n) = [\overline{X_n} -
+q_{\alpha}\frac{\sqrt{\overline{X_n} - \overline{X_n}^2}}{\sqrt{n}}, \overline{X_n} +
+q_{\alpha}\frac{\sqrt{\overline{X_n} - \overline{X_n}^2}}{\sqrt{n}}] $
+\end{document}
