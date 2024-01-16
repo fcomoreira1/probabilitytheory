@@ -1,19 +1,22 @@
 \documentclass{scrartcl}
 
-\usepackage[font, sexy]{moreira}
+\usepackage[sexy, noheader]{moreira}
 \usepackage{marginnote}
 \reversemarginpar
 \newcommand{\indep}{\perp\!\!\!\!\,\perp} 
+\let\stdsection\section
+\renewcommand\section{\newpage\stdsection}
 
 
 \author{Francisco Moreira Machado}
+\date{Fall 2023}
 \usepackage{subfiles}
 
 \title{Probability Theory}
 
 \begin{document}
   \maketitle
-  \section{$\sigma-$fields and Measures}
+  \tableofcontents
   \subfile{lectures/lecture1.tex}
   \subfile{lectures/lecture2.tex}
   \subfile{lectures/lecture3.tex}

@@ -8,7 +8,7 @@
 \begin{document}
 In the example above, the portion of space where $X_n \neq 0$ becomes small, 
 however its contribution to the expected value is constant. We have 
-a probabilistic notion that prevents such spikes, wich is \underline{uniform
+a probabilistic notion that prevents such spikes, which is \underline{uniform
 integrability}.
 
 \vspace{0.5em}
@@ -32,11 +32,11 @@ I, \ee[|X_i| \ind_{|X_i| \geq x}] \leq \varepsilon$.
     \hfill
     \begin{itemize}
       \item A finite family of $L^1$ random variables is UI by dominated
-        convregence applied a finite number of times.
+        convergence applied a finite number of times.
       \item If $Z \geq 0$ is integrable, then $\{ X \colon |X| \leq Z \} $ is
         UI. Indeed if $|X| \leq Z$, the $\ee[|X| \ind_{|X|\geq x}] \leq \ee[Z
         \ind_{Z \geq x}]$.
-      \item If $(X_i)_{i \in I}$ is bonuded in $L^p$ for $p > i$ i.e., $\exists
+      \item If $(X_i)_{i \in I}$ is bounded in $L^p$ for $p > i$ i.e., $\exists
         c>0$ such that $\forall i \in I$ $\ee[|X_i|^p] \leq C$, then $(X_i)$ is
         uniformly integrable. Indeed 
         \[
@@ -59,11 +59,15 @@ I, \ee[|X_i| \ind_{|X_i| \geq x}] \leq \varepsilon$.
 \begin{theorem}
   [$\varepsilon-\delta$ condition]
   A family $(X_i)_{i \in I}$ of $L^1$ random variables is Uniformly Integrable
-  iff 
-  $(X_i)_{i \in I}$ is bounded in $L^1$ (i.e. $\sup_{i \in I} \ee[|X_1|] < A$)
-  and $\forall \varepsilon > 0 \exists \delta > 0$ such that $\forall$ event $A$
+  iff
+  \begin{enumerate}
+    \item 
+      $(X_i)_{i \in I}$ is bounded in $L^1$ (i.e. $\sup_{i \in I} \ee[|X_i|] < A$)
+    \item $\forall \varepsilon > 0 \exists \delta > 0$ such that $\forall$ event $A$
   with $\pp(A) \leq \delta$, $\ee[|X_i| \ind_{A}] \leq \varepsilon$ for every $i
   \in I$
+  \end{enumerate}
+  
 \end{theorem}
 \begin{corollary}
   If $(X_i)_{i \in I}$ and $(Y_j)_{j \in J}$ are two families which are UI, then
@@ -165,11 +169,11 @@ integrable is a UI family: it implies dominated convergence).
   finishing the proof.
 \end{proof}
 \begin{remark}
-    Existence of a sequence of iid random variables. We have implicitly used the
+    Existence of a sequence of id random variables. We have implicitly used the
     following theorem so far
 \begin{theorem}
   Let $\mu$ be a probability distribution on $\rr$. There exists a sequence
-  $(X_n)_{n \geq 1}$ of iid random variables with law $\mu$.
+  $(X_n)_{n \geq 1}$ of id random variables with law $\mu$.
 \end{theorem}
     This is related to the existence of product measures on infinite product
     spaces (see lecture notes).
@@ -201,7 +205,7 @@ Similarly for $X \in L^1$ we define
 \[
   \ee[X | B] = \frac{\ee[X \ind_{B}]}{\pp(B)} 
 .\] 
-\underline{Interpretation:} Average value of $X$ when $B$ occours. $\ee[X | B]$
+\underline{Interpretation:} Average value of $X$ when $B$ occurs. $\ee[X | B]$
 is the expectation of $X$ in $(\Omega, \mathcal{A}, \pp(\cdot | B))$.
 
 \vspace{1em}

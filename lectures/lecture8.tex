@@ -60,7 +60,7 @@ simple functions, then
 \begin{proposition}
     If $0 \leq f \leq g \leq \infty $
     \begin{itemize}
-      \item $\int f d\mu \leq \int f d\mu$
+      \item $\int f d\mu \leq \int g d\mu$
       \item If $\mu(\{ x \in E \colon f(x) > 0 \} ) = 0$, then $\int f
         d\mu = 0$.
     \end{itemize}
@@ -112,10 +112,10 @@ is the pointwise limit of simple functions.
     \hfill
 
     \begin{itemize}
-      \item If we use $\delta_a$, the diract function for $a \in E$, as the measure,
+      \item If we use $\delta_a$, the dirac function for $a \in E$, as the measure,
         then if $\forall f \colon E \to \rr_+$ is measurable, 
         \[
-          \int_E f d\delta_a = f(a).
+          \int_E f d\delta_a = f(a)
         .\] 
     \item If $\#$ is the counting on $\nn$ $(\# = \sum_{i = 0}^\infty
       \delta_i)$. Then for $f \colon \nn \to \rr_+$ measurable
@@ -134,7 +134,7 @@ is the pointwise limit of simple functions.
   Let $f_n \geq 0$ be measurable functions then
   \[
     \int (\liminf_{n \to \infty} f_n)d\mu \leq \liminf_{n \to \infty}
-    \inf f_n d\mu
+    \int f_n d\mu
   .\] 
   Alternatively in probability
   \[
