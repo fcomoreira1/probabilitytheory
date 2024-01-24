@@ -104,7 +104,7 @@
     \underline{Properties:} Let $X$ be $[0, \infty]-$valued and let
     $\mathcal{A} \subset \mathcal{F}$ be a $\sigma-$field.
     \begin{enumerate}
-      \item $\ee[X | \{ \emptyset, \Omega \} = \ee[X]$.
+      \item $\ee[X | \{ \emptyset, \Omega \}] = \ee[X]$.
       \item If $X$ is $\mathcal{A}-$measurable $\ee[X | \mathcal{A}] = X$.
       \item If $X, Y$ are $[0, \infty]$ valued, $a, b \geq 0$, $\ee[aX + bY |
         \mathcal{A}] = a\ee[X | \mathcal{A}] + b \ee[Y | \mathcal{B}]$.
@@ -117,7 +117,6 @@
 
     (almost surely is implicit in every statement).
     
-    \newpage
     \subsection{Convergence Theorems}
     \begin{theorem}
         Let $\mathcal{A} \subset \mathcal{F}$ be a $\sigma-$field.
@@ -172,7 +171,7 @@
       almost surely.
     \end{proof}
 
-    {\color{red} Warning!} $\ee[X]$ is defined as $\int \pp(d\omega)$ but $\ee[X
+    {\color{red} Warning!} $\ee[X]$ is defined as $\int X(\omega)\pp(d\omega)$ but $\ee[X
     | \mathcal{A}]$ is not defined using an integral, it is defined using the
     characteristic property.
 

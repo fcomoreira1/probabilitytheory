@@ -5,12 +5,12 @@
 
 \begin{document}
 \begin{proof}[\boxed{1.}]
-  THe idea is to introduce the stopping time $T = \inf \{ k \geq 0 \colon M_k
+  The idea is to introduce the stopping time $T = \inf \{ k \geq 0 \colon M_k
   \geq a \} $, with $\inf \emptyset = \infty$ and observe that
-  $\pp(\max_{0 \leq k \leq k} M_k \geq a) = \pp(T \leq n)$.
+  $\pp(\max_{0 \leq k \leq n} M_k \geq a) = \pp(T \leq n)$.
 
   Now, let us expand $a \pp(T \leq n) = a \sum_{k=0}^n  \pp(T = k) =
-  \sum_{k=0}^n \ee[a \ind_{a = k}]$, but $a \ind_{a = k} \leq M_k \ind_{a =
+  \sum_{k=0}^n \ee[a \ind_{a = k}]$, but $a \ind_{T = k} \leq M_k \ind_{T =
   k}$, thus $\sum_{k=0}^n \ee[a \ind_{T = k}] \leq \sum_{k=0}^n \ee[M_k
   \ind_{T = k}]$.
 
@@ -119,11 +119,11 @@ So $(X_n)$ bounded in $L^p$ implies it is bounded in $L^1$ and $X_n
 \begin{theorem}
   [$L^p$ Martingales]
   Let $(M_n)$ be a martingale bounded in $L^p$, $p > 1 (\sup_{n} \ee[|M_n|^p]
-  < \infty$. Then
+  < \infty)$. Then
   \begin{enumerate}
     \item $M_n$ converges a.s. and in $L^p$ to a random variable $M_{\infty}$
-      with $\ee[|M_{\infty}|^p] = \sum_{n \geq 0}\ee[|M_n|^p]$
-    \item Setting $M_{\infty}^* = \sum_{n \geq 0} |M_n|$, we have
+      with $$\ee[|M_{\infty}|^p] = \sup_{n \geq 0}\ee[|M_n|^p]$$
+    \item Setting $M_{\infty}^* = \sup_{n \geq 0} |M_n|$, we have
       \[
         \ee[(M_{\infty}^*)^p] \leq \left(\frac{p}{p-1}\right)^p
         \ee[|M_{\infty}|^p] 
@@ -174,7 +174,7 @@ extended to general metric spaces).
 
 \begin{notation}
   [Set of bounded continuous functions]
-  $\mathcal{C}_b(\rr^d) = \{ f: \rr^d \to \rr \text{ cotinuous and bounded}\}
+  $\mathcal{C}_b(\rr^d) = \{ f: \rr^d \to \rr \text{ continuous and bounded}\}
   $. For $f \in \mathcal{C}_b(\rr^d)$, we write $\| f \|_{\infty} = \sup_{x
   \in \rr^d} |f(x)|$. Here $|\cdot|$ is any norm in $\rr^d$.
 \end{notation}

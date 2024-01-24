@@ -128,7 +128,7 @@
     times and our "modern" axiomatic approach of probability theory.
   \end{application}
 
-  \subsection{Kolmogovor's Two Series Theorem}
+  \subsection{Kolmogorov's Two Series Theorem}
 
   Kolmogorov's series theorems gives condtions for almost sure convergence of
   $\indep$ random variables (not identically distributed).
@@ -137,7 +137,7 @@
     [Kolmogorov's Maximal Inequality]
 
     Let $(Z_k)_{1 \leq k \leq n}$ be $\indep$ real-valued r.v. in $L^2$. Set
-    $S_K = Z_1 + \ldots Z_k$ for $1 \leq k \leq n$. Assume tat $\ee[Z_K] = 0$
+    $S_k = Z_1 + \ldots Z_k$ for $1 \leq k \leq n$. Assume that $\ee[Z_K] = 0$
     for every $1 \leq k \leq n$. Then $\forall \lambda > 0$
     \[
       \pp \left( \max\limits_{1 \leq k \leq n}|S_k| \geq \lambda \right)  \leq
@@ -147,7 +147,7 @@
   \begin{proof}
     \underline{Idea} For $1 \leq k \leq n$, introduce $A_k = \{ |S_k| \geq
     \lambda, |S_i| < \lambda \forall i < k \} $. These events are disjoint and
-    they union is $\{ \max_{1 \leq k \leq n} \} $. Since they are disjoint, $0
+    they union is $\{ \max_{1 \leq k \leq n} |S_k| \geq \lambda \} $. Since they are disjoint, $0
     \leq \sum_{i=1}^k \ind_{A_i} \leq 1$. 
 
     Then $S_n^2 \geq S_n^2 \sum_{k=1}^n \ind_{A_k}$, so $\ee[S_n^2] \geq \sum_{k=1}^n \ee[S_n^2 \ind_{A_k}]

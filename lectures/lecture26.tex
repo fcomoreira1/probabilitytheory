@@ -138,7 +138,7 @@ We know that $\varphi_{X_n}$ converges pointwise to $\varphi_X$ and will use
 \subsection{Central Limit Theorem}
 \begin{theorem}
   Let $(X_i)_{i \geq 1}$ be a sequence of iid $\rr-$valued r.v.s with
-  $\ee[X_1^2] < \infty$. Set $\sigma = Var(X_1)$ and assume $\sigma > 0$.
+  $\ee[X_1^2] < \infty$. Set $\sigma^2 = Var(X_1)$ and assume $\sigma > 0$.
   Then
   \[
     \frac{X_1 + \ldots + X_n - n \ee[X_1]}{\sigma \sqrt{n}}
@@ -152,10 +152,10 @@ We know that $\varphi_{X_n}$ converges pointwise to $\varphi_X$ and will use
       \item Since 
         \[
     \frac{X_1 + \ldots + X_n - n \ee[X_1]}{\sigma \sqrt{n}}
-        = \frac{\sqrt{n}}{\sigma} \left( \frac{X_1 + \ldots + X_n}{n} - \ee[X_1] \right) )
+        = \frac{\sqrt{n}}{\sigma} \left( \frac{X_1 + \ldots + X_n}{n} - \ee[X_1] \right)
         \] 
         this tells that when $\ee[X_1^2] < \infty$ the "speed" of convergence in
-        the SLN is of order $1/\sqrt{n}$
+        the SLLN is of order $1/\sqrt{n}$
     \end{itemize} 
 \end{remark}
 \begin{lemma}

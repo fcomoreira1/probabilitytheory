@@ -8,15 +8,15 @@
   Let $X_n, X$ be r.v. in $\rr^d$. The following are equivalent
   \begin{enumerate}
     \item $X_n \overset{(d)}{\longrightarrow} X$
-    \item $\forall f : \rr^d \to \rr$ lipschitz bounded
+    \item $\forall f : \rr^d \to \rr$ lipschitz bounded $\ee[f(X_n)] \overset{}{\longrightarrow} \ee[f(X)]$
     \item $\forall F \subset \rr^d$ closed, $\limsup_{n \to \infty} \pp(X_n \in
       f) \leq \pp(X \in f)$
     \item $\forall O \subset \rr^d$ open, $\liminf_{n \to \infty} \pp(X_n \in
       O) \geq \pp(X \in O)$
     \item $\forall A \subset \rr^d$ with $\pp(X \in \partial A) = 0$, $\pp(X_n
       \in A) \to \pp(X_A)$.
-    \item   $\forall f: \rr^d \to \rr$ measurable bounded, a.s. continuous ate
-      $X$, $\ee[f(X_n)] \to \ee[f(X)]$.
+    \item   $\forall f: \rr^d \to \rr$ measurable bounded, a.s. continuous at 
+      $X$, $\ee[f(X_n)] \longrightarrow \ee[f(X)]$.
   \end{enumerate}
 \end{theorem*}
 \begin{corollary}[Extended Continuous Mapping]
@@ -60,33 +60,33 @@ CDF.
 \begin{proof}
   $\boxed{\implies}$ Let $t \in \rr$ be a continuity point of $F_X$, so $\pp(X =
   t)  = 0$. Take $A = (-\infty, t]$ in \boxed{5.} of Portemanteau, $\partial A =
-  \{ t \} $ so $\pp(X \in \partial A) \pp(X = t) = 0$. Thus $F_{X_n}(t) =
+  \{ t \} $ so $\pp(X \in \partial A) =\pp(X = t) = 0$. Thus $F_{X_n}(t) =
   \pp(X_n \in A) \to \pp(X \in A) = F_X(t)$.
 
   \vspace{0.4em}
   \noindent
   \boxed{\impliedby} We show \boxed{4.} in Portemanteau, i.e. $\forall O \subset
-  \rr$ open, $\limsup_{n \to \infty} \pp(X_n \in O) \geq \pp(X \in O) (\star)$
+  \rr$ open, $\liminf_{n \to \infty} \pp(X_n \in O) \geq \pp(X \in O) (\star)$
 
   We show first that $\forall a, b \in \rr$, $\limsup_{n \to \infty} \pp(X_n
-  \leq b) \leq \pp(X_b)$ and $\liminf_{n \to \infty} \pp(X_n > a) \geq \pp(X >
-  a) $, puttings this together $(\star)$ will hold for all open intervals.
+  \leq a) \leq \pp(X \leq a)$ and $\liminf_{n \to \infty} \pp(X_n < b) \geq \pp(X <
+  b) $, putting this together $(\star)$ will hold for all open intervals.
 
   Since $F_X$ has at most countable number of discontinuity points, its
-  continuity points are dense in $\rr$, so we can choose $t > b$ with $F_X$
+  continuity points are dense in $\rr$, so we can choose $t > a$ with $F_X$
   continuous at $t$. 
 
-  Then $\limsup_{n \to \infty} \pp(X_n \leq b) = \limsup_{n \to \infty} \pp(X_n
+  Then $\limsup_{n \to \infty} \pp(X_n \leq a) = \limsup_{n \to \infty} \pp(X_n
   \leq t) = \pp(X \leq t)$ by assumption. Now take $t$ converge decreasingly to
   $b$ and this together with the right continuity of the cdf implies $\pp(X \leq
-  t) \to \pp(X \leq b)$. Finally, to prove the limsup result is very similar \marginnote{Ex.
+  t) \to \pp(X \leq a)$. Finally, to prove the liminf result is very similar \marginnote{Ex.
   $\rightarrow$}
 
   \vspace{0.4em}
   \noindent
   Now we go back to taking $O \subset \rr$ open. We know that we can write $O =
   \bigcup_{i \in I} (a_i, b_i)$ with $I$ being at most countable and $(a_i,
-  b)i)$ being pairwise disjoint open intervals. In particular
+  b_i)$ being pairwise disjoint open intervals. In particular
   \begin{align*}
     \pp(X \in O)  &= \pp(X \in \bigcup_{i \in I} (a_i, b_i)) = \sum_{i \in I}
     \pp(X \in (a_i, b_i)) \\
@@ -168,7 +168,7 @@ We will prove later that the implication works under assumption of $\indep$.
     \pp(Y_n \in F, |X_n - Y_n| > \frac{1}{p} )  \\
     &= \pp(X_n \in F^{(1/p)}) + \pp(|X_n - Y_n| > \frac{1}{p}).
   \end{align*}
-  So $\limsup \pp(Y_n \in F) \leq \pp(X \in F^{(1/p)} + 0$. 
+  So $\limsup \pp(Y_n \in F) \leq \pp(X \in F^{(1/p)}) + 0$. 
 
   Now take $p \to \infty$ since $F^{(1/p)}$ is decreasing and $\bigcap_{p \geq
   1} F^{(1/p)} = F$ as $F$ is closed, we get $\pp(X \in F^{(1/p)}) \underset{p

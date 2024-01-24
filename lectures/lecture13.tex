@@ -86,6 +86,21 @@
        \min(|X_n - X|, 1) \leq 1$, hence by Dominated Convergence we get the
        result.
    \end{proof}
+   \begin{lemma}
+     [Scheffé's Lemma]
+     Let $(X_n)_{n \geq 1}$ be $\rr_+$-valued r.v. such that
+     $X_n \overset{a.s.}{\longrightarrow}X$, with $\ee[X] < \infty$ and
+     $\ee[X_n] \longrightarrow \ee[X]$ as $n \to \infty$, then $X_n
+     \overset{L^1}{\longrightarrow} X$.
+   \end{lemma}
+   \begin{proof}
+     Define $Y_n = \min(X_n, X)$, $Z_n = \max(X_n, X)$. It is clear that $0
+     \leq Y_n < X$ and $Y_n \overset{a.s}{\longrightarrow} X$, thus by
+     dominated convergence we have $\ee[Y_n] \to \ee[X]$. Also, as $Z_n = X_n
+     + X - Y_n$, it follows directly that $\ee[Z_n] \to \ee[X]$. This means
+     that $\ee[|X_n - X|] = \ee[Z_n - Y_n] = \ee[Z_n] - \ee[Y_n] \to 0$ as $n
+     \to \infty$, thus $X_n \overset{L^1}{\longrightarrow}X$.
+   \end{proof}
    \begin{remark}
      For $p = 2$ and $\mu = \ee[X_n]$
      the inequality
